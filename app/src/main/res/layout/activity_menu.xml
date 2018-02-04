@@ -7,15 +7,15 @@
     tools:context=".MenuActivity">
 
     <Button
-        android:id="@+id/startGameID"
-        android:layout_width="126dp"
-        android:layout_height="46dp"
+        android:id="@+id/gameScreenID"
+        android:layout_width="142dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="196dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/holo_orange_light"
-        android:text="Start Game"
+        android:text="Game Screen"
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         android:textStyle="bold|italic"
