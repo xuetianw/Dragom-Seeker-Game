@@ -65,7 +65,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:backgroundTint="@android:color/holo_orange_light"
-        android:text="Go To Menu"
+        android:text="Skip"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold|italic"

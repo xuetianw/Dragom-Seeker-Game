@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameScreen">
+    tools:context="ca.cmpt276.as3.model.OptionsActivity">
 
     <TextView
-        android:id="@+id/textTempID"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="21dp"
-        android:text="This will be the game screen"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="28dp" />
+        android:layout_height="wrap_content"
+        android:text="This is gonna be our options screen"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="25dp"
+        tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>
