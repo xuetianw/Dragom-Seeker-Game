@@ -47,21 +47,20 @@
         android:layout_width="132dp"
         android:layout_height="130dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.147"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <Button
         android:id="@+id/skipBtnID"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="232dp"
+        android:layout_marginBottom="208dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:backgroundTint="@android:color/holo_orange_light"

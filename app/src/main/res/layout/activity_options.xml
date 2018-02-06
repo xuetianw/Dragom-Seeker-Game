@@ -6,12 +6,113 @@
     android:layout_height="match_parent"
     tools:context="ca.cmpt276.as3.model.OptionsActivity">
 
+    <RadioGroup
+        android:id="@+id/radio_group_install_boardSize"
+        android:layout_width="192dp"
+        android:layout_height="125dp"
+        android:layout_marginBottom="312dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginRight="144dp"
+        android:layout_marginLeft="8dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonBoard"
+            android:layout_width="169dp"
+            android:layout_height="105dp"
+            android:layout_weight="1"
+            android:text="@string/radiobuttonBoard"
+            android:textColor="@android:color/holo_green_dark" />
+
+    </RadioGroup>
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is gonna be our options screen"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="25dp"
-        tools:ignore="MissingConstraints" />
+        android:layout_width="136dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/settings"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="94dp"
+        android:layout_height="29dp"
+        android:layout_marginBottom="436dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/board_size"
+        android:textColor="@android:color/holo_orange_light"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="139dp"
+        android:layout_height="29dp"
+        android:layout_marginBottom="280dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/number_of_mines"
+        android:textColor="@android:color/holo_orange_light"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp" />
+
+    <Button
+        android:id="@+id/printSelectedID"
+        style="@android:style/Widget.Button.Inset"
+        android:layout_width="115dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:text="@string/set_game"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@android:color/black"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.963"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_install_mines"
+        android:layout_width="195dp"
+        android:layout_height="126dp"
+        android:layout_marginBottom="152dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/radioButtonMines"
+            android:layout_width="187dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/radiobuttonMines"
+            android:textColor="@android:color/holo_blue_dark" />
+    </RadioGroup>
 </android.support.constraint.ConstraintLayout>
