@@ -1,0 +1,138 @@
+    private void setUpDeleteButton() {
+        Button deleteButton = (Button) findViewById(R.id.deleteBtnID);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra(want_to_delete, true);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
+        });
+    }
+
+    private void setUpCancelButton() {
+        Button cancelBtn = (Button) findViewById(R.id.cancelButtonID);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    ---------------------------------------
+        private void exTractDataFromIntent() {
+            Intent intent = getIntent();
+            potName = intent.getStringExtra(POT_NAME);
+            potWeight = intent.getIntExtra(POT_WEIGHT, 0);
+        }
+
+        public static Intent makeIntent(Context context, Pot pot) {
+            Intent intent = new Intent(context, CalculateServingActivity.class);
+            intent.putExtra(POT_NAME, pot.getName());
+            intent.putExtra(POT_WEIGHT, pot.getWeightInG());
+            System.out.println(pot.getWeightInG()+"*****************");
+            return intent;
+        }
+
+        -------------------------------------------
+
+  TextView potView = (TextView) findViewById(R.id.potID);
+          final TextView weightEmptyTextView = (TextView) findViewById(R.id.weightemptyID);
+          final EditText weightWithFood = (EditText)findViewById(R.id.weightwithfoodID);
+          final TextView weightOfFood = (TextView) findViewById(R.id.weightoffoodID);
+          final EditText numberOfServings = (EditText)findViewById(R.id.numberservingID);
+          final TextView servingWeight = (TextView)findViewById(R.id.servingweightID);
+
+          exTractDataFromIntent();
+          setUpCancelButton();
+
+          potView.setText("" + potName);
+          weightEmptyTextView.setText("" + potWeight);
+
+          weightWithFood.addTextChangedListener(new TextWatcher() {
+              @Override
+              public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+              }
+
+              @Override
+              public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+              }
+
+              @Override
+              public void afterTextChanged(Editable editable) {
+                  int weightWithFoodInt = NEGATIVE_ONE;
+                  int weightOfFoodInt;
+                  try{
+                      while(weightWithFoodInt <= potWeight && weightWithFoodInt < ZERO){
+                          String stringWeightWithFood = weightWithFood.getText().toString();
+                          weightWithFoodInt = Integer.parseInt(stringWeightWithFood);
+                          if(weightWithFoodInt >= potWeight && weightWithFoodInt >= ZERO){
+                              weightOfFoodInt = weightWithFoodInt - potWeight;
+                              weightOfFood.setText("" + weightOfFoodInt);
+                              break;
+                          }
+                          else{
+                              weightOfFood.setText("" + ZERO);
+                          }
+                      }
+                  }
+                  catch (NumberFormatException e){
+                      System.out.println("Error: NumberFormatException!");
+                  }
+              }
+          });
+
+
+          numberOfServings.addTextChangedListener(new TextWatcher() {
+              @Override
+              public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+              }
+
+              @Override
+              public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+              }
+
+              @Override
+              public void afterTextChanged(Editable editable) {
+                  String stringWeightWithFood;
+                  int weightWithFoodInt = NEGATIVE_ONE;
+                  int numServings;
+                  int weightOfFoodInt;
+                  int weightOfFoodPerServing = ZERO;
+                  String stringNumServings;
+                  try{
+                      while(weightWithFoodInt <= potWeight && weightWithFoodInt < ZERO){
+                          stringWeightWithFood = weightWithFood.getText().toString();
+                          weightWithFoodInt = Integer.parseInt(stringWeightWithFood);
+                          stringNumServings = numberOfServings.getText().toString();
+                          if(weightWithFoodInt >= potWeight && weightWithFoodInt >= ZERO){
+                              numServings = Integer.parseInt(stringNumServings);
+                              weightOfFoodInt = weightWithFoodInt - potWeight;
+                              if(numServings > ZERO){
+                                  weightOfFoodPerServing = weightOfFoodInt/numServings;
+                              }
+                              else if(numServings == ZERO){
+                                  weightOfFoodPerServing = ZERO;
+                              }
+                              servingWeight.setText("" + weightOfFoodPerServing);
+                              break;
+                          }
+                          else{
+                              servingWeight.setText("" + ZERO);
+                          }
+                      }
+                  } catch (NumberFormatException e){
+                      System.out.println("Error: NumberFormatException!");
+                  }
+              }
+
+
+              --------------------------------------------------
+
+

@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context="ca.cmpt276.as3.model.OptionsActivity">
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
     <RadioGroup
         android:id="@+id/radio_group_install_boardSize"
         android:layout_width="192dp"
@@ -22,8 +35,8 @@
 
         <RadioButton
             android:id="@+id/radioButtonBoard"
-            android:layout_width="169dp"
-            android:layout_height="105dp"
+            android:layout_width="174dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/radiobuttonBoard"
             android:textColor="@android:color/holo_green_dark" />
@@ -34,12 +47,14 @@
         android:id="@+id/textView"
         android:layout_width="136dp"
         android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/settings"
         android:textColor="@color/colorAccent"
         android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/radio_group_install_boardSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,17 +63,20 @@
     <TextView
         android:id="@+id/textView4"
         android:layout_width="94dp"
-        android:layout_height="29dp"
+        android:layout_height="27dp"
         android:layout_marginBottom="436dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/board_size"
         android:textColor="@android:color/holo_orange_light"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.032"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView8"
@@ -67,6 +85,7 @@
         android:layout_marginBottom="280dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/number_of_mines"
         android:textColor="@android:color/holo_orange_light"
         android:textStyle="bold|italic"
@@ -74,6 +93,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_group_install_boardSize"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="16dp" />
 

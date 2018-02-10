@@ -3,18 +3,21 @@ package ca.cmpt276.as3.model;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    private String TAG = "OrientationDemo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.e(TAG, "Running onCreate()!");  // test
         setupLaunchButton();
     }
 
@@ -31,4 +34,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

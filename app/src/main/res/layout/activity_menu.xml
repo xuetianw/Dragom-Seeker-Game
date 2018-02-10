@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MenuActivity">
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
     <Button
         android:id="@+id/gameScreenID"
         android:layout_width="142dp"
@@ -15,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/holo_orange_light"
-        android:text="Game Screen"
+        android:text="@string/game_screen"
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         android:textStyle="bold|italic"
@@ -34,7 +44,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="4dp"
         android:backgroundTint="@android:color/holo_orange_light"
-        android:text="Options"
+        android:text="@string/options"
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         android:textStyle="bold|italic"
@@ -53,7 +63,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:backgroundTint="@android:color/holo_orange_light"
-        android:text="Help"
+        android:text="@string/help"
         android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         android:textStyle="bold|italic"
@@ -61,5 +71,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.029"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </android.support.constraint.ConstraintLayout>

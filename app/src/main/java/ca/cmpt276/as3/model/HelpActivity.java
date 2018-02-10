@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -14,10 +15,13 @@ import android.widget.TextView;
  * uired skills to play the game as efficient as possible.
  */
 public class HelpActivity extends AppCompatActivity {
+    private String TAG = "OrientationDemo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.e(TAG, "Running onCreate()!");  // test
         setContentView(R.layout.activity_help);
         setTextView();
     }
@@ -29,12 +33,11 @@ public class HelpActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")        // ask if necessary
     private void setTextView(){
-        TextView myTextView = (TextView) findViewById(R.id.aboutAuthorID);
-        myTextView.setText("This game was developed for a school project at " +
-                            "Simon Fraser University in Spring 2018. The developers " +
-                            "of this application are Kourosh Azizi and Fred Wu.");
+        TextView myTextView = (TextView) findViewById(R.id.aboutAuthorTextID);
+        myTextView.setText("Mine Seeker written by Kourosh Azizi and Fred Wu. " +
+                            "This application was made for a school project for CMPT 276 class at SFU ");
 
-        myTextView = (TextView) findViewById(R.id.instructionsID);
+        myTextView = (TextView) findViewById(R.id.instructionsTextID);
         myTextView.setText("Instructions: Instructions: Go to Main Menu and then " +
                             "click on the Options button to choose your desired " +
                             "board size and the number of mines that you want to " +

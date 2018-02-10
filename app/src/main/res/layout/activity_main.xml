@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ca.cmpt276.as3.model.MainActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/nameGameID"
         android:layout_width="158dp"
         android:layout_height="34dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="92dp"
-        android:text="Mine Seeker"
+        android:text="@string/mine_seeker"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/authorID"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:layout_marginRight="52dp" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp" />
 
     <TextView
         android:id="@+id/authorID"
         android:layout_width="211dp"
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:backgroundTintMode="multiply"
+        android:gravity="start"
         android:text="Made by: Kourosh Azizi"
         android:textAlignment="viewStart"
         android:textColor="@android:color/background_dark"
@@ -38,31 +55,35 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintStart_toEndOf="@+id/welcomePicID"
         app:layout_constraintTop_toBottomOf="@+id/nameGameID"
         app:layout_constraintVertical_bias="0.0"
-        android:gravity="start" />
+        android:layout_marginLeft="8dp" />
 
     <ImageView
         android:id="@+id/welcomePicID"
         android:layout_width="132dp"
         android:layout_height="130dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintVertical_bias="0.139"
+        android:layout_marginLeft="24dp" />
 
     <Button
         android:id="@+id/skipBtnID"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="208dp"
+        android:layout_marginBottom="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/holo_orange_light"
         android:text="Skip"
         android:textColor="@android:color/black"
@@ -70,8 +91,10 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomePicID"
+        app:layout_constraintVertical_bias="0.47"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="16dp" />
 
