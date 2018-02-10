@@ -9,6 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * This class is responsible for showing the game screen,
+ * options menu, and help menu on its screen so the user
+ * can use for futher information.
+ */
 public class MenuActivity extends AppCompatActivity {
     private String TAG = "OrientationDemo";
 

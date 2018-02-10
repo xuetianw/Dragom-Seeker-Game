@@ -12,6 +12,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+/**
+ * Options class is responsible for showing the board size
+ * and the number of mines that user want to use to play
+ * the game.
+ */
+
 public class OptionsActivity extends AppCompatActivity {
     private String TAG = "OrientationDemo";
 
