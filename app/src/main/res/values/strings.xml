@@ -18,4 +18,5 @@
     <string name="game_screen">Game Screen</string>
     <string name="skip">Skip</string>
     <string name="this_will_be_the_game_screen">This will be the game screen</string>
+    <string name="scroll_down_for_more_options">Scroll down for more options.</string>
 </resources>

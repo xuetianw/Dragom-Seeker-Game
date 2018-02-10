@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_x="140dp"
                 android:layout_y="7dp"
-                android:text="Scroll down for more options."
+                android:text="@string/scroll_down_for_more_options"
                 android:textAllCaps="false"
                 android:textStyle="bold|italic"
                 tools:layout_editor_absoluteX="177dp"

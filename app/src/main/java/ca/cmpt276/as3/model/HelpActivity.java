@@ -38,15 +38,16 @@ public class HelpActivity extends AppCompatActivity {
                             "This application was made for a school project for CMPT 276 class at SFU ");
 
         myTextView = (TextView) findViewById(R.id.instructionsTextID);
-        myTextView.setText("Instructions: Instructions: Go to Main Menu and then " +
-                            "click on the Options button to choose your desired " +
-                            "board size and the number of mines that you want to " +
-                            "find in the game. Once you are done, go back to the " +
-                            "main menu and select on the Start Game button to begin " +
-                            "the game. Throughout the game, you can tap on each cell" +
-                            " to perform a scan in order to find out the number of mines." +
-                            " Each time you scan, there is a scan counter that will increase," +
-                            " you should try to win the round with less scans as possible.");
+        myTextView.setText("Go to Main Menu and then and click on the options" +
+                            "button to choose your favorite board size and number " +
+                            "of mines that you want to find in the game. Once you " +
+                            "are done, go back to the menu, and select game screen" +
+                            "to begin the game. In the game you need to tap on each " +
+                            "cell to perform a scan in order to find out the mines. " +
+                            "Keep in mind that each time you scan, there is scan counter " +
+                            "that will increase to show how many times you have looked " +
+                            "for a mine. You should try to win the round with least number " +
+                            "of scans as possible. Compete and break your records! :)");
     }
 
 
