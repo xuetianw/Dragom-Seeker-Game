@@ -70,9 +70,6 @@ public class OptionsActivity extends AppCompatActivity {
             final int boardCol = BoardColArray[i];
             RadioButton button = new RadioButton(this);
             button.setText(boardRow + " rows by " + boardCol + " columns ");
-//            button.setText(boardRow + " rows by " + boardCol + " columns " + getString(R.string.board_size));
-
-
 
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener(){
