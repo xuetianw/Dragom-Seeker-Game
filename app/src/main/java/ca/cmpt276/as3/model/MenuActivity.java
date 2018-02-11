@@ -21,10 +21,9 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        Log.e(TAG, "Running onCreate()!");  // test
-        setContentView(R.layout.activity_menu);
-        setupAllButtons();        // game, options, and help buttons
+        Log.e(TAG, "Running onCreate()!");     // test
+        setContentView(R.layout.activity_menu);     // set up the screen
+        setupAllButtons();                          // game, options, and help buttons
     }
 
     public static Intent makeIntent(Context context){
