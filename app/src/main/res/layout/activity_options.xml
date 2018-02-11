@@ -47,14 +47,6 @@
                 app:layout_constraintHorizontal_bias="0.032"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <RadioButton
-                    android:id="@+id/radioButtonBoard"
-                    android:layout_width="128dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/radiobuttonBoard"
-                    android:textColor="@android:color/holo_green_dark" />
-
             </RadioGroup>
 
             <TextView
@@ -153,13 +145,6 @@
                 app:layout_constraintHorizontal_bias="0.044"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <RadioButton
-                    android:id="@+id/radioButtonMines"
-                    android:layout_width="183dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/radiobuttonMines"
-                    android:textColor="@android:color/holo_blue_dark" />
             </RadioGroup>
 
             <TextView

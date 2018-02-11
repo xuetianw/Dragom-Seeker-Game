@@ -61,19 +61,24 @@ public class OptionsActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")        // necessary?
     private void setBoardSize(){
         RadioGroup group =(RadioGroup) findViewById(R.id.radio_group_install_boardSize);
-        int [] BoardRowArray = getResources().getIntArray(R.array.board_size);
+        int [] BoardRowArray = getResources().getIntArray(R.array.number_of_rows);
+        int [] BoardColArray = getResources().getIntArray(R.array.number_of_columns);
 
         // create the buttons:
         for(int i = 0; i < BoardRowArray.length; i++){
             final int boardRow = BoardRowArray[i];
+            final int boardCol = BoardColArray[i];
             RadioButton button = new RadioButton(this);
-            button.setText(boardRow + " " + getString(R.string.board_size));
+            button.setText(boardRow + " rows by " + boardCol + " columns ");
+//            button.setText(boardRow + " rows by " + boardCol + " columns " + getString(R.string.board_size));
+
+
 
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(OptionsActivity.this, "You clicked " + boardRow, Toast.LENGTH_SHORT)
+                    Toast.makeText(OptionsActivity.this, "You clicked on " + boardRow + " rows by " + boardCol + " cols!", Toast.LENGTH_SHORT)
                             .show();
                 }
             });
@@ -90,13 +95,13 @@ public class OptionsActivity extends AppCompatActivity {
         for(int i = 0; i < numMinesArray.length; i++){
             final int numMines = numMinesArray[i];
             RadioButton button = new RadioButton(this);
-            button.setText(numMines + " " + getString(R.string.number_of_mines));
+            button.setText(numMines + " mines");
 
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(OptionsActivity.this, "You clicked " + numMines, Toast.LENGTH_SHORT)
+                    Toast.makeText(OptionsActivity.this, "You clicked on " + numMines + " mines!", Toast.LENGTH_SHORT)
                             .show();
                 }
             });
