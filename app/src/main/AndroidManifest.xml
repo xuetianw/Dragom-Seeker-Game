@@ -22,7 +22,7 @@
             android:name=".MenuActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize" />
         <activity
-            android:name=".GameActivity"
+            android:name=".HelpActivity$GameActivity"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".OptionsActivity"

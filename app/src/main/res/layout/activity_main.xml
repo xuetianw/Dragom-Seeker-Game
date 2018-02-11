@@ -6,17 +6,15 @@
     android:layout_height="match_parent"
     tools:context="ca.cmpt276.as3.model.MainActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <ImageView
+        android:id="@+id/backgroundImageID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        </LinearLayout>
-    </ScrollView>
+        android:scaleType="fitCenter"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
 
     <TextView
         android:id="@+id/nameGameID"
@@ -34,9 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/welcomeImageID"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="40dp" />
+        app:layout_constraintVertical_bias="0.146" />
 
     <TextView
         android:id="@+id/authorID"
@@ -47,18 +43,17 @@
         android:layout_marginTop="8dp"
         android:backgroundTintMode="multiply"
         android:gravity="start"
-        android:text="Made by: Kourosh Azizi and Fred Wu"
+        android:text="@string/made_by_kourosh_azizi_and_fred_wu"
         android:textAlignment="viewStart"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@android:color/background_light"
         android:textSize="10sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/welcomeImageID"
         app:layout_constraintTop_toBottomOf="@+id/nameGameID"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <ImageView
         android:id="@+id/welcomeImageID"
@@ -86,9 +81,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/holo_orange_light"
+        android:backgroundTint="?android:attr/colorPressedHighlight"
         android:text="Skip"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_dark"
         android:textSize="16sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -96,9 +91,7 @@
         app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeImageID"
-        app:layout_constraintVertical_bias="0.47"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintVertical_bias="0.47" />
 
 
 </android.support.constraint.ConstraintLayout>
