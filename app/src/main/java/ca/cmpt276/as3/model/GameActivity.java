@@ -79,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
         Button button = buttons [row][col];
 
-        // Lock Button Sizes:
+        // Lock Button Sizes: before scaling the buttons
         lockButtonSizes();
 
 
