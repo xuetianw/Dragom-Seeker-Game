@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
                 Toast.makeText(MenuActivity.this,"Clicked on 'Game Screen' ", Toast.LENGTH_SHORT)
                         .show();
                 // Launch the Menu Activity:
-                Intent intent = HelpActivity.GameActivity.makeIntent(MenuActivity.this);
+                Intent intent = GameActivity.makeIntent(MenuActivity.this);
                 startActivity(intent);
             }
         });

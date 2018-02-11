@@ -52,26 +52,6 @@ public class HelpActivity extends AppCompatActivity {
                             "of scans as possible. Compete and break your records! :)");
     }
 
-
-    /**
-     * This class is responsible for allowing the user
-     * to play the game.
-     */
-    public static class GameActivity extends AppCompatActivity {
-        private String TAG = "OrientationDemo";
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_game);
-            Log.e(TAG, "Running onCreate()!");  // test
-        }
-
-        public static Intent makeIntent(Context context){
-            return new Intent(context, GameActivity.class);
-        }
-    }
-
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.background_image2);
