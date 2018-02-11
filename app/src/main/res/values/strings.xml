@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MineSeeker</string>
     <string name="solar_panels"> solar panels</string>
     <string name="help_section">Help Section</string>
@@ -16,10 +16,10 @@
     <string name="options">Options</string>
     <string name="help">Help</string>
     <string name="game_screen">Game Screen</string>
-    <string name="skip">Skip</string>
     <string name="this_will_be_the_game_screen">This will be the game screen</string>
     <string name="scroll_down_for_more_options">Scroll down for more options.</string>
     <string name="made_by_kourosh_azizi_fred_wu"><![CDATA[Made by: Kourosh Azizi & Fred Wu]]></string>
     <string name="bomb_suad">Bomb Suad</string>
     <string name="made_by_kourosh_azizi_and_fred_wu">Made by: Kourosh Azizi and Fred Wu</string>
+    <string name="skip">Skip</string>
 </resources>

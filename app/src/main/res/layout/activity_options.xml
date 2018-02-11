@@ -11,9 +11,9 @@
 
     <ImageView
         android:id="@+id/backgroundImageID"
-        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:scaleType="centerCrop" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -66,7 +66,7 @@
                 android:layout_x="0dp"
                 android:layout_y="3dp"
                 android:text="@string/settings"
-                android:textColor="@android:color/holo_green_dark"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toTopOf="@+id/radio_group_install_boardSize"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -158,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_x="140dp"
-                android:layout_y="7dp"
+                android:layout_y="1dp"
                 android:text="@string/scroll_down_for_more_options"
                 android:textAllCaps="false"
                 android:textColor="@android:color/background_light"
