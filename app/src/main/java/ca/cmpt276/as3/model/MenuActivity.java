@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -24,6 +25,8 @@ public class MenuActivity extends AppCompatActivity {
         Log.e(TAG, "Running onCreate()!");     // test
         setContentView(R.layout.activity_menu);     // set up the screen
         setupAllButtons();                          // game, options, and help buttons
+        setBackgroundImage();
+
     }
 
     public static Intent makeIntent(Context context){
@@ -38,7 +41,7 @@ public class MenuActivity extends AppCompatActivity {
                 Toast.makeText(MenuActivity.this,"Clicked on 'Game Screen' ", Toast.LENGTH_SHORT)
                         .show();
                 // Launch the Menu Activity:
-                Intent intent = GameActivity.makeIntent(MenuActivity.this);
+                Intent intent = HelpActivity.GameActivity.makeIntent(MenuActivity.this);
                 startActivity(intent);
             }
         });
@@ -66,5 +69,10 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void setBackgroundImage(){
+        ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
+        myImageView.setImageResource(R.drawable.background_image2);
     }
 }

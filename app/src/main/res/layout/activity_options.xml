@@ -9,6 +9,12 @@
     tools:context="ca.cmpt276.as3.model.OptionsActivity"
     tools:layout_editor_absoluteY="73dp">
 
+    <ImageView
+        android:id="@+id/backgroundImageID"
+        android:scaleType="centerCrop"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="560dp"
@@ -60,7 +66,7 @@
                 android:layout_x="0dp"
                 android:layout_y="3dp"
                 android:text="@string/settings"
-                android:textColor="@color/colorAccent"
+                android:textColor="@android:color/holo_green_dark"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toTopOf="@+id/radio_group_install_boardSize"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +86,7 @@
                 android:layout_x="2dp"
                 android:layout_y="48dp"
                 android:text="@string/board_size"
-                android:textColor="@android:color/holo_orange_light"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toTopOf="@+id/radio_group_install_boardSize"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -95,21 +101,21 @@
                 android:layout_height="29dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="56dp"
                 android:layout_x="6dp"
                 android:layout_y="249dp"
                 android:text="@string/number_of_mines"
-                android:textColor="@android:color/holo_orange_light"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toTopOf="@+id/radio_group_install_mines"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radio_group_install_boardSize"
-                app:layout_constraintVertical_bias="0.0"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="16dp" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <Button
                 android:id="@+id/printSelectedID"
@@ -124,7 +130,7 @@
                 android:backgroundTint="@android:color/holo_orange_light"
                 android:text="@string/set_game"
                 android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -155,6 +161,7 @@
                 android:layout_y="7dp"
                 android:text="@string/scroll_down_for_more_options"
                 android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
                 android:textStyle="bold|italic"
                 tools:layout_editor_absoluteX="177dp"
                 tools:layout_editor_absoluteY="44dp" />

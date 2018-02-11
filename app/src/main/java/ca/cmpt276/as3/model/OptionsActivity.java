@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class OptionsActivity extends AppCompatActivity {
         setBoardSize();
         setNumMines();
         setupPrintButton();
+        setBackgroundImage();
     }
 
     public static Intent makeIntent(Context context){
@@ -106,5 +108,10 @@ public class OptionsActivity extends AppCompatActivity {
             // Add to radio group
             group.addView(button);
         }
+    }
+
+    private void setBackgroundImage(){
+        ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
+        myImageView.setImageResource(R.drawable.background_image2);
     }
 }
