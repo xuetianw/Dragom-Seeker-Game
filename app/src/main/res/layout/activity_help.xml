@@ -10,7 +10,7 @@
         android:id="@+id/backgroundImageID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="center" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/aboutAuthorTextID"
@@ -20,7 +20,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
@@ -59,7 +59,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/background_light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.065"
@@ -97,7 +97,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:text="@string/about_the_author"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/aboutAuthorTextID"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +115,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/instructions"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@color/colorAccent"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.019"

@@ -73,6 +73,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
-        myImageView.setImageResource(R.drawable.background_image2);
+        myImageView.setImageResource(R.drawable.background_image3);
     }
 }

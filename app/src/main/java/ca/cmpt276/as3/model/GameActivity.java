@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -20,8 +21,8 @@ import android.widget.Toast;
  * to play the game.
  */
 public class GameActivity extends AppCompatActivity {
-    private static final int NUM_ROWS = 15;
-    private static final int NUM_COLS = 5;
+    private static final int NUM_ROWS = 10;
+    private static final int NUM_COLS = 15;
     private String TAG = "OrientationDemo";
 
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
@@ -33,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
         Log.e(TAG, "Running onCreate()!");  // test
 
         populateButtons();
+        setBackgroundImage();
     }
 
     private void populateButtons() {
@@ -86,7 +88,7 @@ public class GameActivity extends AppCompatActivity {
         //Scale Image to button
         int newWidth = button.getWidth();
         int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gold);
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bomb_image1);
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
@@ -113,5 +115,10 @@ public class GameActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context){
         return new Intent(context, GameActivity.class);
+    }
+
+    private void setBackgroundImage(){
+        ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
+        myImageView.setImageResource(R.drawable.background_image3);
     }
 }
