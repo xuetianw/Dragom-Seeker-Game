@@ -16,6 +16,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import ca.cmpt276.as3.GameModel.*;
 import ca.cmpt276.as3.model.R;
 
@@ -24,11 +27,15 @@ import ca.cmpt276.as3.model.R;
  * to play the game.
  */
 public class GameActivity extends AppCompatActivity {
-    private static int NUM_ROWS;
-    private static int NUM_COLS;
+    private static int numOfRows;
+    private static int numOfCol;
+    private static int numOfMines;
+    private static int numOfRevealedMines;
     private String TAG = "OrientationDemo";
+    int mineCount = 0;
 
     Button buttons[][] ;
+    ArrayList<Integer> mineLocationList = new ArrayList();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,30 +43,56 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.e(TAG, "Running onCreate()!");  // test
 
-        this.NUM_ROWS = MineSeekerGame.getInstance().getRow();
-        this.NUM_COLS = MineSeekerGame.getInstance().getCol();
-        buttons = new Button[NUM_ROWS][NUM_COLS];
+        numOfRows = MineSeekerGame.getInstance().getRow();
+        numOfCol = MineSeekerGame.getInstance().getCol();
+        numOfMines = MineSeekerGame.getInstance().getNumOfMine();
+
+        addMineLocations();
+
+        buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
-        MineSeekerGame mineSeekerGame = new MineSeekerGame();
 
+    }
+
+    private void addMineLocations() {
+        while (mineCount != numOfMines){
+            Random rand = new Random();
+            int randomRowLocation = rand.nextInt(numOfRows);
+            int randomColumLocation = rand.nextInt(numOfCol);
+            int ramdomLocationNum = randomRowLocation*numOfCol+ randomColumLocation;
+            if (mineLocationList.isEmpty()){
+                mineLocationList.add(ramdomLocationNum);
+                mineCount = 1;
+            } else {
+                boolean found = false;
+                for (int i= 0; i < mineLocationList.size(); i++){
+                    if (mineLocationList.get(i) == ramdomLocationNum){
+                        found = true;
+                    }
+                }
+                if (!found){
+                    mineLocationList.add(ramdomLocationNum);
+                    mineCount++;
+                }
+            }
+        }
     }
 
     private void populateButtons() {
         TableLayout table = (TableLayout) findViewById(R.id.tableForButtons);
 
 
-        for (int row =0;row <NUM_ROWS; row++){
+        for (int row = 0; row < numOfRows; row++){
             TableRow tableRow = new TableRow(this);
             tableRow.setLayoutParams(new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.MATCH_PARENT,
                     1.0f
-
             ));
             table.addView(tableRow);
 
-            for (int col = 0; col <NUM_COLS; col++){
+            for (int col = 0; col < numOfCol; col++){
                 Button button = new Button(this);
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
@@ -72,12 +105,17 @@ public class GameActivity extends AppCompatActivity {
 
                 final int finalCol = col;
                 final int finalRow = row;
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        gridButtonClicked(finalCol, finalRow);
+                int location = row*numOfCol + col;
+                for(int i:mineLocationList){
+                    if(location == i){
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                gridButtonClicked(finalCol, finalRow);
+                            }
+                        });
                     }
-                });
+                }
 
                 tableRow.addView(button);
                 buttons[row][col] = button;
@@ -107,8 +145,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void lockButtonSizes() {
-        for (int row =0;row <NUM_ROWS; row++){
-            for (int col = 0; col <NUM_COLS; col++){
+        for (int row = 0; row < numOfRows; row++){
+            for (int col = 0; col < numOfCol; col++){
                 Button button = buttons[row][col];
 
                 int width = button.getWidth();
