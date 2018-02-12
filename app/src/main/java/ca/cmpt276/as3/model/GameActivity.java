@@ -16,16 +16,18 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import ca.cmpt276.as3.model.GameModel.MineSeekerGame;
+
 /**
  * This class is responsible for allowing the user
  * to play the game.
  */
 public class GameActivity extends AppCompatActivity {
-    private static final int NUM_ROWS = 10;
-    private static final int NUM_COLS = 15;
+    private static int NUM_ROWS = 10;
+    private static int NUM_COLS = 15;
     private String TAG = "OrientationDemo";
 
-    Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
+    Button buttons[][] ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,18 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.e(TAG, "Running onCreate()!");  // test
 
+        //this.NUM_ROWS = OptionsActivity.boardRow;
+        //this.NUM_COLS = OptionsActivity.boardCol;
+        buttons = new Button[NUM_ROWS][NUM_COLS];
         populateButtons();
         setBackgroundImage();
+        MineSeekerGame mineSeekerGame = new MineSeekerGame(NUM_ROWS, NUM_COLS, 10);
+
     }
 
     private void populateButtons() {
         TableLayout table = (TableLayout) findViewById(R.id.tableForButtons);
+
 
         for (int row =0;row <NUM_ROWS; row++){
             TableRow tableRow = new TableRow(this);
