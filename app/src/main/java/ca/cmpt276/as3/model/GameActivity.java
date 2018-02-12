@@ -40,7 +40,7 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[NUM_ROWS][NUM_COLS];
         populateButtons();
         setBackgroundImage();
-        MineSeekerGame mineSeekerGame = new MineSeekerGame(NUM_ROWS, NUM_COLS, 10);
+        MineSeekerGame mineSeekerGame = new MineSeekerGame();
 
     }
 
