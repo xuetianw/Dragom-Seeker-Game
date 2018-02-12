@@ -13,6 +13,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import ca.cmpt276.as3.model.GameModel.MineSeekerGame;
+
 /**
  * Options class is responsible for showing the board size
  * and the number of mines that user want to use to play
@@ -43,19 +45,65 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // setting up the board size:
-                RadioGroup group = (RadioGroup) findViewById(R.id.radio_group_install_boardSize);
-                int idOfSelected = group.getCheckedRadioButtonId();
-                RadioButton radioButton = findViewById(idOfSelected);
-                String messageBoard = radioButton.getText().toString();
+                RadioGroup boardSizeGroup = (RadioGroup) findViewById(R.id.radio_group_install_boardSize);
+                int idOfSelectedBoardSize = boardSizeGroup.getCheckedRadioButtonId();
+                RadioButton boardRadioButton = findViewById(idOfSelectedBoardSize);
+                try{
+                    String messageBoard = boardRadioButton.getText().toString();
+                }catch (Exception e){
+                    Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
+                }
+
+                switch (idOfSelectedBoardSize){
+                    case -1:
+                        Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        MineSeekerGame.getInstance().setRow(4);
+                        MineSeekerGame.getInstance().setCol(6);
+                        break;
+                    case 2:
+                        MineSeekerGame.getInstance().setRow(5);
+                        MineSeekerGame.getInstance().setCol(10);
+                        break;
+                    case 3:
+                        MineSeekerGame.getInstance().setRow(6);
+                        MineSeekerGame.getInstance().setCol(15);
+                        break;
+                    default:
+                }
+
 
                 // setting up the number of mines:
-                group = (RadioGroup) findViewById(R.id.radio_group_install_mines);
-                idOfSelected = group.getCheckedRadioButtonId();
-                radioButton = findViewById(idOfSelected);
-                String messageMine = radioButton.getText().toString();
+                RadioGroup minesNumGroup = (RadioGroup) findViewById(R.id.radio_group_install_mines);
+                int idOfSelectedMineNum = minesNumGroup.getCheckedRadioButtonId();
+                RadioButton minesNumradioButton = findViewById(idOfSelectedMineNum);
+                try{
+                    String messageMine = minesNumradioButton.getText().toString();
+                }catch (Exception e){
+                    Toast.makeText(OptionsActivity.this, "please select num of mines", Toast.LENGTH_SHORT).show();
+                }
+
+                switch (idOfSelectedMineNum){
+                    case -1:
+                        Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        MineSeekerGame.getInstance().setNumOfMine(6);
+                        break;
+                    case 5:
+                        MineSeekerGame.getInstance().setNumOfMine(10);
+                        break;
+                    case 6:
+                        MineSeekerGame.getInstance().setNumOfMine(15);
+                        break;
+                    case 7:
+                        MineSeekerGame.getInstance().setNumOfMine(20);
+                    default:
+                }
 
                 Toast.makeText(OptionsActivity.this, "Selected button's text is: "
-                        + messageBoard + " and " + messageMine, Toast.LENGTH_SHORT).show();
+                        + idOfSelectedBoardSize + " and " + idOfSelectedMineNum, Toast.LENGTH_LONG).show();
             }
         });
     }
