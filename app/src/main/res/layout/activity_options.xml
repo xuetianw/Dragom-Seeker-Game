@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="ca.cmpt276.as3.model.OptionsActivity"
+    tools:context="ca.cmpt276.as3.model.ca.cmpt276.as3.OptionsActivity"
     tools:layout_editor_absoluteY="73dp">
 
     <ImageView

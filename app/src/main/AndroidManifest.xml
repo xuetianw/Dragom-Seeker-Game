@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="ca.cmpt276.as3.MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize">
             <intent-filter>
@@ -20,19 +20,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name="ca.cmpt276.as3.MenuActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize" />
         <activity
-            android:name=".GameActivity"
+            android:name="ca.cmpt276.as3.GameActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize" />
         <activity
-            android:name=".OptionsActivity"
+            android:name="ca.cmpt276.as3.OptionsActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize" />
         <activity
-            android:name=".HelpActivity"
+            android:name="ca.cmpt276.as3.HelpActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|orientation|keyboardHidden|screenSize">
             <intent-filter>

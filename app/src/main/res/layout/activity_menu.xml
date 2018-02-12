@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuActivity">
+    tools:context="ca.cmpt276.as3.MenuActivity">
 
     <ImageView
         android:id="@+id/backgroundImageID"

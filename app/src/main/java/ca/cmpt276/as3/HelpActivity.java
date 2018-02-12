@@ -1,4 +1,4 @@
-package ca.cmpt276.as3.model;
+package ca.cmpt276.as3;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import ca.cmpt276.as3.model.R;
 
 /**
  * This class is responsible to tell the user about the
