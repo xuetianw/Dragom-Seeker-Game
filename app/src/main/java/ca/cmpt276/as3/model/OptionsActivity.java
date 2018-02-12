@@ -55,7 +55,7 @@ public class OptionsActivity extends AppCompatActivity {
                 }catch (Exception e){
                     Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
                 }
-                if (!messageBoard.isEmpty()){
+                if (messageBoard != null){
                     switch (messageBoard) {
                         case "4 rows by 6 columns":
                             MineSeekerGame.getInstance().setRow(4);
@@ -72,9 +72,6 @@ public class OptionsActivity extends AppCompatActivity {
                     }
                 }
 
-
-
-
                 // setting up the number of mines:
                 RadioGroup minesNumGroup = (RadioGroup) findViewById(R.id.radio_group_install_mines);
                 int idOfSelectedMineNum = minesNumGroup.getCheckedRadioButtonId();
@@ -86,7 +83,7 @@ public class OptionsActivity extends AppCompatActivity {
                     Toast.makeText(OptionsActivity.this, "please select num of mines", Toast.LENGTH_SHORT).show();
                 }
 
-                if(!messageMine.isEmpty()){
+                if(messageMine != null){
                     switch (messageMine){
                         case "6 mines":
                             MineSeekerGame.getInstance().setNumOfMine(6);
