@@ -55,22 +55,7 @@ public class OptionsActivity extends AppCompatActivity {
                 }catch (Exception e){
                     Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
                 }
-                if (messageBoard != null){
-                    switch (messageBoard) {
-                        case "4 rows by 6 columns":
-                            MineSeekerGame.getInstance().setRow(4);
-                            MineSeekerGame.getInstance().setCol(6);
-                            break;
-                        case "5 rows by 10 columns":
-                            MineSeekerGame.getInstance().setRow(5);
-                            MineSeekerGame.getInstance().setCol(10);
-                            break;
-                        case "6 rows by 15 columns":
-                            MineSeekerGame.getInstance().setRow(6);
-                            MineSeekerGame.getInstance().setCol(15);
-                            break;
-                    }
-                }
+
 
                 // setting up the number of mines:
                 RadioGroup minesNumGroup = (RadioGroup) findViewById(R.id.radio_group_install_mines);
@@ -83,7 +68,7 @@ public class OptionsActivity extends AppCompatActivity {
                     Toast.makeText(OptionsActivity.this, "please select num of mines", Toast.LENGTH_SHORT).show();
                 }
 
-                if(messageMine != null){
+                if(messageMine != null && messageBoard != null){
                     switch (messageMine){
                         case "6 mines":
                             MineSeekerGame.getInstance().setNumOfMine(6);
@@ -97,6 +82,20 @@ public class OptionsActivity extends AppCompatActivity {
                         case "20 mines":
                             MineSeekerGame.getInstance().setNumOfMine(20);
                         default:
+                    }
+                    switch (messageBoard) {
+                        case "4 rows by 6 columns":
+                            MineSeekerGame.getInstance().setRow(4);
+                            MineSeekerGame.getInstance().setCol(6);
+                            break;
+                        case "5 rows by 10 columns":
+                            MineSeekerGame.getInstance().setRow(5);
+                            MineSeekerGame.getInstance().setCol(10);
+                            break;
+                        case "6 rows by 15 columns":
+                            MineSeekerGame.getInstance().setRow(6);
+                            MineSeekerGame.getInstance().setCol(15);
+                            break;
                     }
                 }
 
