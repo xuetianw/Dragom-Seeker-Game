@@ -1,4 +1,4 @@
-package ca.cmpt276.as3.model;
+package ca.cmpt276.as3;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import ca.cmpt276.as3.model.GameModel.MineSeekerGame;
+import ca.cmpt276.as3.GameModel.MineSeekerGame;
+import ca.cmpt276.as3.model.R;
 
 /**
  * Options class is responsible for showing the board size

@@ -1,4 +1,4 @@
-package ca.cmpt276.as3.model;
+package ca.cmpt276.as3;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-import ca.cmpt276.as3.model.GameModel.MineSeekerGame;
+import ca.cmpt276.as3.GameModel.*;
+import ca.cmpt276.as3.model.R;
 
 /**
  * This class is responsible for allowing the user
