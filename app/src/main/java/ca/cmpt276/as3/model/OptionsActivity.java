@@ -43,19 +43,19 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // setting up the board size:
-                RadioGroup group = (RadioGroup) findViewById(R.id.radio_group_install_boardSize);
-                int idOfSelected = group.getCheckedRadioButtonId();
-                RadioButton radioButton = findViewById(idOfSelected);
-                String messageBoard = radioButton.getText().toString();
+                RadioGroup boardSizeGroup = (RadioGroup) findViewById(R.id.radio_group_install_boardSize);
+                int idOfSelectedboardSize = boardSizeGroup.getCheckedRadioButtonId();
+                RadioButton boardradioButton = findViewById(idOfSelectedboardSize);
+                String messageBoard = boardradioButton.getText().toString();
 
                 // setting up the number of mines:
-                group = (RadioGroup) findViewById(R.id.radio_group_install_mines);
-                idOfSelected = group.getCheckedRadioButtonId();
-                radioButton = findViewById(idOfSelected);
-                String messageMine = radioButton.getText().toString();
+                RadioGroup minesNumGroup = (RadioGroup) findViewById(R.id.radio_group_install_mines);
+                int idOfSelectedminesNum = minesNumGroup.getCheckedRadioButtonId();
+                RadioButton minesNumradioButton = findViewById(idOfSelectedminesNum);
+                String messageMine = minesNumradioButton.getText().toString();
 
                 Toast.makeText(OptionsActivity.this, "Selected button's text is: "
-                        + messageBoard + " and " + messageMine, Toast.LENGTH_SHORT).show();
+                        + idOfSelectedboardSize + " and " + idOfSelectedminesNum, Toast.LENGTH_SHORT).show();
             }
         });
     }
