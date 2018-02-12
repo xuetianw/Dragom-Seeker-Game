@@ -23,8 +23,8 @@ import ca.cmpt276.as3.model.GameModel.MineSeekerGame;
  * to play the game.
  */
 public class GameActivity extends AppCompatActivity {
-    private static int NUM_ROWS = 10;
-    private static int NUM_COLS = 15;
+    private static int NUM_ROWS;
+    private static int NUM_COLS;
     private String TAG = "OrientationDemo";
 
     Button buttons[][] ;
@@ -35,8 +35,8 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.e(TAG, "Running onCreate()!");  // test
 
-        //this.NUM_ROWS = OptionsActivity.boardRow;
-        //this.NUM_COLS = OptionsActivity.boardCol;
+        this.NUM_ROWS = MineSeekerGame.getInstance().getRow();
+        this.NUM_COLS = MineSeekerGame.getInstance().getCol();
         buttons = new Button[NUM_ROWS][NUM_COLS];
         populateButtons();
         setBackgroundImage();
