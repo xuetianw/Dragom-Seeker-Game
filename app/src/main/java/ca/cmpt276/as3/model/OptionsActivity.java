@@ -48,58 +48,59 @@ public class OptionsActivity extends AppCompatActivity {
                 RadioGroup boardSizeGroup = (RadioGroup) findViewById(R.id.radio_group_install_boardSize);
                 int idOfSelectedBoardSize = boardSizeGroup.getCheckedRadioButtonId();
                 RadioButton boardRadioButton = findViewById(idOfSelectedBoardSize);
+                String messageBoard = null;
                 try{
-                    String messageBoard = boardRadioButton.getText().toString();
+                    messageBoard = boardRadioButton.getText().toString();
+                    System.out.println(messageBoard);
                 }catch (Exception e){
                     Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
                 }
-
-                switch (idOfSelectedBoardSize){
-                    case -1:
-                        Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        MineSeekerGame.getInstance().setRow(4);
-                        MineSeekerGame.getInstance().setCol(6);
-                        break;
-                    case 2:
-                        MineSeekerGame.getInstance().setRow(5);
-                        MineSeekerGame.getInstance().setCol(10);
-                        break;
-                    case 3:
-                        MineSeekerGame.getInstance().setRow(6);
-                        MineSeekerGame.getInstance().setCol(15);
-                        break;
-                    default:
+                if (!messageBoard.isEmpty()){
+                    switch (messageBoard) {
+                        case "4 rows by 6 columns":
+                            MineSeekerGame.getInstance().setRow(4);
+                            MineSeekerGame.getInstance().setCol(6);
+                            break;
+                        case "5 rows by 10 columns":
+                            MineSeekerGame.getInstance().setRow(5);
+                            MineSeekerGame.getInstance().setCol(10);
+                            break;
+                        case "6 rows by 15 columns":
+                            MineSeekerGame.getInstance().setRow(6);
+                            MineSeekerGame.getInstance().setCol(15);
+                            break;
+                    }
                 }
+
+
 
 
                 // setting up the number of mines:
                 RadioGroup minesNumGroup = (RadioGroup) findViewById(R.id.radio_group_install_mines);
                 int idOfSelectedMineNum = minesNumGroup.getCheckedRadioButtonId();
                 RadioButton minesNumradioButton = findViewById(idOfSelectedMineNum);
+                String messageMine = null;
                 try{
-                    String messageMine = minesNumradioButton.getText().toString();
+                    messageMine = minesNumradioButton.getText().toString();
                 }catch (Exception e){
                     Toast.makeText(OptionsActivity.this, "please select num of mines", Toast.LENGTH_SHORT).show();
                 }
 
-                switch (idOfSelectedMineNum){
-                    case -1:
-                        Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 4:
-                        MineSeekerGame.getInstance().setNumOfMine(6);
-                        break;
-                    case 5:
-                        MineSeekerGame.getInstance().setNumOfMine(10);
-                        break;
-                    case 6:
-                        MineSeekerGame.getInstance().setNumOfMine(15);
-                        break;
-                    case 7:
-                        MineSeekerGame.getInstance().setNumOfMine(20);
-                    default:
+                if(!messageMine.isEmpty()){
+                    switch (messageMine){
+                        case "6 mines":
+                            MineSeekerGame.getInstance().setNumOfMine(6);
+                            break;
+                        case "10 mines":
+                            MineSeekerGame.getInstance().setNumOfMine(10);
+                            break;
+                        case "15 mines":
+                            MineSeekerGame.getInstance().setNumOfMine(15);
+                            break;
+                        case "20 mines":
+                            MineSeekerGame.getInstance().setNumOfMine(20);
+                        default:
+                    }
                 }
 
                 Toast.makeText(OptionsActivity.this, "Selected button's text is: "
@@ -119,7 +120,7 @@ public class OptionsActivity extends AppCompatActivity {
             final int boardRow = BoardRowArray[i];
             final int boardCol = BoardColArray[i];
             RadioButton button = new RadioButton(this);
-            button.setText(boardRow + " rows by " + boardCol + " columns ");
+            button.setText(boardRow + " rows by " + boardCol + " columns");
 
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener(){
