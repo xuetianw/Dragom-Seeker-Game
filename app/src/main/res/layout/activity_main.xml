@@ -97,5 +97,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginLeft="16dp" />
 
+    <ImageView
+        android:id="@+id/animationID"
+        android:layout_width="135dp"
+        android:layout_height="130dp"
+        android:src="@drawable/nba_image"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
 
 </android.support.constraint.ConstraintLayout>
