@@ -38,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
 
     Button buttons[][] ;
     ArrayList<Integer> mineLocationList = new ArrayList();;
+    ArrayList<Integer> scannedLocationsList = new ArrayList<>();
     TextView numberOfMineTV;
     TextView numOfScansusedTV;
 
@@ -115,8 +116,10 @@ public class GameActivity extends AppCompatActivity {
                 button.setPadding(0,0,0,0);
 
 
+
                 final int finalCol = col;
                 final int finalRow = row;
+                //set up the Mine Buttons
                 if(checkIfinMineList(col, row)){
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -125,13 +128,17 @@ public class GameActivity extends AppCompatActivity {
                             updateUI();
                         }
                     });
-                } else {
+                } else { //set up the non-Mine Buttons
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            int numOfHiddenMines = scanForHiddenMines(finalCol, finalRow);
-                            button.setText(""+numOfHiddenMines);
-                            updateUI();
+                            if(ifHasscanned(finalCol,finalRow)){
+
+                            } else {
+                                int numOfHiddenMines = scanHiddenMines(finalCol, finalRow);
+                                button.setText(""+numOfHiddenMines);
+                                updateUI();
+                            }
                         }
                     });
                 }
@@ -151,8 +158,12 @@ public class GameActivity extends AppCompatActivity {
         if (checkIfinMineList(col, row)){
             removeMine(col, row);
         } else {
-            int numOfMinesLeftFoundInScan = scanForHiddenMines(col, row);
-            button.setText("" + numOfMinesLeftFoundInScan);
+            if(ifHasscanned(col,row)){
+
+            }else {
+                int numOfMinesInRowAndColum = scanHiddenMines(col, row);
+                button.setText("" + numOfMinesInRowAndColum);
+            }
         }
 
 
@@ -182,8 +193,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private int scanForHiddenMines(int col, int row) {
+    private int scanHiddenMines(int col, int row) {
         scansUsed++;
+        scannedLocationsList.add(row*numOfCol+ col);
         int countOfMines = 0;
         for (int i=0; i<numOfCol; i++) {
             if(checkIfinMineList(i, row)){
@@ -196,6 +208,16 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         return countOfMines;
+    }
+
+    private boolean ifHasscanned(int col, int row) {
+        int location = row*numOfCol + col;
+        for (int i = 0; i<scannedLocationsList.size(); i++ ){
+            if (scannedLocationsList.get(i) == location){
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean checkIfinMineList(int col, int row) {
