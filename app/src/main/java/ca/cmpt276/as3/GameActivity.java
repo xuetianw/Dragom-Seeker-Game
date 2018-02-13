@@ -45,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
         Log.e(TAG, "Running onCreate()!");  // test
 
         numOfRevealedMines = 0;
-        TextView numberOfMineTV = (TextView) findViewById(R.id.bombNumToalID);
+        TextView numberOfMineTV = (TextView) findViewById(R.id.numOfRevealBomb);
         TextView numOfScansusedTV = (TextView) findViewById(R.id.numOfScans);
         numOfScansusedTV.setText("Scans used :" );
 
@@ -60,7 +60,7 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
-        numberOfMineTV.setText("Mobm Num Total: "+ numOfMines + "\nMine Revealed: "+ numOfRevealedMines);
+        numberOfMineTV.setText("Mine Num Total: "+ numOfMines + "\nMine Revealed: "+ numOfRevealedMines);
 
     }
 
@@ -153,7 +153,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
-        numOfRevealBomb.setText("Mine Revealed :" + numOfRevealedMines);
+        numOfRevealBomb.setText("Mine Num Total: "+ numOfMines + "\nMine Revealed: "+ numOfRevealedMines);
 
         // Lock Button Sizes: before scaling the buttons
         lockButtonSizes();

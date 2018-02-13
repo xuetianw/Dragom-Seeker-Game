@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/bombNumToalID"
+        android:id="@+id/numOfRevealBomb"
         android:layout_width="wrap_content"
         android:layout_height="27dp"
         android:layout_marginBottom="29dp"
@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bombNumToalID">
+        app:layout_constraintTop_toBottomOf="@+id/numOfRevealBomb">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:id="@+id/tableForButtons"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/bombNumToalID"
+                android:layout_below="@+id/numOfRevealBomb"
                 android:stretchColumns="*"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
