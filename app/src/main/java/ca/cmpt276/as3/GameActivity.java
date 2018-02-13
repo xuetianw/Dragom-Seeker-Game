@@ -34,9 +34,13 @@ public class GameActivity extends AppCompatActivity {
     private static int numOfRevealedMines;
     private String TAG = "OrientationDemo";
     int mineCount = 0;
+    int scansUsed = 0;
 
     Button buttons[][] ;
     ArrayList<Integer> mineLocationList = new ArrayList();;
+    ArrayList<Integer> revealedList = new ArrayList<>();
+    TextView numberOfMineTV;
+    TextView numOfScansusedTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +49,8 @@ public class GameActivity extends AppCompatActivity {
         Log.e(TAG, "Running onCreate()!");  // test
 
         numOfRevealedMines = 0;
-        TextView numberBomdToalTv = (TextView) findViewById(R.id.bombNumToalID);
-        TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
-        numOfRevealBomb.setText("Mine Revealed :" + numOfRevealedMines);
 
-
+        updateUI();
 
         numOfRows = MineSeekerGame.getInstance().getRow();
         numOfCol = MineSeekerGame.getInstance().getCol();
@@ -60,8 +61,15 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
-        numberBomdToalTv.setText("Mobm Num Total: "+ numOfMines);
 
+    }
+
+    private void updateUI() {
+        numberOfMineTV = (TextView) findViewById(R.id.numOfRevealBomb);
+        numOfScansusedTV = (TextView) findViewById(R.id.numOfScans);
+
+        numOfScansusedTV.setText("Scans used :" + scansUsed);
+        numberOfMineTV.setText("Mine Num Total: "+ numOfMines + "\nMine Revealed: "+ numOfRevealedMines);
     }
 
     private void addMineLocations() {
@@ -70,20 +78,16 @@ public class GameActivity extends AppCompatActivity {
             int randomRowLocation = rand.nextInt(numOfRows);
             int randomColumLocation = rand.nextInt(numOfCol);
             int ramdomLocationNum = randomRowLocation*numOfCol+ randomColumLocation;
-            if (mineLocationList.isEmpty()){
+
+            boolean found = false;
+            for (int i= 0; i < mineLocationList.size(); i++){
+                if (mineLocationList.get(i) == ramdomLocationNum){
+                    found = true;
+                }
+            }
+            if (!found){
                 mineLocationList.add(ramdomLocationNum);
-                mineCount = 1;
-            } else {
-                boolean found = false;
-                for (int i= 0; i < mineLocationList.size(); i++){
-                    if (mineLocationList.get(i) == ramdomLocationNum){
-                        found = true;
-                    }
-                }
-                if (!found){
-                    mineLocationList.add(ramdomLocationNum);
-                    mineCount++;
-                }
+                mineCount++;
             }
         }
     }
@@ -102,30 +106,43 @@ public class GameActivity extends AppCompatActivity {
             table.addView(tableRow);
 
             for (int col = 0; col < numOfCol; col++){
-                Button button = new Button(this);
+                final Button button = new Button(this);
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT,
                         1.0f));
 
-                button.setText(col + "," + row);
                 //make text not clip on small buttons
                 button.setPadding(0,0,0,0);
 
+
+
                 final int finalCol = col;
                 final int finalRow = row;
-                int location = row*numOfCol + col;
+                //set up the Mine Buttons
+                if(isInMineList(col, row)){
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            gridButtonClicked(finalCol, finalRow);
+                            updateUI();
+                        }
+                    });
+                } else { //set up the non-Mine Buttons
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(ifHasRevealed(finalCol,finalRow)){
 
-                for(int i:mineLocationList){
-                    if(location == i){
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                gridButtonClicked(finalCol, finalRow);
+                            } else {
+                                int numOfHiddenMines = scan(finalCol, finalRow);
+                                button.setText(""+numOfHiddenMines);
+                                updateUI();
                             }
-                        });
-                    }
+                        }
+                    });
                 }
+
 
                 tableRow.addView(button);
                 buttons[row][col] = button;
@@ -133,15 +150,26 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void gridButtonClicked(int col, int row) {
         Toast.makeText(this, "Button clicked: " + col + "," + row,
                 Toast.LENGTH_SHORT).show();
         Button button = buttons [row][col];
 
-        checkMineList(col, row);
+        if (isInMineList(col, row)){
+            removeMine(col, row);
+            updateRowAndColRevealedBut(col, row);
+        } else {
+            if(ifHasRevealed(col,row)){
 
-        TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
-        numOfRevealBomb.setText("Mine Revealed :" + numOfRevealedMines);
+            }else {
+                int numOfMinesInRowAndColum = scan(col, row);
+                button.setText("" + numOfMinesInRowAndColum);
+            }
+        }
+
+
 
         // Lock Button Sizes: before scaling the buttons
         lockButtonSizes();
@@ -154,12 +182,26 @@ public class GameActivity extends AppCompatActivity {
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
 
-        // change text
-        button.setText("" + col);
     }
 
-    private void checkMineList(int col, int row) {
+    private void updateRowAndColRevealedBut(int col, int row) {
+        //updating its row
+        for (int i=0; i<numOfCol; i++){
+            if(ifHasRevealed(i, row)){
+                buttons[row][i].setText(""+ scan2(i,row));
+            }
+        }
+        //updating its coloum
+        for(int i = 0; i< numOfRows; i++){
+            if(ifHasRevealed(col, i)){
+                buttons[i][col].setText(""+ scan2(col,i));
+            }
+        }
+    }
+
+    private void removeMine(int col, int row) {
         int location = row*numOfCol + col;
         for(int i=0; i <mineLocationList.size(); i++) {
             if (mineLocationList.get(i) == location){
@@ -168,6 +210,58 @@ public class GameActivity extends AppCompatActivity {
                 numOfRevealedMines++;
             }
         }
+    }
+
+    private int scan(int col, int row) {
+        scansUsed++;
+        revealedList.add(row*numOfCol+ col);
+        int countOfMines = 0;
+        for (int i=0; i<numOfCol; i++) {
+            if(isInMineList(i, row)){
+                countOfMines++;
+            }
+        }
+        for (int i=0; i<numOfRows; i++) {
+            if(isInMineList(col, i)){
+                countOfMines++;
+            }
+        }
+        return countOfMines;
+    }
+
+    private int scan2(int col, int row) {
+        int countOfMines = 0;
+        for (int i=0; i<numOfCol; i++) {
+            if(isInMineList(i, row)){
+                countOfMines++;
+            }
+        }
+        for (int i=0; i<numOfRows; i++) {
+            if(isInMineList(col, i)){
+                countOfMines++;
+            }
+        }
+        return countOfMines;
+    }
+
+    private boolean ifHasRevealed(int col, int row) {
+        int location = row*numOfCol + col;
+        for (int i = 0; i< revealedList.size(); i++ ){
+            if (revealedList.get(i) == location){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isInMineList(int col, int row) {
+        int location = row*numOfCol + col;
+        for(int i=0; i <mineLocationList.size(); i++) {
+            if (mineLocationList.get(i) == location){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void lockButtonSizes() {
