@@ -17,13 +17,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/gameID"
+        android:id="@+id/bombNumToalID"
         android:layout_width="wrap_content"
         android:layout_height="27dp"
         android:layout_marginBottom="29dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
-        android:text="@string/this_will_be_the_game_screen"
+        android:text="@string/number_of_mines"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameID">
+        app:layout_constraintTop_toBottomOf="@+id/bombNumToalID">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:id="@+id/tableForButtons"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/gameID"
+                android:layout_below="@+id/bombNumToalID"
                 android:stretchColumns="*"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,5 +58,15 @@
             </TableLayout>
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/numOfRevealBomb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="16dp"
+        android:text="numOfRevealBomb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
