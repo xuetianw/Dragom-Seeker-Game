@@ -102,31 +102,36 @@ public class GameActivity extends AppCompatActivity {
             table.addView(tableRow);
 
             for (int col = 0; col < numOfCol; col++){
-                Button button = new Button(this);
+                final Button button = new Button(this);
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT,
                         1.0f));
 
-                button.setText(col + "," + row);
                 //make text not clip on small buttons
                 button.setPadding(0,0,0,0);
+
 
                 final int finalCol = col;
                 final int finalRow = row;
                 int location = row*numOfCol + col;
-
-                //populate buttons for mines
-                for(int i:mineLocationList){
-                    if(location == i){
-                        button.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                gridButtonClicked(finalCol, finalRow);
-                            }
-                        });
-                    }
+                if(checkIfinMineList(col, row)){
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            gridButtonClicked(finalCol, finalRow);
+                        }
+                    });
+                } else {
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int numOfHiddenMines = scanForHiddenMines(finalCol, finalRow);
+                            button.setText(""+numOfHiddenMines);
+                        }
+                    });
                 }
+
 
                 tableRow.addView(button);
                 buttons[row][col] = button;
@@ -142,7 +147,7 @@ public class GameActivity extends AppCompatActivity {
         if (checkIfinMineList(col, row)){
             removeMine(col, row);
         } else {
-            int numOfMinesLeftFoundInScan = scanMine(col, row);
+            int numOfMinesLeftFoundInScan = scanForHiddenMines(col, row);
             button.setText("" + numOfMinesLeftFoundInScan);
         }
 
@@ -175,7 +180,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private int scanMine(int col, int row) {
+    private int scanForHiddenMines(int col, int row) {
         int countOfMines = 0;
         for (int i=0; i<numOfCol; i++) {
             if(checkIfinMineList(i, row)){
