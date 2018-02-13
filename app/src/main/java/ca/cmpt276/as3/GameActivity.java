@@ -34,9 +34,12 @@ public class GameActivity extends AppCompatActivity {
     private static int numOfRevealedMines;
     private String TAG = "OrientationDemo";
     int mineCount = 0;
+    int scansUsed = 0;
 
     Button buttons[][] ;
     ArrayList<Integer> mineLocationList = new ArrayList();;
+    TextView numberOfMineTV;
+    TextView numOfScansusedTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +48,8 @@ public class GameActivity extends AppCompatActivity {
         Log.e(TAG, "Running onCreate()!");  // test
 
         numOfRevealedMines = 0;
-        TextView numberOfMineTV = (TextView) findViewById(R.id.numOfRevealBomb);
-        TextView numOfScansusedTV = (TextView) findViewById(R.id.numOfScans);
-        numOfScansusedTV.setText("Scans used :" );
 
-
+        updateUI();
 
         numOfRows = MineSeekerGame.getInstance().getRow();
         numOfCol = MineSeekerGame.getInstance().getCol();
@@ -60,8 +60,15 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
-        numberOfMineTV.setText("Mine Num Total: "+ numOfMines + "\nMine Revealed: "+ numOfRevealedMines);
 
+    }
+
+    private void updateUI() {
+        numberOfMineTV = (TextView) findViewById(R.id.numOfRevealBomb);
+        numOfScansusedTV = (TextView) findViewById(R.id.numOfScans);
+
+        numOfScansusedTV.setText("Scans used :" + scansUsed);
+        numberOfMineTV.setText("Mine Num Total: "+ numOfMines + "\nMine Revealed: "+ numOfRevealedMines);
     }
 
     private void addMineLocations() {
@@ -70,20 +77,16 @@ public class GameActivity extends AppCompatActivity {
             int randomRowLocation = rand.nextInt(numOfRows);
             int randomColumLocation = rand.nextInt(numOfCol);
             int ramdomLocationNum = randomRowLocation*numOfCol+ randomColumLocation;
-            if (mineLocationList.isEmpty()){
+
+            boolean found = false;
+            for (int i= 0; i < mineLocationList.size(); i++){
+                if (mineLocationList.get(i) == ramdomLocationNum){
+                    found = true;
+                }
+            }
+            if (!found){
                 mineLocationList.add(ramdomLocationNum);
-                mineCount = 1;
-            } else {
-                boolean found = false;
-                for (int i= 0; i < mineLocationList.size(); i++){
-                    if (mineLocationList.get(i) == ramdomLocationNum){
-                        found = true;
-                    }
-                }
-                if (!found){
-                    mineLocationList.add(ramdomLocationNum);
-                    mineCount++;
-                }
+                mineCount++;
             }
         }
     }
@@ -114,12 +117,12 @@ public class GameActivity extends AppCompatActivity {
 
                 final int finalCol = col;
                 final int finalRow = row;
-                int location = row*numOfCol + col;
                 if(checkIfinMineList(col, row)){
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             gridButtonClicked(finalCol, finalRow);
+                            updateUI();
                         }
                     });
                 } else {
@@ -128,6 +131,7 @@ public class GameActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             int numOfHiddenMines = scanForHiddenMines(finalCol, finalRow);
                             button.setText(""+numOfHiddenMines);
+                            updateUI();
                         }
                     });
                 }
@@ -152,8 +156,6 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
-        TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
-        numOfRevealBomb.setText("Mine Num Total: "+ numOfMines + "\nMine Revealed: "+ numOfRevealedMines);
 
         // Lock Button Sizes: before scaling the buttons
         lockButtonSizes();
@@ -181,6 +183,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private int scanForHiddenMines(int col, int row) {
+        scansUsed++;
         int countOfMines = 0;
         for (int i=0; i<numOfCol; i++) {
             if(checkIfinMineList(i, row)){
