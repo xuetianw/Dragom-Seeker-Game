@@ -45,9 +45,9 @@ public class GameActivity extends AppCompatActivity {
         Log.e(TAG, "Running onCreate()!");  // test
 
         numOfRevealedMines = 0;
-        TextView numberBomdToalTv = (TextView) findViewById(R.id.bombNumToalID);
-        TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
-        numOfRevealBomb.setText("Mine Revealed :" + numOfRevealedMines);
+        TextView numberOfMineTV = (TextView) findViewById(R.id.bombNumToalID);
+        TextView numOfScansusedTV = (TextView) findViewById(R.id.numOfScans);
+        numOfScansusedTV.setText("Scans used :" );
 
 
 
@@ -60,7 +60,7 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
-        numberBomdToalTv.setText("Mobm Num Total: "+ numOfMines);
+        numberOfMineTV.setText("Mobm Num Total: "+ numOfMines + "\nMine Revealed: "+ numOfRevealedMines);
 
     }
 
