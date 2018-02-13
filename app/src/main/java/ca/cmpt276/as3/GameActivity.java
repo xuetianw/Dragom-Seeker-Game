@@ -138,8 +138,8 @@ public class GameActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
         Button button = buttons [row][col];
 
-        mineCount--;
-        numOfRevealedMines++;
+        checkMineList(col, row);
+
         TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
         numOfRevealBomb.setText("Mine Revealed :" + numOfRevealedMines);
 
@@ -157,6 +157,17 @@ public class GameActivity extends AppCompatActivity {
 
         // change text
         button.setText("" + col);
+    }
+
+    private void checkMineList(int col, int row) {
+        int location = row*numOfCol + col;
+        for(int i=0; i <mineLocationList.size(); i++) {
+            if (mineLocationList.get(i) == location){
+                mineLocationList.remove(i);
+                mineCount--;
+                numOfRevealedMines++;
+            }
+        }
     }
 
     private void lockButtonSizes() {
