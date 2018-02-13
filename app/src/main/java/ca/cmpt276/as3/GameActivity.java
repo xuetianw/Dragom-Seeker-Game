@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -43,6 +44,13 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.e(TAG, "Running onCreate()!");  // test
 
+        numOfRevealedMines = 0;
+        TextView numberBomdToalTv = (TextView) findViewById(R.id.bombNumToalID);
+        TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
+        numOfRevealBomb.setText("Mine Revealed :" + numOfRevealedMines);
+
+
+
         numOfRows = MineSeekerGame.getInstance().getRow();
         numOfCol = MineSeekerGame.getInstance().getCol();
         numOfMines = MineSeekerGame.getInstance().getNumOfMine();
@@ -52,6 +60,7 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
+        numberBomdToalTv.setText("Mobm Num Total: "+ numOfMines);
 
     }
 
@@ -106,6 +115,7 @@ public class GameActivity extends AppCompatActivity {
                 final int finalCol = col;
                 final int finalRow = row;
                 int location = row*numOfCol + col;
+
                 for(int i:mineLocationList){
                     if(location == i){
                         button.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +138,11 @@ public class GameActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
         Button button = buttons [row][col];
 
+        checkMineList(col, row);
+
+        TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
+        numOfRevealBomb.setText("Mine Revealed :" + numOfRevealedMines);
+
         // Lock Button Sizes: before scaling the buttons
         lockButtonSizes();
 
@@ -142,6 +157,17 @@ public class GameActivity extends AppCompatActivity {
 
         // change text
         button.setText("" + col);
+    }
+
+    private void checkMineList(int col, int row) {
+        int location = row*numOfCol + col;
+        for(int i=0; i <mineLocationList.size(); i++) {
+            if (mineLocationList.get(i) == location){
+                mineLocationList.remove(i);
+                mineCount--;
+                numOfRevealedMines++;
+            }
+        }
     }
 
     private void lockButtonSizes() {
