@@ -116,6 +116,7 @@ public class GameActivity extends AppCompatActivity {
                 final int finalRow = row;
                 int location = row*numOfCol + col;
 
+                //populate buttons for mines
                 for(int i:mineLocationList){
                     if(location == i){
                         button.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +139,13 @@ public class GameActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
         Button button = buttons [row][col];
 
-        checkMineList(col, row);
+        if (checkIfinMineList(col, row)){
+            removeMine(col, row);
+        } else {
+            int numOfMinesLeftFoundInScan = scanMine(col, row);
+            button.setText("" + numOfMinesLeftFoundInScan);
+        }
+
 
         TextView numOfRevealBomb = (TextView) findViewById(R.id.numOfRevealBomb);
         numOfRevealBomb.setText("Mine Revealed :" + numOfRevealedMines);
@@ -155,11 +162,9 @@ public class GameActivity extends AppCompatActivity {
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
 
-        // change text
-        button.setText("" + col);
     }
 
-    private void checkMineList(int col, int row) {
+    private void removeMine(int col, int row) {
         int location = row*numOfCol + col;
         for(int i=0; i <mineLocationList.size(); i++) {
             if (mineLocationList.get(i) == location){
@@ -168,6 +173,31 @@ public class GameActivity extends AppCompatActivity {
                 numOfRevealedMines++;
             }
         }
+    }
+
+    private int scanMine(int col, int row) {
+        int countOfMines = 0;
+        for (int i=0; i<numOfCol; i++) {
+            if(checkIfinMineList(i, row)){
+                countOfMines++;
+            }
+        }
+        for (int i=0; i<numOfRows; i++) {
+            if(checkIfinMineList(col, i)){
+                countOfMines++;
+            }
+        }
+        return countOfMines;
+    }
+
+    private boolean checkIfinMineList(int col, int row) {
+        int location = row*numOfCol + col;
+        for(int i=0; i <mineLocationList.size(); i++) {
+            if (mineLocationList.get(i) == location){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void lockButtonSizes() {
