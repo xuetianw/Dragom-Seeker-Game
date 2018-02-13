@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
 
     Button buttons[][] ;
     ArrayList<Integer> mineLocationList = new ArrayList();;
-    ArrayList<Integer> scannedLocationsList = new ArrayList<>();
+    ArrayList<Integer> revealedList = new ArrayList<>();
     TextView numberOfMineTV;
     TextView numOfScansusedTV;
 
@@ -120,7 +120,7 @@ public class GameActivity extends AppCompatActivity {
                 final int finalCol = col;
                 final int finalRow = row;
                 //set up the Mine Buttons
-                if(checkIfinMineList(col, row)){
+                if(isInMineList(col, row)){
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -132,10 +132,10 @@ public class GameActivity extends AppCompatActivity {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(ifHasscanned(finalCol,finalRow)){
+                            if(ifHasRevealed(finalCol,finalRow)){
 
                             } else {
-                                int numOfHiddenMines = scanHiddenMines(finalCol, finalRow);
+                                int numOfHiddenMines = scan(finalCol, finalRow);
                                 button.setText(""+numOfHiddenMines);
                                 updateUI();
                             }
@@ -150,18 +150,21 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void gridButtonClicked(int col, int row) {
         Toast.makeText(this, "Button clicked: " + col + "," + row,
                 Toast.LENGTH_SHORT).show();
         Button button = buttons [row][col];
 
-        if (checkIfinMineList(col, row)){
+        if (isInMineList(col, row)){
             removeMine(col, row);
+            updateRowAndColRevealedBut(col, row);
         } else {
-            if(ifHasscanned(col,row)){
+            if(ifHasRevealed(col,row)){
 
             }else {
-                int numOfMinesInRowAndColum = scanHiddenMines(col, row);
+                int numOfMinesInRowAndColum = scan(col, row);
                 button.setText("" + numOfMinesInRowAndColum);
             }
         }
@@ -179,7 +182,23 @@ public class GameActivity extends AppCompatActivity {
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
 
+    }
+
+    private void updateRowAndColRevealedBut(int col, int row) {
+        //updating its row
+        for (int i=0; i<numOfCol; i++){
+            if(ifHasRevealed(i, row)){
+                buttons[row][i].setText(""+ scan2(i,row));
+            }
+        }
+        //updating its coloum
+        for(int i = 0; i< numOfRows; i++){
+            if(ifHasRevealed(col, i)){
+                buttons[i][col].setText(""+ scan2(col,i));
+            }
+        }
     }
 
     private void removeMine(int col, int row) {
@@ -193,34 +212,49 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private int scanHiddenMines(int col, int row) {
+    private int scan(int col, int row) {
         scansUsed++;
-        scannedLocationsList.add(row*numOfCol+ col);
+        revealedList.add(row*numOfCol+ col);
         int countOfMines = 0;
         for (int i=0; i<numOfCol; i++) {
-            if(checkIfinMineList(i, row)){
+            if(isInMineList(i, row)){
                 countOfMines++;
             }
         }
         for (int i=0; i<numOfRows; i++) {
-            if(checkIfinMineList(col, i)){
+            if(isInMineList(col, i)){
                 countOfMines++;
             }
         }
         return countOfMines;
     }
 
-    private boolean ifHasscanned(int col, int row) {
+    private int scan2(int col, int row) {
+        int countOfMines = 0;
+        for (int i=0; i<numOfCol; i++) {
+            if(isInMineList(i, row)){
+                countOfMines++;
+            }
+        }
+        for (int i=0; i<numOfRows; i++) {
+            if(isInMineList(col, i)){
+                countOfMines++;
+            }
+        }
+        return countOfMines;
+    }
+
+    private boolean ifHasRevealed(int col, int row) {
         int location = row*numOfCol + col;
-        for (int i = 0; i<scannedLocationsList.size(); i++ ){
-            if (scannedLocationsList.get(i) == location){
+        for (int i = 0; i< revealedList.size(); i++ ){
+            if (revealedList.get(i) == location){
                 return true;
             }
         }
         return false;
     }
 
-    private boolean checkIfinMineList(int col, int row) {
+    private boolean isInMineList(int col, int row) {
         int location = row*numOfCol + col;
         for(int i=0; i <mineLocationList.size(); i++) {
             if (mineLocationList.get(i) == location){
