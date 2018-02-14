@@ -14,7 +14,7 @@ import android.widget.Toast;
 import ca.cmpt276.as3.model.R;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static boolean alreadySkipped = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
         String TAG = "OrientationDemo";
         Log.e(TAG, "Running onCreate()!");  // test
-        setUpImageAnimation();
-        setupLaunchButton();
         setImage();
         setBackgroundImage();
+        setupLaunchButton();
+//        setUpImageAnimation();
     }
 
     private void setupLaunchButton(){
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                alreadySkipped = true;
                 Toast.makeText(MainActivity.this,"Clicked on 'Go To Menu' "
                         , Toast.LENGTH_SHORT).show();
                 // Launch the Menu Activity:
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        setUpImageAnimation();
     }
 
     private void setImage(){
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
-        myImageView.setImageResource(R.drawable.background_image3);
+        myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
 
     private void setUpImageAnimation(){
@@ -62,13 +65,15 @@ public class MainActivity extends AppCompatActivity {
         imageAnimation.startAnimation(animation);
         imageAnimation.setVisibility(View.INVISIBLE);
 
-        Handler useHandler  = new Handler();
-        useHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = MenuActivity.makeIntent(MainActivity.this);
-                startActivity(intent);
-            }
-        },4500);
+            Handler useHandler  = new Handler();
+            useHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(!alreadySkipped){  // don't go to Menu if user has clicked on skip already
+                        Intent intent = MenuActivity.makeIntent(MainActivity.this);
+                        startActivity(intent);
+                    }
+                }
+            },4500);
     }
 }
