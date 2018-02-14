@@ -3,6 +3,7 @@ package ca.cmpt276.as3;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,9 +55,9 @@ public class OptionsActivity extends AppCompatActivity {
                     messageBoard = boardRadioButton.getText().toString();
                     System.out.println(messageBoard);
                 }catch (Exception e){
-                    Toast.makeText(OptionsActivity.this, "please select game size ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OptionsActivity.this, "please select game size "
+                            , Toast.LENGTH_SHORT).show();
                 }
-
 
                 // setting up the number of mines:
                 RadioGroup minesNumGroup = (RadioGroup) findViewById(R.id.radio_group_install_mines);
@@ -66,7 +67,8 @@ public class OptionsActivity extends AppCompatActivity {
                 try{
                     messageMine = minesNumradioButton.getText().toString();
                 }catch (Exception e){
-                    Toast.makeText(OptionsActivity.this, "please select num of mines", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OptionsActivity.this, "please select num of mines"
+                            , Toast.LENGTH_SHORT).show();
                 }
 
                 if(messageMine != null && messageBoard != null){
@@ -101,12 +103,13 @@ public class OptionsActivity extends AppCompatActivity {
                 }
 
                 Toast.makeText(OptionsActivity.this, "Selected button's text is: "
-                        + idOfSelectedBoardSize + " and " + idOfSelectedMineNum, Toast.LENGTH_LONG).show();
+                        + idOfSelectedBoardSize + " and "
+                        + idOfSelectedMineNum, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    @SuppressLint("SetTextI18n")        // necessary?
+    @SuppressLint("SetTextI18n")
     private void setBoardSize(){
         RadioGroup group =(RadioGroup) findViewById(R.id.radio_group_install_boardSize);
         int [] BoardRowArray = getResources().getIntArray(R.array.number_of_rows);
@@ -117,14 +120,17 @@ public class OptionsActivity extends AppCompatActivity {
             final int boardRow = BoardRowArray[i];
             final int boardCol = BoardColArray[i];
             RadioButton button = new RadioButton(this);
+            button.setTextColor(Color.RED);
+
             button.setText(boardRow + " rows by " + boardCol + " columns");
 
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(OptionsActivity.this, "You clicked on " + boardRow + " rows by " + boardCol + " cols!", Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(OptionsActivity.this, "You clicked on "
+                            + boardRow + " rows by " + boardCol
+                            + " cols!", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -141,13 +147,14 @@ public class OptionsActivity extends AppCompatActivity {
             final int numMines = numMinesArray[i];
             RadioButton button = new RadioButton(this);
             button.setText(numMines + " mines");
+            button.setTextColor(Color.RED);
 
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(OptionsActivity.this, "You clicked on " + numMines + " mines!", Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(OptionsActivity.this, "You clicked on "
+                            + numMines + " mines!", Toast.LENGTH_SHORT).show();
                 }
             });
 
