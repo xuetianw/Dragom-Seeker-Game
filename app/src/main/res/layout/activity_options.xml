@@ -42,54 +42,50 @@
         android:id="@+id/radio_group_install_boardSize"
         android:layout_width="220dp"
         android:layout_height="129dp"
-        android:layout_marginEnd="92dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="108dp"
         android:layout_x="2dp"
         android:layout_y="104dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="143dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="184dp"
+        android:layout_height="42dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="56dp"
         android:layout_x="2dp"
         android:layout_y="68dp"
         android:text=">> Set Board Size:"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintHorizontal_bias="0.591"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="179dp"
-        android:layout_height="38dp"
+        android:layout_width="199dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_x="209dp"
         android:layout_y="65dp"
-        android:text=">> Set Number of Mines:"
+        android:text=">> Set Number of Dragons:"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.206" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/setGameID"
@@ -117,7 +113,7 @@
     <RadioGroup
         android:id="@+id/radio_group_install_mines"
         android:layout_width="142dp"
-        android:layout_height="121dp"
+        android:layout_height="119dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_x="211dp"
@@ -125,7 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
 
     </RadioGroup>
 
