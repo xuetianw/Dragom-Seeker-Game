@@ -43,6 +43,7 @@
         android:layout_width="220dp"
         android:layout_height="129dp"
         android:layout_marginEnd="108dp"
+        android:layout_marginTop="4dp"
         android:layout_x="2dp"
         android:layout_y="104dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +54,7 @@
     <TextView
         android:id="@+id/textView4"
         android:layout_width="143dp"
-        android:layout_height="42dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
@@ -108,7 +109,7 @@
         app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.947" />
+        app:layout_constraintVertical_bias="0.995" />
 
     <RadioGroup
         android:id="@+id/radio_group_install_mines"
