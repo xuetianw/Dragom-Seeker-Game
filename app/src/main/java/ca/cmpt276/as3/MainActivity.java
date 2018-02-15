@@ -22,10 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         String TAG = "OrientationDemo";
         Log.e(TAG, "Running onCreate()!");  // test
-        setImage();
         setBackgroundImage();
         setupLaunchButton();
-//        setUpImageAnimation();
     }
 
     private void setupLaunchButton(){
@@ -45,11 +43,6 @@ public class MainActivity extends AppCompatActivity {
         setUpImageAnimation();
     }
 
-    private void setImage(){
-        ImageView myImageView = (ImageView) findViewById(R.id.welcomeImageID);
-        myImageView.setImageResource(R.drawable.welcome_image);
-    }
-
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.chinese_new_year1);
@@ -63,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         animation.setRepeatCount(4);
         animation.setRepeatMode(2);                 // repeat animation L to R and R to L
         imageAnimation.startAnimation(animation);
-        imageAnimation.setVisibility(View.INVISIBLE);
+//        imageAnimation.setVisibility(View.INVISIBLE);
 
             Handler useHandler  = new Handler();
             useHandler.postDelayed(new Runnable() {

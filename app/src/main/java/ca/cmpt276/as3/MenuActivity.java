@@ -66,6 +66,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(MenuActivity.this,"Clicked on 'Help' ", Toast.LENGTH_SHORT)
                         .show();
+
                 // Launch the HelpActivity
                 Intent intent = HelpActivity.makeIntent(MenuActivity.this);
                 startActivity(intent);
@@ -75,6 +76,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
-        myImageView.setImageResource(R.drawable.background_image3);
+        myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
 }

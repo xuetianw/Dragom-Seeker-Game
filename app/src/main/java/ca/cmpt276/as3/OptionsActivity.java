@@ -33,7 +33,7 @@ public class OptionsActivity extends AppCompatActivity {
         Log.e(TAG, "Running onCreate()!");      // test
         setBoardSize();
         setNumMines();
-        setupPrintButton();
+        setUpSetGameButton();
         setBackgroundImage();
     }
 
@@ -41,8 +41,8 @@ public class OptionsActivity extends AppCompatActivity {
         return new Intent(context, OptionsActivity.class);
     }
 
-    private void setupPrintButton() {
-        Button btn1 = (Button) findViewById(R.id.printSelectedID);
+    private void setUpSetGameButton() {
+        Button btn1 = (Button) findViewById(R.id.setGameID);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +105,10 @@ public class OptionsActivity extends AppCompatActivity {
                 Toast.makeText(OptionsActivity.this, "Selected button's text is: "
                         + idOfSelectedBoardSize + " and "
                         + idOfSelectedMineNum, Toast.LENGTH_LONG).show();
+
+                // Launch the HelpActivity
+                Intent intent = GameActivity.makeIntent(OptionsActivity.this);
+                startActivity(intent);
             }
         });
     }
@@ -120,7 +124,7 @@ public class OptionsActivity extends AppCompatActivity {
             final int boardRow = BoardRowArray[i];
             final int boardCol = BoardColArray[i];
             RadioButton button = new RadioButton(this);
-            button.setTextColor(Color.RED);
+            button.setTextColor(Color.WHITE);
 
             button.setText(boardRow + " rows by " + boardCol + " columns");
 
@@ -147,7 +151,7 @@ public class OptionsActivity extends AppCompatActivity {
             final int numMines = numMinesArray[i];
             RadioButton button = new RadioButton(this);
             button.setText(numMines + " mines");
-            button.setTextColor(Color.RED);
+            button.setTextColor(Color.WHITE);
 
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +169,6 @@ public class OptionsActivity extends AppCompatActivity {
 
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
-        myImageView.setImageResource(R.drawable.background_image3);
+        myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
 }

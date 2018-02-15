@@ -11,161 +11,122 @@
 
     <ImageView
         android:id="@+id/backgroundImageID"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:layout_width="591dp"
+        android:layout_height="302dp"
+        android:scaleType="centerCrop"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="-15dp" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="560dp"
-        android:layout_height="275dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_x="0dp"
+        android:layout_y="1dp"
+        android:text="@string/settings"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/radio_group_install_boardSize"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.037"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0" />
 
-        <AbsoluteLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:ignore="Deprecated">
+    <RadioGroup
+        android:id="@+id/radio_group_install_boardSize"
+        android:layout_width="220dp"
+        android:layout_height="129dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginTop="8dp"
+        android:layout_x="2dp"
+        android:layout_y="104dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
 
-            <RadioGroup
-                android:id="@+id/radio_group_install_boardSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="176dp"
-                android:layout_marginEnd="144dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="144dp"
-                android:layout_marginStart="8dp"
-                android:layout_x="0dp"
-                android:layout_y="81dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.032"
-                app:layout_constraintStart_toStartOf="parent">
+    </RadioGroup>
 
-            </RadioGroup>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="143dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="184dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_x="2dp"
+        android:layout_y="68dp"
+        android:text=">> Set Board Size:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="131dp"
-                android:layout_height="25dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_x="0dp"
-                android:layout_y="3dp"
-                android:text="@string/settings"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold|italic"
-                app:layout_constraintBottom_toTopOf="@+id/radio_group_install_boardSize"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.038"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.146" />
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="179dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_x="209dp"
+        android:layout_y="65dp"
+        android:text=">> Set Number of Mines:"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.206" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="94dp"
-                android:layout_height="27dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_x="2dp"
-                android:layout_y="48dp"
-                android:text="@string/board_size"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold|italic"
-                app:layout_constraintBottom_toTopOf="@+id/radio_group_install_boardSize"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.032"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="1.0" />
+    <Button
+        android:id="@+id/setGameID"
+        style="@android:style/Widget.Button.Inset"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_x="0dp"
+        android:layout_y="221dp"
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:text="@string/set_game"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.947" />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="139dp"
-                android:layout_height="29dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="56dp"
-                android:layout_x="6dp"
-                android:layout_y="249dp"
-                android:text="@string/number_of_mines"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold|italic"
-                app:layout_constraintBottom_toTopOf="@+id/radio_group_install_mines"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radio_group_install_boardSize"
-                app:layout_constraintVertical_bias="0.0" />
+    <RadioGroup
+        android:id="@+id/radio_group_install_mines"
+        android:layout_width="142dp"
+        android:layout_height="121dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_x="211dp"
+        android:layout_y="106dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
-            <Button
-                android:id="@+id/printSelectedID"
-                style="@android:style/Widget.Button.Inset"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_x="233dp"
-                android:layout_y="334dp"
-                android:backgroundTint="@android:color/holo_orange_light"
-                android:text="@string/set_game"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.963"
-                app:layout_constraintStart_toStartOf="parent" />
+    </RadioGroup>
 
-            <RadioGroup
-                android:id="@+id/radio_group_install_mines"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_x="3dp"
-                android:layout_y="285dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.044"
-                app:layout_constraintStart_toStartOf="parent">
-
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_x="140dp"
-                android:layout_y="1dp"
-                android:text="@string/scroll_down_for_more_options"
-                android:textAllCaps="false"
-                android:textColor="@android:color/background_light"
-                android:textStyle="bold|italic"
-                tools:layout_editor_absoluteX="177dp"
-                tools:layout_editor_absoluteY="44dp" />
-
-        </AbsoluteLayout>
-    </ScrollView>
 </android.support.constraint.ConstraintLayout>
