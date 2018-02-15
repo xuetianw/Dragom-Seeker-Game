@@ -152,7 +152,6 @@ public class OptionsActivity extends AppCompatActivity {
             RadioButton button = new RadioButton(this);
             button.setText(numMines + " mines");
             button.setTextColor(Color.WHITE);
-
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
