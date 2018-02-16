@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 alreadySkipped = true;
-                Toast.makeText(MainActivity.this,"Clicked on 'Go To Menu' "
-                        , Toast.LENGTH_SHORT).show();
-                // Launch the Menu Activity:
                 Intent intent = MenuActivity.makeIntent(MainActivity.this);
                 startActivity(intent);
             }
@@ -57,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         animation.setRepeatCount(4);
         animation.setRepeatMode(2);                 // repeat animation L to R and R to L
         imageAnimation.startAnimation(animation);
-//        imageAnimation.setVisibility(View.INVISIBLE);
 
             Handler useHandler  = new Handler();
             useHandler.postDelayed(new Runnable() {

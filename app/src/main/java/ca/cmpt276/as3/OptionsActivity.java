@@ -3,7 +3,11 @@ package ca.cmpt276.as3;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import ca.cmpt276.as3.GameModel.MineSeekerGame;
+import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
 
 /**
@@ -26,13 +30,14 @@ import ca.cmpt276.as3.model.R;
 public class OptionsActivity extends AppCompatActivity {
     private String TAG = "OrientationDemo";
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
         Log.e(TAG, "Running onCreate()!");      // test
         setBoardSize();
-        setNumMines();
+        setNumDragons();
         setUpSetGameButton();
         setBackgroundImage();
     }
@@ -60,51 +65,47 @@ public class OptionsActivity extends AppCompatActivity {
                 }
 
                 // setting up the number of mines:
-                RadioGroup minesNumGroup = (RadioGroup) findViewById(R.id.radio_group_install_mines);
-                int idOfSelectedMineNum = minesNumGroup.getCheckedRadioButtonId();
-                RadioButton minesNumradioButton = findViewById(idOfSelectedMineNum);
-                String messageMine = null;
+                RadioGroup dragonsNumGroup = (RadioGroup) findViewById(R.id.radio_group_install_dragons);
+                int idOfSelectedDragonNum = dragonsNumGroup.getCheckedRadioButtonId();
+                RadioButton dragonsNumRadioButton = findViewById(idOfSelectedDragonNum);
+                String messageDragon = null;
                 try{
-                    messageMine = minesNumradioButton.getText().toString();
+                    messageDragon = dragonsNumRadioButton.getText().toString();
                 }catch (Exception e){
                     Toast.makeText(OptionsActivity.this, "please select num of mines"
                             , Toast.LENGTH_SHORT).show();
                 }
 
-                if(messageMine != null && messageBoard != null){
-                    switch (messageMine){
-                        case "6 mines":
-                            MineSeekerGame.getInstance().setNumOfMine(6);
+                if(messageDragon != null && messageBoard != null){
+                    switch (messageDragon){
+                        case "6 dragons":
+                            DragonSeekerGame.getInstance().setNumDragons(6);
                             break;
-                        case "10 mines":
-                            MineSeekerGame.getInstance().setNumOfMine(10);
+                        case "10 dragons":
+                            DragonSeekerGame.getInstance().setNumDragons(10);
                             break;
-                        case "15 mines":
-                            MineSeekerGame.getInstance().setNumOfMine(15);
+                        case "15 dragons":
+                            DragonSeekerGame.getInstance().setNumDragons(15);
                             break;
-                        case "20 mines":
-                            MineSeekerGame.getInstance().setNumOfMine(20);
+                        case "20 dragons":
+                            DragonSeekerGame.getInstance().setNumDragons(20);
                         default:
                     }
                     switch (messageBoard) {
                         case "4 rows by 6 columns":
-                            MineSeekerGame.getInstance().setRow(4);
-                            MineSeekerGame.getInstance().setCol(6);
+                            DragonSeekerGame.getInstance().setRow(4);
+                            DragonSeekerGame.getInstance().setCol(6);
                             break;
                         case "5 rows by 10 columns":
-                            MineSeekerGame.getInstance().setRow(5);
-                            MineSeekerGame.getInstance().setCol(10);
+                            DragonSeekerGame.getInstance().setRow(5);
+                            DragonSeekerGame.getInstance().setCol(10);
                             break;
                         case "6 rows by 15 columns":
-                            MineSeekerGame.getInstance().setRow(6);
-                            MineSeekerGame.getInstance().setCol(15);
+                            DragonSeekerGame.getInstance().setRow(6);
+                            DragonSeekerGame.getInstance().setCol(15);
                             break;
                     }
                 }
-
-                Toast.makeText(OptionsActivity.this, "Selected button's text is: "
-                        + idOfSelectedBoardSize + " and "
-                        + idOfSelectedMineNum, Toast.LENGTH_LONG).show();
 
                 // Launch the HelpActivity
                 Intent intent = GameActivity.makeIntent(OptionsActivity.this);
@@ -113,6 +114,7 @@ public class OptionsActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("SetTextI18n")
     private void setBoardSize(){
         RadioGroup group =(RadioGroup) findViewById(R.id.radio_group_install_boardSize);
@@ -128,46 +130,60 @@ public class OptionsActivity extends AppCompatActivity {
 
             button.setText(boardRow + " rows by " + boardCol + " columns");
 
-            // TODO: Set on-click callbacks
-            button.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(OptionsActivity.this, "You clicked on "
-                            + boardRow + " rows by " + boardCol
-                            + " cols!", Toast.LENGTH_SHORT).show();
-                }
-            });
-
             // Add to radio group
             group.addView(button);
+            button.setTextColor(Color.BLUE);
+            button.setTextColor(getColorRadioText());
+            button.setButtonTintList(getColorRadioCircle());
+            button.setTypeface(Typeface.DEFAULT_BOLD);
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("SetTextI18n")        // necessary?
-    private void setNumMines(){
-        RadioGroup group =(RadioGroup) findViewById(R.id.radio_group_install_mines);
-        int [] numMinesArray = getResources().getIntArray(R.array.number_of_mines);
-        for(int i = 0; i < numMinesArray.length; i++){
-            final int numMines = numMinesArray[i];
+    private void setNumDragons(){
+        RadioGroup group =(RadioGroup) findViewById(R.id.radio_group_install_dragons);
+        int [] numDragonsArray = getResources().getIntArray(R.array.number_of_dragons);
+        for(int i = 0; i < numDragonsArray.length; i++){
+            final int NUM_DRAGONS = numDragonsArray[i];
             RadioButton button = new RadioButton(this);
-            button.setText(numMines + " mines");
+            button.setText(NUM_DRAGONS + " dragons");
             button.setTextColor(Color.WHITE);
-            // TODO: Set on-click callbacks
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(OptionsActivity.this, "You clicked on "
-                            + numMines + " mines!", Toast.LENGTH_SHORT).show();
-                }
-            });
 
             // Add to radio group
             group.addView(button);
+            button.setTextColor(Color.BLUE);
+            button.setTextColor(getColorRadioText());
+            button.setButtonTintList(getColorRadioCircle());
+            button.setTypeface(Typeface.DEFAULT_BOLD);
         }
     }
 
+    // set the background for options screen only
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.chinese_new_year1);
+    }
+
+    // change the color of the selected radio button
+    private ColorStateList getColorRadioText(){
+        ColorStateList colorStateList = new ColorStateList(
+                new int[][]{new int[]{-android.R.attr.state_checked},
+                            new int[]{android.R.attr.state_checked}
+                            },
+                new int[]{Color.WHITE, Color.rgb (0,0,255),}
+        );
+        return colorStateList;
+    }
+
+    // change the color of the selected radio button
+    private ColorStateList getColorRadioCircle(){
+        ColorStateList colorStateList = new ColorStateList(
+                new int[][]{new int[]{-android.R.attr.state_checked},
+                        new int[]{android.R.attr.state_checked}
+                },
+                new int[]{Color.WHITE, Color.rgb (0,0,255),}
+        );
+        return colorStateList;
     }
 }
