@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         , Toast.LENGTH_SHORT).show();
                 // Launch the Menu Activity:
                 Intent intent = MenuActivity.makeIntent(MainActivity.this);
+                finish();
                 startActivity(intent);
             }
         });
