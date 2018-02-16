@@ -106,10 +106,6 @@ public class OptionsActivity extends AppCompatActivity {
                             break;
                     }
                 }
-
-                // Launch the HelpActivity
-                Intent intent = GameActivity.makeIntent(OptionsActivity.this);
-                startActivity(intent);
             }
         });
     }
