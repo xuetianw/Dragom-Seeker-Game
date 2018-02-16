@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -208,6 +209,13 @@ public class GameActivity extends AppCompatActivity {
                 mineLocationList.remove(i);
                 mineCount--;
                 numOfRevealedMines++;
+                if (numOfRevealedMines != numOfMines){
+                    FragmentManager manager = getSupportFragmentManager();
+                    MessageFragment dialog = new MessageFragment();
+                    dialog.show(manager, "MessageDialog");
+
+                    Log.i("TAG", "Just showed the dialog");
+                }
             }
         }
     }

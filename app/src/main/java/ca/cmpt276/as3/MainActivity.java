@@ -1,5 +1,6 @@
 package ca.cmpt276.as3;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -68,5 +69,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             },4500);
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, MainActivity.class);
     }
 }
