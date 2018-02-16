@@ -44,6 +44,7 @@ public class MenuActivity extends AppCompatActivity {
                         .show();
                 // Launch the GameActivity
                 Intent intent = GameActivity.makeIntent(MenuActivity.this);
+                finish();
                 startActivity(intent);
             }
         });

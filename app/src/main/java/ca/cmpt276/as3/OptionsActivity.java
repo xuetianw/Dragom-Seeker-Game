@@ -106,9 +106,6 @@ public class OptionsActivity extends AppCompatActivity {
                         + idOfSelectedBoardSize + " and "
                         + idOfSelectedMineNum, Toast.LENGTH_LONG).show();
 
-                // Launch the HelpActivity
-                Intent intent = GameActivity.makeIntent(OptionsActivity.this);
-                startActivity(intent);
             }
         });
     }
