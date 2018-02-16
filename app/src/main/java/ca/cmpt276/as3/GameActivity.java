@@ -209,7 +209,7 @@ public class GameActivity extends AppCompatActivity {
                 mineLocationList.remove(i);
                 mineCount--;
                 numOfRevealedMines++;
-                if (numOfRevealedMines != numOfMines){
+                if (numOfRevealedMines == numOfMines){
                     FragmentManager manager = getSupportFragmentManager();
                     MessageFragment dialog = new MessageFragment();
                     dialog.show(manager, "MessageDialog");
