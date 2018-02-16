@@ -106,7 +106,7 @@ public class OptionsActivity extends AppCompatActivity {
                         + idOfSelectedBoardSize + " and "
                         + idOfSelectedMineNum, Toast.LENGTH_LONG).show();
 
-                // Launch the GameActivity
+                // Launch the HelpActivity
                 Intent intent = GameActivity.makeIntent(OptionsActivity.this);
                 startActivity(intent);
             }
@@ -150,14 +150,14 @@ public class OptionsActivity extends AppCompatActivity {
         for(int i = 0; i < numMinesArray.length; i++){
             final int numMines = numMinesArray[i];
             RadioButton button = new RadioButton(this);
-            button.setText(numMines + " dragons");
+            button.setText(numMines + " mines");
             button.setTextColor(Color.WHITE);
             // TODO: Set on-click callbacks
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(OptionsActivity.this, "You clicked on "
-                            + numMines + " dragons!", Toast.LENGTH_SHORT).show();
+                            + numMines + " mines!", Toast.LENGTH_SHORT).show();
                 }
             });
 
