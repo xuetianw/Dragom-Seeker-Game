@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 alreadySkipped = true;
                 Intent intent = MenuActivity.makeIntent(MainActivity.this);
+                finish();
                 startActivity(intent);
             }
         });

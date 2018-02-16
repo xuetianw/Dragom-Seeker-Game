@@ -29,6 +29,7 @@ public class MessageFragment extends AppCompatDialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = MainActivity.makeIntent(getActivity());
+                getActivity().finish();
                 startActivity(intent);
             }
         };

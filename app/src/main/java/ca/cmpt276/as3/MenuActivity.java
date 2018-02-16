@@ -41,6 +41,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = GameActivity.makeIntent(MenuActivity.this);
+                finish();
                 startActivity(intent);
             }
         });
