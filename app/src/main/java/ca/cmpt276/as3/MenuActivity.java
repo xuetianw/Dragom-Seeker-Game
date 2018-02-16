@@ -40,9 +40,6 @@ public class MenuActivity extends AppCompatActivity {
         gameScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MenuActivity.this,"Clicked on 'Game Screen' ", Toast.LENGTH_SHORT)
-                        .show();
-                // Launch the GameActivity
                 Intent intent = GameActivity.makeIntent(MenuActivity.this);
                 finish();
                 startActivity(intent);
@@ -53,9 +50,6 @@ public class MenuActivity extends AppCompatActivity {
         optionsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MenuActivity.this,"Clicked on 'Options' ", Toast.LENGTH_SHORT)
-                        .show();
-                // Launch the OptionsActivity
                 Intent intent = OptionsActivity.makeIntent(MenuActivity.this);
                 startActivity(intent);
             }
@@ -65,10 +59,6 @@ public class MenuActivity extends AppCompatActivity {
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MenuActivity.this,"Clicked on 'Help' ", Toast.LENGTH_SHORT)
-                        .show();
-
-                // Launch the HelpActivity
                 Intent intent = HelpActivity.makeIntent(MenuActivity.this);
                 startActivity(intent);
             }

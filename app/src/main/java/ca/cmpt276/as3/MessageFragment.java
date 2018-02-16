@@ -36,7 +36,7 @@ public class MessageFragment extends AppCompatDialogFragment {
 
         // Build the alert dialog
         return new AlertDialog.Builder(getActivity())
-                .setTitle("You won the game")
+                .setTitle("Congratulations! You won! Happy Chinese New Year!")
                 .setView(v)
                 .setPositiveButton(android.R.string.ok, listener)
                 .create();

@@ -17,40 +17,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/numOfRevealBomb"
-        android:layout_width="142dp"
-        android:layout_height="38dp"
+        android:id="@+id/numOfRevealDragon"
+        android:layout_width="205dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="29dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
         android:text="@string/number_of_mines"
         android:textColor="@android:color/background_dark"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <!--<ScrollView-->
-        <!--android:id="@+id/scrollView3"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_marginBottom="3dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/numOfRevealBomb">-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical">-->
+        tools:ignore="MissingConstraints,UnknownId"
+        android:layout_marginLeft="20dp" />
 
     <TableLayout
         android:id="@+id/tableForButtons"
         android:layout_width="553dp"
         android:layout_height="208dp"
-        android:layout_below="@+id/numOfRevealBomb"
+        android:layout_below="@+id/numOfRevealDragon"
         android:stretchColumns="*"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,8 +45,6 @@
         app:layout_constraintVertical_bias="0.797">
 
     </TableLayout>
-        <!--</LinearLayout>-->
-    <!--</ScrollView>-->
 
     <TextView
         android:id="@+id/numOfScans"
@@ -69,11 +52,12 @@
         android:layout_height="34dp"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="numOfRevealBomb"
+        android:text="numOfRevealDragon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toEndOf="@+id/numOfRevealBomb"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.408"
+        app:layout_constraintStart_toEndOf="@+id/numOfRevealDragon"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="64dp"
+        android:layout_marginLeft="8dp" />
 
 </android.support.constraint.ConstraintLayout>
