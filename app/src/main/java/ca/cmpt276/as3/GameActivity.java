@@ -217,17 +217,18 @@ public class GameActivity extends AppCompatActivity {
                 dragonCount--;
                 numOfRevealedDragons++;
                 if (numOfRevealedDragons == numOfDragons){
+                    //redraw table
+                    for (int roww = 0; roww < numOfRows; roww++) {
+                        for (int coll = 0; coll < numOfCol; coll++) {
+                            buttons[roww][coll].setText("0");
+                        }
+                    }
+
                     FragmentManager manager = getSupportFragmentManager();
                     MessageFragment dialog = new MessageFragment();
                     dialog.show(manager, "MessageDialog");
                     Log.i("TAG", "Just showed the dialog");
-                    //redraw table
-                    for (int roww = 0; row < numOfRows; row++) {
-                        for (int coll = 0; col < numOfCol; col++) {
-                            int numOfHiddenMines = scan2(coll, roww);
-                            buttons[roww][coll].setText(""+numOfHiddenMines);
-                        }
-                    }
+
                 }
             }
         }
