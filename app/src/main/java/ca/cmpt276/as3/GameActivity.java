@@ -211,6 +211,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void removeMine(int col, int row) {
         int location = row*numOfCol + col;
+        sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
         for(int i = 0; i < dragonLocationList.size(); i++) {
             if (dragonLocationList.get(i) == location){
                 dragonLocationList.remove(i);
