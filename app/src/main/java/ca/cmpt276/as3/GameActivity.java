@@ -3,6 +3,7 @@ package ca.cmpt276.as3;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,7 +24,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import ca.cmpt276.as3.GameModel.*;
 import ca.cmpt276.as3.model.R;
@@ -37,9 +40,9 @@ public class GameActivity extends AppCompatActivity {
     private static int numOfCol;
     private static int numOfDragons;
     private static int numOfRevealedDragons;
+    private static int dragonCount = 0;
+    private static int scansUsed = 0;
     private String TAG = "OrientationDemo";
-    int dragonCount = 0;
-    int scansUsed = 0;
 
     Button buttons[][] ;
     ArrayList<Integer> dragonLocationList = new ArrayList();;
@@ -74,6 +77,8 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
+
+        storeGameStatuestoSharePreferences();
 
     }
 
@@ -311,5 +316,37 @@ public class GameActivity extends AppCompatActivity {
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.chinese_new_year1);
+    }
+
+
+    private void storeGameStatuestoSharePreferences() {
+        SharedPreferences preferences = getSharedPreferences("Game", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putInt("numOfRows", numOfRows);
+        editor.putInt("numOfCol", numOfCol);
+        editor.putInt("numOfDragons", numOfDragons);
+        editor.putInt("numOfRevealedDragons", numOfRevealedDragons);
+        editor.putInt("numOfRows", numOfRows);
+        editor.putInt("dragonCount", dragonCount);
+        editor.putInt("scansUsed", scansUsed);
+
+
+        StringBuilder dragonLocationstr = new StringBuilder();
+        for(int i = 0; i< dragonLocationList.size(); i++) {
+            dragonLocationstr.append(dragonLocationList.get(i)).append(",");
+        }
+
+        editor.putString("dragonLocationList", dragonLocationList.toString());
+
+
+        StringBuilder revealedListstr = new StringBuilder();
+        for(int i = 0; i< revealedList.size(); i++) {
+            revealedListstr.append(revealedList.get(i)).append(",");
+        }
+
+        editor.putString("dragonLocationList", revealedList.toString());
+
+        editor.commit();
     }
 }
