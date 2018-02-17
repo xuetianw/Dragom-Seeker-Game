@@ -36,12 +36,22 @@ import ca.cmpt276.as3.model.R;
  * to play the game.
  */
 public class GameActivity extends AppCompatActivity {
+    public static final String AppStates = "Game";
+    public static final String NUM_OF_ROWS = "Rows";
+    public static final String NUM_OF_COL = "Col";
+    public static final String NUM_OF_DRAGONS = "Dragons";
+    public static final String NUM_OF_REVEALED_DRAGONS = "RevealedDragons";
+    public static final String NUM_OF_ROWS1 = "numRows";
+    public static final String DRAGON_COUNT = "dragCount";
+    public static final String SCANS_USED = "scanUsed";
+    public static final String REVEALED_LIST = "reveaList";
+    public static final String DRAGON_LOCATION_LIST = "dragonLionList";
     private static int numOfRows;
     private static int numOfCol;
     private static int numOfDragons;
     private static int numOfRevealedDragons;
-    private static int dragonCount = 0;
-    private static int scansUsed = 0;
+    private static int dragonCount;
+    private static int scansUsed;
     private String TAG = "OrientationDemo";
 
     Button buttons[][] ;
@@ -58,16 +68,13 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.e(TAG, "Running onCreate()!");  // test
 
-
-        //declare variables
+        dragonCount = 0;
+        scansUsed = 0;
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
         sExplosion = sounds.load(getApplicationContext(), R.raw.scansound, 1);
 
-
         numOfRevealedDragons = 0;
-
         updateUI();
-
         numOfRows = DragonSeekerGame.getInstance().getRow();
         numOfCol = DragonSeekerGame.getInstance().getCol();
         numOfDragons = DragonSeekerGame.getInstance().getNumDragons();
@@ -77,7 +84,6 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
-
         storeGameStatuestoSharePreferences();
 
     }
@@ -320,16 +326,16 @@ public class GameActivity extends AppCompatActivity {
 
 
     private void storeGameStatuestoSharePreferences() {
-        SharedPreferences preferences = getSharedPreferences("Game", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putInt("numOfRows", numOfRows);
-        editor.putInt("numOfCol", numOfCol);
-        editor.putInt("numOfDragons", numOfDragons);
-        editor.putInt("numOfRevealedDragons", numOfRevealedDragons);
-        editor.putInt("numOfRows", numOfRows);
-        editor.putInt("dragonCount", dragonCount);
-        editor.putInt("scansUsed", scansUsed);
+        editor.putInt(NUM_OF_ROWS, numOfRows);
+        editor.putInt(NUM_OF_COL, numOfCol);
+        editor.putInt(NUM_OF_DRAGONS, numOfDragons);
+        editor.putInt(NUM_OF_REVEALED_DRAGONS, numOfRevealedDragons);
+        editor.putInt(NUM_OF_ROWS1, numOfRows);
+        editor.putInt(DRAGON_COUNT, dragonCount);
+        editor.putInt(SCANS_USED, scansUsed);
 
 
         StringBuilder dragonLocationstr = new StringBuilder();
@@ -337,7 +343,7 @@ public class GameActivity extends AppCompatActivity {
             dragonLocationstr.append(dragonLocationList.get(i)).append(",");
         }
 
-        editor.putString("dragonLocationList", dragonLocationList.toString());
+        editor.putString(DRAGON_LOCATION_LIST, dragonLocationstr.toString());
 
 
         StringBuilder revealedListstr = new StringBuilder();
@@ -345,7 +351,7 @@ public class GameActivity extends AppCompatActivity {
             revealedListstr.append(revealedList.get(i)).append(",");
         }
 
-        editor.putString("dragonLocationList", revealedList.toString());
+        editor.putString(REVEALED_LIST, revealedListstr.toString());
 
         editor.commit();
     }
