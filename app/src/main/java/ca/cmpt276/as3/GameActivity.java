@@ -59,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
         numOfCol = DragonSeekerGame.getInstance().getCol();
         numOfDragons = DragonSeekerGame.getInstance().getNumDragons();
 
-        addMineLocations();
+        setupGragons();
 
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
@@ -79,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
         numberOfMineTV.setTextColor(Color.YELLOW);
     }
 
-    private void addMineLocations() {
+    private void setupGragons() {
         while (dragonCount != numOfDragons){
             Random rand = new Random();
             int randomRowLocation = rand.nextInt(numOfRows);
@@ -211,6 +211,13 @@ public class GameActivity extends AppCompatActivity {
                     MessageFragment dialog = new MessageFragment();
                     dialog.show(manager, "MessageDialog");
                     Log.i("TAG", "Just showed the dialog");
+                    //redraw table
+                    for (int roww = 0; row < numOfRows; row++) {
+                        for (int coll = 0; col < numOfCol; col++) {
+                            int numOfHiddenMines = scan2(coll, roww);
+                            buttons[roww][coll].setText(""+numOfHiddenMines);
+                        }
+                    }
                 }
             }
         }
