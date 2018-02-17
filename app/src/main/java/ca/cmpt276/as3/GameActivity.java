@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,12 +46,20 @@ public class GameActivity extends AppCompatActivity {
     ArrayList<Integer> revealedList = new ArrayList<>();
     TextView numberOfMineTV;
     TextView numOfScansusedTV;
+    SoundPool sounds;
+    int sExplosion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Log.e(TAG, "Running onCreate()!");  // test
+
+
+        //declare variables
+        sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
+        sExplosion = sounds.load(getApplicationContext(), R.raw.scansound, 1);
+
 
         numOfRevealedDragons = 0;
 
@@ -224,6 +234,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private int scan(int col, int row) {
+        sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
         scansUsed++;
         revealedList.add(row*numOfCol+ col);
         int countOfMines = 0;
