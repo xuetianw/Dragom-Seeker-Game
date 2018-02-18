@@ -8,10 +8,25 @@ public class DragonSeekerGame {
     private int row;
     private int col;
     private int numDragons;
+    private int bestScore;
+    private int numberOfGamesPlayed;
+    private int [] bestScores;
+
+
+
+    public void setBestScore(int bestScore) {
+        this.bestScore = bestScore;
+    }
+
+
+
+    public static void setInstance(DragonSeekerGame instance) {
+        DragonSeekerGame.instance = instance;
+    }
 
     private static DragonSeekerGame instance;
-    public DragonSeekerGame() {}
 
+    public DragonSeekerGame() {}
     public static DragonSeekerGame getInstance(){
         if(instance == null){
             instance = new DragonSeekerGame();
@@ -31,6 +46,10 @@ public class DragonSeekerGame {
         return numDragons;
     }
 
+    public int getNumberOfGamesPlayed() {
+        return numberOfGamesPlayed;
+    }
+
     public void setRow(int row) {
         this.row = row;
     }
@@ -41,5 +60,14 @@ public class DragonSeekerGame {
 
     public void setNumDragons(int numDragons) {
         this.numDragons = numDragons;
+    }
+
+    public void setNumberOfGamesPlayed(int numberOfGamesPlayed) {
+        this.numberOfGamesPlayed = numberOfGamesPlayed;
+    }
+
+
+    public int getBestScore() {
+        return bestScore;
     }
 }

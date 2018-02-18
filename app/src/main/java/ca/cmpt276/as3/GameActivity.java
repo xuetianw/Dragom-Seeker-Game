@@ -3,6 +3,7 @@ package ca.cmpt276.as3;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,13 +34,25 @@ import ca.cmpt276.as3.model.R;
  * to play the game.
  */
 public class GameActivity extends AppCompatActivity {
+    public static final String AppStates = "Game";
+    public static final String NUM_OF_ROWS = "Rows";
+    public static final String NUM_OF_COL = "Col";
+    public static final String NUM_OF_DRAGONS = "Dragons";
+    public static final String NUM_OF_REVEALED_DRAGONS = "RevealedDragons";
+    public static final String NUM_OF_ROWS1 = "numRows";
+    public static final String DRAGON_COUNT = "dragCount";
+    public static final String SCANS_USED = "scanUsed";
+    public static final String REVEALED_LIST = "reveaList";
+    public static final String DRAGON_LOCATION_LIST = "dragonLionList";
+    public static final String BEST_SCORE = "best score";
+    public static final String NUMBER_OF_GAMES_PLAYED = "number of games played";
     private static int numOfRows;
     private static int numOfCol;
     private static int numOfDragons;
     private static int numOfRevealedDragons;
+    private static int dragonCount;
+    private static int scansUsed;
     private String TAG = "OrientationDemo";
-    int dragonCount = 0;
-    int scansUsed = 0;
 
     Button buttons[][] ;
     ArrayList<Integer> dragonLocationList = new ArrayList();;
@@ -55,26 +68,38 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.e(TAG, "Running onCreate()!");  // test
 
-
-        //declare variables
+        dragonCount = 0;
+        scansUsed = 0;
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
         sExplosion = sounds.load(getApplicationContext(), R.raw.scansound, 1);
 
-
         numOfRevealedDragons = 0;
-
         updateUI();
-
         numOfRows = DragonSeekerGame.getInstance().getRow();
         numOfCol = DragonSeekerGame.getInstance().getCol();
         numOfDragons = DragonSeekerGame.getInstance().getNumDragons();
 
-        setupGragons();
+        setupDragons();
 
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
+        setupTextview();
 
+
+    }
+
+    private void setupTextview() {
+        TextView numberOfTimesPlayedtv = (TextView) findViewById(R.id.numberofgamesid);
+        numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+
+        TextView bestScoretv = (TextView) findViewById(R.id.bestscoreid);
+
+        if(DragonSeekerGame.getInstance().getBestScore() != 0){
+            bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
+        } else {
+            bestScoretv.setText("best score: ");
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -86,10 +111,10 @@ public class GameActivity extends AppCompatActivity {
 
         numberOfMineTV = (TextView) findViewById(R.id.numOfRevealDragon);
         numberOfMineTV.setText(">> Dragon Num Total: " + numOfDragons + "\n>> Dragon Revealed: " + numOfRevealedDragons);
-        numberOfMineTV.setTextColor(Color.YELLOW);
+        numberOfMineTV.setTextColor(Color.BLACK);
     }
 
-    private void setupGragons() {
+    private void setupDragons() {
         while (dragonCount != numOfDragons){
             Random rand = new Random();
             int randomRowLocation = rand.nextInt(numOfRows);
@@ -225,6 +250,12 @@ public class GameActivity extends AppCompatActivity {
                         }
                     }
 
+                    getState();
+
+                    DragonSeekerGame.getInstance().setNumberOfGamesPlayed(DragonSeekerGame.getInstance().getNumberOfGamesPlayed()+1);
+
+                    storeGameStatuestoSharePreferences();
+
                     FragmentManager manager = getSupportFragmentManager();
                     MessageFragment dialog = new MessageFragment();
                     dialog.show(manager, "MessageDialog");
@@ -234,6 +265,8 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
     private int scan(int col, int row) {
         sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
@@ -312,4 +345,61 @@ public class GameActivity extends AppCompatActivity {
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
+
+
+    private void storeGameStatuestoSharePreferences() {
+        SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putInt(NUM_OF_ROWS, numOfRows);
+        editor.putInt(NUM_OF_COL, numOfCol);
+        editor.putInt(NUM_OF_DRAGONS, numOfDragons);
+        editor.putInt(NUM_OF_REVEALED_DRAGONS, numOfRevealedDragons);
+        editor.putInt(NUM_OF_ROWS1, numOfRows);
+        editor.putInt(DRAGON_COUNT, dragonCount);
+        editor.putInt(SCANS_USED, scansUsed);
+
+        editor.putInt(BEST_SCORE, DragonSeekerGame.getInstance().getBestScore());
+        editor.putInt(NUMBER_OF_GAMES_PLAYED, DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+
+
+        StringBuilder dragonLocationstr = new StringBuilder();
+        for(int i = 0; i< dragonLocationList.size(); i++) {
+            dragonLocationstr.append(dragonLocationList.get(i)).append(",");
+        }
+
+        editor.putString(DRAGON_LOCATION_LIST, dragonLocationstr.toString());
+
+
+        StringBuilder revealedListstr = new StringBuilder();
+        for(int i = 0; i< revealedList.size(); i++) {
+            revealedListstr.append(revealedList.get(i)).append(",");
+        }
+
+        editor.putString(REVEALED_LIST, revealedListstr.toString());
+
+        editor.commit();
+    }
+
+    private static int getPreviousBestCore(Context context){
+        SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
+        return preferences.getInt(BEST_SCORE,0);
+    }
+
+    private static int getPreviousNumberOfGamePlayed(Context context){
+        SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
+        return preferences.getInt(NUMBER_OF_GAMES_PLAYED,0);
+    }
+
+    private void getState() {
+        int previousBestcore = getPreviousBestCore(getApplicationContext());
+        if(previousBestcore == 0) {
+            DragonSeekerGame.getInstance().setBestScore(scansUsed);
+        } else if ( scansUsed < previousBestcore) {
+            DragonSeekerGame.getInstance().setBestScore(scansUsed);
+        }
+    }
+
+
+
 }

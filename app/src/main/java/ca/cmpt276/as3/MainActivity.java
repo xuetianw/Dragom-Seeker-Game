@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +27,22 @@ public class MainActivity extends AppCompatActivity {
         Log.e(TAG, "Running onCreate()!");  // test
         setBackgroundImage();
         setupLaunchButton();
+        setupTextview();
+
+    }
+
+    private void setupTextview() {
+        TextView numberOfTimesPlayedtv = (TextView) findViewById(R.id.textView2);
+        TextView bestScoretv = (TextView) findViewById(R.id.textView3);
+
+        numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+
+        if(DragonSeekerGame.getInstance().getBestScore() != 0){
+            bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
+        } else {
+            bestScoretv.setText("best score: ");
+        }
+
     }
 
     private void setupLaunchButton(){

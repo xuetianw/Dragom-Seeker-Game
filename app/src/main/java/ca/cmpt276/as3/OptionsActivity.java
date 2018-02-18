@@ -16,8 +16,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import ca.cmpt276.as3.GameModel.Dragon;
 import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
 
@@ -40,6 +42,33 @@ public class OptionsActivity extends AppCompatActivity {
         setNumDragons();
         setUpSetGameButton();
         setBackgroundImage();
+        setupTextview();
+        setupResetButton();
+    }
+
+    private void setupResetButton() {
+        Button restBtn = (Button) findViewById(R.id.resetButtonID);
+        restBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DragonSeekerGame.getInstance().setNumberOfGamesPlayed(0);
+                DragonSeekerGame.getInstance().setBestScore(0);
+                setupTextview();
+            }
+        });
+    }
+
+    private void setupTextview() {
+        TextView numberOfTimesPlayedtv = (TextView) findViewById(R.id.textView10);
+        numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+
+        TextView bestScoretv = (TextView) findViewById(R.id.textView11);
+
+        if(DragonSeekerGame.getInstance().getBestScore() != 0){
+            bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
+        } else {
+            bestScoretv.setText("best score: ");
+        }
     }
 
     public static Intent makeIntent(Context context){
