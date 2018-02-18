@@ -19,14 +19,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ca.cmpt276.as3.GameModel.Dragon;
 import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
 
 /**
  * Options class is responsible for showing the board size
- * and the number of mines that user want to use to play
- * the game.
+ * and the number of mines that user want to select from to
+ * play the game. This class is using a Singleton design
+ * pattern. Also, there is a reset button that will reset the
+ * user game information from the game.
  */
 
 public class OptionsActivity extends AppCompatActivity {
@@ -37,12 +38,12 @@ public class OptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
-        Log.e(TAG, "Running onCreate()!");      // test
+        Log.e(TAG, "Running onCreate()!");
         setBoardSize();
         setNumDragons();
         setUpSetGameButton();
         setBackgroundImage();
-        setupTextview();
+        setupUserGameInfo();
         setupResetButton();
     }
 
@@ -53,21 +54,21 @@ public class OptionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DragonSeekerGame.getInstance().setNumberOfGamesPlayed(0);
                 DragonSeekerGame.getInstance().setBestScore(0);
-                setupTextview();
+                setupUserGameInfo();
             }
         });
     }
 
-    private void setupTextview() {
-        TextView numberOfTimesPlayedtv = (TextView) findViewById(R.id.textView10);
-        numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
-
-        TextView bestScoretv = (TextView) findViewById(R.id.textView11);
-
+    @SuppressLint("SetTextI18n")
+    private void setupUserGameInfo() {
+        TextView userGameInfoText = (TextView) findViewById(R.id.userGameInfoID);
         if(DragonSeekerGame.getInstance().getBestScore() != 0){
-            bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
+            userGameInfoText.setText("Number of times played: "
+                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
+                    + "\nBest score: " + DragonSeekerGame.getInstance().getBestScore());
         } else {
-            bestScoretv.setText("best score: ");
+            userGameInfoText.setText("Number of times played: N/A"
+                    + "\nBest score: N/A");
         }
     }
 
@@ -89,7 +90,7 @@ public class OptionsActivity extends AppCompatActivity {
                     messageBoard = boardRadioButton.getText().toString();
                     System.out.println(messageBoard);
                 }catch (Exception e){
-                    Toast.makeText(OptionsActivity.this, "please select game size "
+                    Toast.makeText(OptionsActivity.this, "please select game size!"
                             , Toast.LENGTH_SHORT).show();
                 }
 
@@ -101,7 +102,7 @@ public class OptionsActivity extends AppCompatActivity {
                 try{
                     messageDragon = dragonsNumRadioButton.getText().toString();
                 }catch (Exception e){
-                    Toast.makeText(OptionsActivity.this, "please select num of mines"
+                    Toast.makeText(OptionsActivity.this, "please select num of mines!"
                             , Toast.LENGTH_SHORT).show();
                 }
 
@@ -158,14 +159,14 @@ public class OptionsActivity extends AppCompatActivity {
             // Add to radio group
             group.addView(button);
             button.setTextColor(Color.BLUE);
-            button.setTextColor(getColorRadioText());
-            button.setButtonTintList(getColorRadioCircle());
+            button.setTextColor(getColorSateList());
+            button.setButtonTintList(getColorSateList());
             button.setTypeface(Typeface.DEFAULT_BOLD);
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @SuppressLint("SetTextI18n")        // necessary?
+    @SuppressLint("SetTextI18n")
     private void setNumDragons(){
         RadioGroup group =(RadioGroup) findViewById(R.id.radio_group_install_dragons);
         int [] numDragonsArray = getResources().getIntArray(R.array.number_of_dragons);
@@ -178,8 +179,8 @@ public class OptionsActivity extends AppCompatActivity {
             // Add to radio group
             group.addView(button);
             button.setTextColor(Color.BLUE);
-            button.setTextColor(getColorRadioText());
-            button.setButtonTintList(getColorRadioCircle());
+            button.setTextColor(getColorSateList());
+            button.setButtonTintList(getColorSateList());
             button.setTypeface(Typeface.DEFAULT_BOLD);
         }
     }
@@ -190,23 +191,12 @@ public class OptionsActivity extends AppCompatActivity {
         myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
 
-    // change the color of the selected radio button
-    private ColorStateList getColorRadioText(){
+    // change the color of the selected radio buttons and circle
+    private ColorStateList getColorSateList(){
         ColorStateList colorStateList = new ColorStateList(
                 new int[][]{new int[]{-android.R.attr.state_checked},
                             new int[]{android.R.attr.state_checked}
                             },
-                new int[]{Color.WHITE, Color.rgb (0,0,255),}
-        );
-        return colorStateList;
-    }
-
-    // change the color of the selected radio button
-    private ColorStateList getColorRadioCircle(){
-        ColorStateList colorStateList = new ColorStateList(
-                new int[][]{new int[]{-android.R.attr.state_checked},
-                        new int[]{android.R.attr.state_checked}
-                },
                 new int[]{Color.WHITE, Color.rgb (0,0,255),}
         );
         return colorStateList;

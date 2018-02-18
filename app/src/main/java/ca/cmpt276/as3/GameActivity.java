@@ -31,7 +31,11 @@ import ca.cmpt276.as3.model.R;
 
 /**
  * This class is responsible for allowing the user
- * to play the game.
+ * to play the game. It controls all the number and
+ * information happening on the game screen activity.
+ * It gets the information received from options acti-
+ * vity to set the board size and the number of dragons
+ * that the user wants to play with.
  */
 public class GameActivity extends AppCompatActivity {
     public static final String AppStates = "Game";
@@ -58,7 +62,6 @@ public class GameActivity extends AppCompatActivity {
     ArrayList<Integer> dragonLocationList = new ArrayList();;
     ArrayList<Integer> revealedList = new ArrayList<>();
     TextView numberOfMineTV;
-    TextView numOfScansusedTV;
     SoundPool sounds;
     int sExplosion;
 
@@ -84,34 +87,37 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
-        setupTextview();
+        setupUserGameInfo();
 
 
     }
 
-    private void setupTextview() {
-        TextView numberOfTimesPlayedtv = (TextView) findViewById(R.id.numberofgamesid);
-        numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
-
-        TextView bestScoretv = (TextView) findViewById(R.id.bestscoreid);
-
+    // user information regarding the number of times played and the current best score
+    @SuppressLint("SetTextI18n")
+    private void setupUserGameInfo() {
+        TextView userGameInfoText = (TextView) findViewById(R.id.userGameInfoID);
         if(DragonSeekerGame.getInstance().getBestScore() != 0){
-            bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
+            userGameInfoText.setText(">> Number of times played: "
+                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
+                    + "\n>> Best score: " + DragonSeekerGame.getInstance().getBestScore());
+            userGameInfoText.setTextColor(Color.BLUE);
+
         } else {
-            bestScoretv.setText("best score: ");
+            userGameInfoText.setText(">> Number of times played: N/A"
+                    + "\n>> Best score: N/A ");
+            userGameInfoText.setTextColor(Color.BLUE);
         }
     }
 
     @SuppressLint("SetTextI18n")
     private void updateUI() {
-        numOfScansusedTV = (TextView) findViewById(R.id.numOfScans);
-        numOfScansusedTV.setText(">> Scans used :" + scansUsed);
-        numOfScansusedTV.setTypeface(Typeface.DEFAULT_BOLD);
-        numOfScansusedTV.setTextColor(Color.BLUE);
-
         numberOfMineTV = (TextView) findViewById(R.id.numOfRevealDragon);
-        numberOfMineTV.setText(">> Dragon Num Total: " + numOfDragons + "\n>> Dragon Revealed: " + numOfRevealedDragons);
-        numberOfMineTV.setTextColor(Color.BLACK);
+        numberOfMineTV.setText(">> Dragon Num Total: " + numOfDragons
+                + "\n>> Dragon Revealed: " + numOfRevealedDragons
+                + "\n>> Scans used :" + scansUsed);
+        numberOfMineTV.setTextColor(Color.BLUE);
+        numberOfMineTV.setTypeface(Typeface.DEFAULT_BOLD);
+
     }
 
     private void setupDragons() {
@@ -169,13 +175,14 @@ public class GameActivity extends AppCompatActivity {
                     });
                 } else { //set up the non-Dragon Buttons
                     button.setOnClickListener(new View.OnClickListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onClick(View view) {
                             if(ifHasRevealed(finalCol,finalRow)){
 
                             } else {
                                 int numOfHiddenMines = scan(finalCol, finalRow);
-                                button.setText(""+numOfHiddenMines);
+                                button.setText("" + numOfHiddenMines);
                                 updateUI();
                             }
                         }
@@ -189,10 +196,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-
+    @SuppressLint("SetTextI18n")
     private void gridButtonClicked(int col, int row) {
         Button button = buttons [row][col];
-
         if (isInMineList(col, row)){
             removeMine(col, row);
             updateRowAndColRevealedBut(col, row);
@@ -200,8 +206,8 @@ public class GameActivity extends AppCompatActivity {
             if(ifHasRevealed(col,row)){
 
             }else {
-                int numOfMinesInRowAndColum = scan(col, row);
-                button.setText("" + numOfMinesInRowAndColum);
+                int numOfMinesInRowAndCol = scan(col, row);
+                button.setText("" + numOfMinesInRowAndCol);
             }
         }
 
@@ -220,16 +226,16 @@ public class GameActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void updateRowAndColRevealedBut(int col, int row) {
-        //updating its row
-        for (int i=0; i<numOfCol; i++){
+        // updating game board row
+        for (int i = 0; i < numOfCol; i++){
             if(ifHasRevealed(i, row)){
-                buttons[row][i].setText(""+ scan2(i,row));
+                buttons[row][i].setText("" + scan2(i,row));
             }
         }
-        //updating its coloum
-        for(int i = 0; i< numOfRows; i++){
+        // updating game board column
+        for(int i = 0; i < numOfRows; i++){
             if(ifHasRevealed(col, i)){
-                buttons[i][col].setText(""+ scan2(col,i));
+                buttons[i][col].setText("" + scan2(col,i));
             }
         }
     }
@@ -243,27 +249,27 @@ public class GameActivity extends AppCompatActivity {
                 dragonCount--;
                 numOfRevealedDragons++;
                 if (numOfRevealedDragons == numOfDragons){
-                    //redraw table
-                    for (int roww = 0; roww < numOfRows; roww++) {
-                        for (int coll = 0; coll < numOfCol; coll++) {
-                            buttons[roww][coll].setText("0");
+                    // redraw the table
+                    for (int rowIndex = 0; rowIndex < numOfRows; rowIndex++) {
+                        for (int colIndex = 0; colIndex < numOfCol; colIndex++) {
+                            buttons[rowIndex][colIndex].setText("0");
                         }
                     }
 
-                    getState();
+                    setState();
 
-                    DragonSeekerGame.getInstance().setNumberOfGamesPlayed(DragonSeekerGame.getInstance().getNumberOfGamesPlayed()+1);
+                    DragonSeekerGame.getInstance().setNumberOfGamesPlayed
+                            (DragonSeekerGame.getInstance().getNumberOfGamesPlayed()+1);
                     if(DragonSeekerGame.getInstance().getBestScore() == 0) {
                         DragonSeekerGame.getInstance().setBestScore(scansUsed);
                     }
 
-                    storeGameStatuestoSharePreferences();
+                    storeGameStatusToSharePreferences();
 
                     FragmentManager manager = getSupportFragmentManager();
                     MessageFragment dialog = new MessageFragment();
                     dialog.show(manager, "MessageDialog");
                     Log.i("TAG", "Just showed the dialog");
-
                 }
             }
         }
@@ -274,14 +280,14 @@ public class GameActivity extends AppCompatActivity {
     private int scan(int col, int row) {
         sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
         scansUsed++;
-        revealedList.add(row*numOfCol+ col);
+        revealedList.add(row*numOfCol + col);
         int countOfMines = 0;
-        for (int i=0; i<numOfCol; i++) {
+        for (int i = 0; i < numOfCol; i++) {
             if(isInMineList(i, row)){
                 countOfMines++;
             }
         }
-        for (int i=0; i<numOfRows; i++) {
+        for (int i = 0; i < numOfRows; i++) {
             if(isInMineList(col, i)){
                 countOfMines++;
             }
@@ -291,12 +297,12 @@ public class GameActivity extends AppCompatActivity {
 
     private int scan2(int col, int row) {
         int countOfMines = 0;
-        for (int i=0; i<numOfCol; i++) {
+        for (int i = 0; i < numOfCol; i++) {
             if(isInMineList(i, row)){
                 countOfMines++;
             }
         }
-        for (int i=0; i<numOfRows; i++) {
+        for (int i = 0; i < numOfRows; i++) {
             if(isInMineList(col, i)){
                 countOfMines++;
             }
@@ -306,7 +312,7 @@ public class GameActivity extends AppCompatActivity {
 
     private boolean ifHasRevealed(int col, int row) {
         int location = row*numOfCol + col;
-        for (int i = 0; i< revealedList.size(); i++ ){
+        for (int i = 0; i < revealedList.size(); i++ ){
             if (revealedList.get(i) == location){
                 return true;
             }
@@ -350,7 +356,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    private void storeGameStatuestoSharePreferences() {
+    // perform shared preferences to remember the game state
+    private void storeGameStatusToSharePreferences() {
         SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
@@ -366,20 +373,20 @@ public class GameActivity extends AppCompatActivity {
         editor.putInt(NUMBER_OF_GAMES_PLAYED, DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
 
 
-        StringBuilder dragonLocationstr = new StringBuilder();
-        for(int i = 0; i< dragonLocationList.size(); i++) {
-            dragonLocationstr.append(dragonLocationList.get(i)).append(",");
+        StringBuilder dragonLocationStr = new StringBuilder();
+        for(int i = 0; i < dragonLocationList.size(); i++) {
+            dragonLocationStr.append(dragonLocationList.get(i)).append(",");
         }
 
-        editor.putString(DRAGON_LOCATION_LIST, dragonLocationstr.toString());
+        editor.putString(DRAGON_LOCATION_LIST, dragonLocationStr.toString());
 
 
-        StringBuilder revealedListstr = new StringBuilder();
+        StringBuilder revealedListStr = new StringBuilder();
         for(int i = 0; i< revealedList.size(); i++) {
-            revealedListstr.append(revealedList.get(i)).append(",");
+            revealedListStr.append(revealedList.get(i)).append(",");
         }
 
-        editor.putString(REVEALED_LIST, revealedListstr.toString());
+        editor.putString(REVEALED_LIST, revealedListStr.toString());
 
         editor.commit();
     }
@@ -389,20 +396,14 @@ public class GameActivity extends AppCompatActivity {
         return preferences.getInt(BEST_SCORE,0);
     }
 
-    private static int getPreviousNumberOfGamePlayed(Context context){
-        SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
-        return preferences.getInt(NUMBER_OF_GAMES_PLAYED,0);
-    }
-
-    private void getState() {
-        int previousBestcore = getPreviousBestCore(getApplicationContext());
-        if(previousBestcore == 0) {
+    // set the state for best score
+    private void setState() {
+        int previousBestScore = getPreviousBestCore(getApplicationContext());
+        if(previousBestScore == 0) {
             DragonSeekerGame.getInstance().setBestScore(scansUsed);
-        } else if ( scansUsed < previousBestcore) {
+        } else if ( scansUsed < previousBestScore) {
             DragonSeekerGame.getInstance().setBestScore(scansUsed);
         }
     }
-
-
 
 }

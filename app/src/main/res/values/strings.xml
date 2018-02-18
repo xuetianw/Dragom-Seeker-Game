@@ -25,4 +25,15 @@
     <string name="set_number_of_dragons"><![CDATA[>> Set Number of Dragons:]]></string>
     <string name="highest_score">Highest score:</string>
     <string name="number_of_times_played">Number of times played:</string>
+    <string name="best_score">Best score</string>
+    <string name="number_of_games">Number of games</string>
+    <string name="numofrevealdragon">numOfRevealDragon</string>
+    <string name="set_board_size"><![CDATA[>> Set Board Size:]]></string>
+    <string name="reset">Reset</string>
+    <string name="best_score_user">best score</string>
+    <string name="number_of_games_played">number of games</string>
+    <string name="num_times_played_and_best_score_hidden">num times played and best score (hidden)</string>
+    <string name="dragon_num_dragon_reveale_and_scans_used_hidden">dragon num, dragon reveale, and scans used (hidden)</string>
+    <string name="usergameinfotext_hidden">userGameInfoText (hidden)</string>
+    <string name="user_game_info_hidden">user game info (hidden)</string>
 </resources>
