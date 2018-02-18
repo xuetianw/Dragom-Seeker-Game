@@ -24,9 +24,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 import ca.cmpt276.as3.GameModel.*;
 import ca.cmpt276.as3.model.R;
@@ -81,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
         numOfCol = DragonSeekerGame.getInstance().getCol();
         numOfDragons = DragonSeekerGame.getInstance().getNumDragons();
 
-        setupGragons();
+        setupDragons();
 
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
@@ -116,7 +114,7 @@ public class GameActivity extends AppCompatActivity {
         numberOfMineTV.setTextColor(Color.BLACK);
     }
 
-    private void setupGragons() {
+    private void setupDragons() {
         while (dragonCount != numOfDragons){
             Random rand = new Random();
             int randomRowLocation = rand.nextInt(numOfRows);
