@@ -43,12 +43,18 @@
         android:id="@+id/radio_group_install_boardSize"
         android:layout_width="220dp"
         android:layout_height="159dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="56dp"
+        android:layout_marginStart="8dp"
         android:layout_x="2dp"
         android:layout_y="104dp"
         android:buttonTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"></RadioGroup>
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/radio_group_install_dragons"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0"></RadioGroup>
 
     <TextView
         android:id="@+id/textView4"
@@ -82,7 +88,7 @@
         android:layout_x="209dp"
         android:layout_y="65dp"
         android:text="@string/set_number_of_dragons"
-        android:textColor="@android:color/background_dark"
+        android:textColor="@android:color/holo_green_dark"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -119,14 +125,17 @@
         android:id="@+id/radio_group_install_dragons"
         android:layout_width="187dp"
         android:layout_height="134dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_x="211dp"
         android:layout_y="106dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.0">
 
     </RadioGroup>
 
