@@ -34,17 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private void setupTextview() {
         TextView numberOfTimesPlayedtv = (TextView) findViewById(R.id.textView2);
         TextView bestScoretv = (TextView) findViewById(R.id.textView3);
-        try{
-            numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
-        } catch (Exception e){
-            DragonSeekerGame.getInstance().setNumberOfGamesPlayed(0);
-            numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
-        }
 
-        try{
+        numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+
+        if(DragonSeekerGame.getInstance().getBestScore() != 0){
             bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
-        } catch (Exception e){
-
         }
 
     }

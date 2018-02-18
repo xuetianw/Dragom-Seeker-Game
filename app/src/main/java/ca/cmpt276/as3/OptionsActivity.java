@@ -50,10 +50,9 @@ public class OptionsActivity extends AppCompatActivity {
         numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
 
         TextView bestScoretv = (TextView) findViewById(R.id.textView11);
-        try{
-            bestScoretv.setText(DragonSeekerGame.getInstance().getBestScore());
-        }catch (Exception e){
 
+        if(DragonSeekerGame.getInstance().getBestScore() != 0){
+            bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
         }
     }
 
