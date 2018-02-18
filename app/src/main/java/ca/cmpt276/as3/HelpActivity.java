@@ -92,7 +92,7 @@ public class HelpActivity extends AppCompatActivity {
                 "75CA775&biw=1366&bih=637&tbm=isch&sa=1&ei=wiaGWpaYLsfajwPvg72gDg&q=chinese+drag" +
                 "on&oq=chinese+dragon&gs_l=psy-ab.3..0j0i67k1l8j0.17358.20110.0.20347.16.9.0.7.7." +
                 "0.182.878.4j4.9.0....0...1c.1.64.psy-ab..0.15.1076.0...40.y7iBEGBvcCg#imgrc=VzhX" +
-                "k3Vo3uuqKM:'> Board Game's Dragon </a>";
+                "k3Vo3uuqKM:'> Board Game's Dragon Link</a>";
         dragonButtonText.setText(Html.fromHtml(dragonButtonImageLink));
         dragonButtonText.setTextColor(Color.BLACK);
         dragonButtonText.setBackgroundColor(Color.WHITE);
