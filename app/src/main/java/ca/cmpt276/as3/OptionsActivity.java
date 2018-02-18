@@ -43,6 +43,19 @@ public class OptionsActivity extends AppCompatActivity {
         setUpSetGameButton();
         setBackgroundImage();
         setupTextview();
+        setupResetButton();
+    }
+
+    private void setupResetButton() {
+        Button restBtn = (Button) findViewById(R.id.resetButtonID);
+        restBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DragonSeekerGame.getInstance().setNumberOfGamesPlayed(0);
+                DragonSeekerGame.getInstance().setBestScore(0);
+                setupTextview();
+            }
+        });
     }
 
     private void setupTextview() {
