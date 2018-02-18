@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(DragonSeekerGame.getInstance().getBestScore() != 0){
             bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
+        } else {
+            bestScoretv.setText("best score: ");
         }
 
     }
