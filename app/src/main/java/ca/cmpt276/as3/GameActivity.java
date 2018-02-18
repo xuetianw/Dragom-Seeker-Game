@@ -84,8 +84,23 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numOfRows][numOfCol];
         populateButtons();
         setBackgroundImage();
+        setupTextview();
+
         storeGameStatuestoSharePreferences();
 
+    }
+
+    private void setupTextview() {
+        TextView numberOfTimesPlayedtv = (TextView) findViewById(R.id.numberofgamesid);
+        numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+
+        TextView bestScoretv = (TextView) findViewById(R.id.bestscoreid);
+
+        if(DragonSeekerGame.getInstance().getBestScore() != 0){
+            bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
+        } else {
+            bestScoretv.setText("best score: ");
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -235,6 +250,7 @@ public class GameActivity extends AppCompatActivity {
                             buttons[roww][coll].setText("0");
                         }
                     }
+                    storeGameStatuestoSharePreferences();
 
                     FragmentManager manager = getSupportFragmentManager();
                     MessageFragment dialog = new MessageFragment();
@@ -355,4 +371,6 @@ public class GameActivity extends AppCompatActivity {
 
         editor.commit();
     }
+
+
 }
