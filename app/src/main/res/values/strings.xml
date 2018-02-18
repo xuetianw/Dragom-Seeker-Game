@@ -23,4 +23,6 @@
     <string name="made_by_kourosh_azizi_and_fred_wu">Made by: Kourosh Azizi and Fred Wu</string>
     <string name="skip">Skip</string>
     <string name="set_number_of_dragons"><![CDATA[>> Set Number of Dragons:]]></string>
+    <string name="highest_score">Highest score:</string>
+    <string name="number_of_times_played">Number of times played:</string>
 </resources>
