@@ -253,6 +253,9 @@ public class GameActivity extends AppCompatActivity {
                     getState();
 
                     DragonSeekerGame.getInstance().setNumberOfGamesPlayed(DragonSeekerGame.getInstance().getNumberOfGamesPlayed()+1);
+                    if(DragonSeekerGame.getInstance().getBestScore() == 0) {
+                        DragonSeekerGame.getInstance().setBestScore(scansUsed);
+                    }
 
                     storeGameStatuestoSharePreferences();
 
