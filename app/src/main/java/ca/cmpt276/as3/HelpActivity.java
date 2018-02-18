@@ -16,9 +16,8 @@ import ca.cmpt276.as3.model.R;
 
 /**
  * This class is responsible to tell the user about the
- * author and the date the app was fully developed and
- * published. It will also tell the user about the req-
- * uired skills to play the game as efficient as possible.
+ * author and the required instructions that the user
+ * needs to play the game.
  */
 public class HelpActivity extends AppCompatActivity {
     private String TAG = "OrientationDemo";
@@ -27,9 +26,9 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.e(TAG, "Running onCreate()!");  // test
+        Log.e(TAG, "Running onCreate()!");
         setContentView(R.layout.activity_help);
-        setTextView();
+        setupTextViewInfo();
         setBackgroundImage();
     }
 
@@ -38,13 +37,27 @@ public class HelpActivity extends AppCompatActivity {
     }
 
 
+    // Set up the information about the author and the instructions of the game
     @SuppressLint("SetTextI18n")        // ask if necessary
-    private void setTextView(){
-        TextView myTextView = (TextView) findViewById(R.id.aboutAuthorID);
-        myTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        myTextView.setText("Dragon Seeker is written by Kourosh Azizi and Fred Wu. " +
+    private void setupTextViewInfo(){
+        TextView aboutAuthorText = (TextView) findViewById(R.id.aboutAuthorID);
+        aboutAuthorText.setMovementMethod(LinkMovementMethod.getInstance());
+        aboutAuthorText.setText("Dragon Seeker is written by Kourosh Azizi and Fred Wu. " +
                             "This application was made for a school project for CMPT 276 " +
                             "class at Simon Fraser University." + "\n\n\n\n");
+
+        TextView instructionsText = (TextView) findViewById(R.id.instructionsID);
+        instructionsText.setMovementMethod(LinkMovementMethod.getInstance());
+        instructionsText.setText("Go to Main Menu and then and click on the options " +
+                "button to choose your favorite board size, and number " +
+                "of dragons that you want to find in the game. Then click on " +
+                "set Set Game button to go to play the game. In the game you " +
+                "need to tap on each cell to perform a scan in order to find " +
+                "the dragons. Keep in mind that each time you scan, there is " +
+                "scan counter that will increase to show how many times you " +
+                "have looked for a dragon. You should try to win the round " +
+                "with least number of scans as possible. Compete and break your " +
+                "records! :)" + "\n\n\n\n");
 
         // Course Website Hyperlink:
         TextView courseWebsiteText = (TextView) findViewById(R.id.CourseWebsiteID);
@@ -97,19 +110,18 @@ public class HelpActivity extends AppCompatActivity {
         dragonButtonText.setTextColor(Color.BLACK);
         dragonButtonText.setBackgroundColor(Color.WHITE);
 
-
-        TextView instructionsText = (TextView) findViewById(R.id.instructionsID);
-        instructionsText.setMovementMethod(LinkMovementMethod.getInstance());
-        instructionsText.setText("Go to Main Menu and then and click on the options " +
-                            "button to choose your favorite board size, and number " +
-                            "of dragons that you want to find in the game. Then click on " +
-                            "set Set Game button to go to play the game. In the game you " +
-                            "need to tap on each cell to perform a scan in order to find " +
-                            "the dragons. Keep in mind that each time you scan, there is " +
-                            "scan counter that will increase to show how many times you " +
-                            "have looked for a dragon. You should try to win the round " +
-                            "with least number of scans as possible. Compete and break your " +
-                            "records! :)" + "\n\n\n\n");
+        // Congrats image hyperlink:
+        TextView congratsText = (TextView) findViewById(R.id.congratsTextID);
+        congratsText.setClickable(true);
+        congratsText.setMovementMethod(LinkMovementMethod.getInstance());
+        String congratsMessageImageLink = "<a href= 'https://www.google.ca/search?rlz=1C1CHBF_en" +
+                "CA775CA775&biw=1366&bih=637&tbm=isch&sa=1&ei=mP6JWvXoCJXOjwOrvKv4CQ&q=congratula" +
+                "tions+&oq=congratulations+&gs_l=psy-ab.3..0i67k1j0l9.20067.20067.0.21822.1.1" +
+                ".0.0.0.0.93.93.1.1.0....0...1c.1.64.psy-ab..0.1.93....0.-2u1RrexI18#imgrc=tBUmFn" +
+                "0CjMBiwM:'> Congrats Image Link</a>";
+        congratsText.setText(Html.fromHtml(congratsMessageImageLink));
+        congratsText.setTextColor(Color.BLACK);
+        congratsText.setBackgroundColor(Color.WHITE);
 
     }
 

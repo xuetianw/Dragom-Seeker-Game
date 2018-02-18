@@ -8,14 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import ca.cmpt276.as3.model.R;
 
 /**
  * This class is responsible for showing the game screen,
- * options menu, and help menu on its screen so the user
- * can use for futher information.
+ * options menu, and help menu on its screen so the user,
+ * so the user can select one of these buttons to go to
+ * that screen.
  */
 public class MenuActivity extends AppCompatActivity {
     private String TAG = "OrientationDemo";
@@ -35,6 +35,7 @@ public class MenuActivity extends AppCompatActivity {
         return new Intent(context, MenuActivity.class);
     }
 
+    // set up the three required buttons on the screen
     public void setupAllButtons(){
         Button gameScreenBtn = (Button) findViewById(R.id.gameScreenID);
         gameScreenBtn.setOnClickListener(new View.OnClickListener() {

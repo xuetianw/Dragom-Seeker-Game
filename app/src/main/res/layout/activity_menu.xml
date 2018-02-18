@@ -12,15 +12,63 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <Button
+        android:id="@+id/optionsBtnID"
         android:layout_width="match_parent"
-        android:layout_height="263dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:fillViewport="true"
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:text="@string/options"
+        android:textColor="@android:color/background_dark"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/helpBtnID"
+        app:layout_constraintVertical_bias="0.0">
+
+    </Button>
+
+    <Button
+        android:id="@+id/gameScreenID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:text="@string/game_screen"
+        android:textColor="@android:color/background_dark"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optionsBtnID"
+        app:layout_constraintVertical_bias="0.0">
+
+    </Button>
+
+    <Button
+        android:id="@+id/helpBtnID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:text="@string/help"
+        android:textColor="@android:color/background_dark"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -28,51 +76,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/optionsBtnID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_orange_light"
-                android:text="@string/options"
-                android:textColor="@android:color/background_dark"
-                android:textSize="16sp"
-                android:textStyle="bold|italic">
-
-            </Button>
-
-            <Button
-                android:id="@+id/gameScreenID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_orange_light"
-                android:text="@string/game_screen"
-                android:textColor="@android:color/background_dark"
-                android:textSize="16sp"
-                android:textStyle="bold|italic">
-
-            </Button>
-
-            <Button
-                android:id="@+id/helpBtnID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="196dp"
-                android:backgroundTint="@android:color/holo_orange_light"
-                android:text="@string/help"
-                android:textColor="@android:color/background_dark"
-                android:textSize="16sp"
-                android:textStyle="bold|italic">
-
-            </Button>
-
-
-        </LinearLayout>
-    </ScrollView>
+    </Button>
 
 
 </android.support.constraint.ConstraintLayout>

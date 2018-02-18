@@ -1,5 +1,6 @@
 package ca.cmpt276.as3;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -11,12 +12,18 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
 
+/**
+ * Main activity class is the welcome screen of
+ * this application. In this class there we have
+ * implemented skip button, background image, the
+ * user game information, and an animation.
+ */
 public class MainActivity extends AppCompatActivity {
+    // the animation will not skip if the user clicks on skips
     private static boolean alreadySkipped = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,28 +31,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         String TAG = "OrientationDemo";
-        Log.e(TAG, "Running onCreate()!");  // test
+        Log.e(TAG, "Running onCreate()!");
         setBackgroundImage();
-        setupLaunchButton();
-        setupTextview();
-
+        setupSkipButton();
+        setupUserGameInfo();
     }
 
-    private void setupTextview() {
-        TextView numberOfTimesPlayedtv = (TextView) findViewById(R.id.textView2);
-        TextView bestScoretv = (TextView) findViewById(R.id.textView3);
-
-        numberOfTimesPlayedtv.setText("number of times played: "+ DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
-
+    // It sets up the number of times the user has played the game, and user best score
+    @SuppressLint("SetTextI18n")
+    private void setupUserGameInfo() {
+        TextView userGameInfoText = (TextView) findViewById(R.id.uesrGameInfoID);
         if(DragonSeekerGame.getInstance().getBestScore() != 0){
-            bestScoretv.setText("best score: "+ DragonSeekerGame.getInstance().getBestScore());
+            userGameInfoText.setText("Number of times played: "
+                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
+                    + "\nBest score: " + DragonSeekerGame.getInstance().getBestScore());
         } else {
-            bestScoretv.setText("best score: ");
+            userGameInfoText.setText("Number of times played: N/A"
+                    + "\nBest score: N/A");
         }
-
     }
 
-    private void setupLaunchButton(){
+    // Setting up the skip button and image animation
+    private void setupSkipButton(){
         Button skipBtn = (Button) findViewById(R.id.skipBtnID);
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +67,13 @@ public class MainActivity extends AppCompatActivity {
         setUpImageAnimation();
     }
 
+
     private void setBackgroundImage(){
         ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
 
+    // the moving animation on the welcome screen
     private void setUpImageAnimation(){
         ImageView imageAnimation = (ImageView) findViewById(R.id.animationID);
         TranslateAnimation animation = new TranslateAnimation(400.0f, 1100.0f,
@@ -86,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             },4500);
     }
 
+    // Intent for Main activity if necessary
     public static Intent makeIntent(Context context) {
         return new Intent(context, MainActivity.class);
     }
