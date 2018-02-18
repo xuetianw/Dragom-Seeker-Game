@@ -97,7 +97,7 @@ public class GameActivity extends AppCompatActivity {
 
         numberOfMineTV = (TextView) findViewById(R.id.numOfRevealDragon);
         numberOfMineTV.setText(">> Dragon Num Total: " + numOfDragons + "\n>> Dragon Revealed: " + numOfRevealedDragons);
-        numberOfMineTV.setTextColor(Color.YELLOW);
+        numberOfMineTV.setTextColor(Color.BLACK);
     }
 
     private void setupGragons() {
