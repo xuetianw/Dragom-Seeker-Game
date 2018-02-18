@@ -46,6 +46,8 @@ public class GameActivity extends AppCompatActivity {
     public static final String SCANS_USED = "scanUsed";
     public static final String REVEALED_LIST = "reveaList";
     public static final String DRAGON_LOCATION_LIST = "dragonLionList";
+    public static final String BEST_SCORE = "best score";
+    public static final String NUMBER_OF_GAMES_PLAYED = "number of games played";
     private static int numOfRows;
     private static int numOfCol;
     private static int numOfDragons;
@@ -86,7 +88,6 @@ public class GameActivity extends AppCompatActivity {
         setBackgroundImage();
         setupTextview();
 
-        storeGameStatuestoSharePreferences();
 
     }
 
@@ -250,6 +251,11 @@ public class GameActivity extends AppCompatActivity {
                             buttons[roww][coll].setText("0");
                         }
                     }
+
+                    getState();
+
+                    DragonSeekerGame.getInstance().setNumberOfGamesPlayed(DragonSeekerGame.getInstance().getNumberOfGamesPlayed()+1);
+
                     storeGameStatuestoSharePreferences();
 
                     FragmentManager manager = getSupportFragmentManager();
@@ -261,6 +267,8 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
     private int scan(int col, int row) {
         sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
@@ -353,6 +361,9 @@ public class GameActivity extends AppCompatActivity {
         editor.putInt(DRAGON_COUNT, dragonCount);
         editor.putInt(SCANS_USED, scansUsed);
 
+        editor.putInt(BEST_SCORE, DragonSeekerGame.getInstance().getBestScore());
+        editor.putInt(NUMBER_OF_GAMES_PLAYED, DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+
 
         StringBuilder dragonLocationstr = new StringBuilder();
         for(int i = 0; i< dragonLocationList.size(); i++) {
@@ -371,6 +382,26 @@ public class GameActivity extends AppCompatActivity {
 
         editor.commit();
     }
+
+    private static int getPreviousBestCore(Context context){
+        SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
+        return preferences.getInt(BEST_SCORE,0);
+    }
+
+    private static int getPreviousNumberOfGamePlayed(Context context){
+        SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
+        return preferences.getInt(NUMBER_OF_GAMES_PLAYED,0);
+    }
+
+    private void getState() {
+        int previousBestcore = getPreviousBestCore(getApplicationContext());
+        if(previousBestcore == 0) {
+            DragonSeekerGame.getInstance().setBestScore(scansUsed);
+        } else if ( scansUsed < previousBestcore) {
+            DragonSeekerGame.getInstance().setBestScore(scansUsed);
+        }
+    }
+
 
 
 }

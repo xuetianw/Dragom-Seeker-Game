@@ -8,14 +8,17 @@ public class DragonSeekerGame {
     private int row;
     private int col;
     private int numDragons;
+    private int bestScore;
+    private int numberOfGamesPlayed;
+    private int [] bestScores;
+
+
 
     public void setBestScore(int bestScore) {
         this.bestScore = bestScore;
     }
 
-    private int bestScore;
 
-    private int numberOfGamesPlayed;
 
     public static void setInstance(DragonSeekerGame instance) {
         DragonSeekerGame.instance = instance;
