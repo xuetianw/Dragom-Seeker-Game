@@ -10,7 +10,6 @@ public class DragonSeekerGame {
     private int row;
     private int col;
     private int numDragons;
-    private int bestScore;
     private int numberOfGamesPlayed;
     private static DragonSeekerGame instance;
 
@@ -44,11 +43,5 @@ public class DragonSeekerGame {
     }
     public void setNumberOfGamesPlayed(int numberOfGamesPlayed) {
         this.numberOfGamesPlayed = numberOfGamesPlayed;
-    }
-    public int getBestScore() {
-        return bestScore;
-    }
-    public void setBestScore(int bestScore) {
-        this.bestScore = bestScore;
     }
 }

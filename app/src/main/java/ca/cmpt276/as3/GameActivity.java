@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
     private static int numOfRevealedDragons;
     private static int dragonCount;
     private static int scansUsed;
+    private static int bestScore;
     private String TAG = "OrientationDemo";
 
     Button buttons[][] ;
@@ -64,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
     TextView numberOfMineTV;
     SoundPool sounds;
     int sExplosion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +98,11 @@ public class GameActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
         TextView userGameInfoText = (TextView) findViewById(R.id.userGameInfoID);
-        if(DragonSeekerGame.getInstance().getBestScore() != 0){
+        int previous = getPreviousBestScore(getApplicationContext());
+        if( previous!= 0){
             userGameInfoText.setText(">> Number of times played: "
                     + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
-                    + "\n>> Best score: " + DragonSeekerGame.getInstance().getBestScore());
+                    + "\n>> Best score: " + previous);
             userGameInfoText.setTextColor(Color.BLUE);
 
         } else {
@@ -256,13 +259,10 @@ public class GameActivity extends AppCompatActivity {
                         }
                     }
 
-                    setState();
+                    bestScore = findBestScore();
 
-                    DragonSeekerGame.getInstance().setNumberOfGamesPlayed
-                            (DragonSeekerGame.getInstance().getNumberOfGamesPlayed()+1);
-                    if(DragonSeekerGame.getInstance().getBestScore() == 0) {
-                        DragonSeekerGame.getInstance().setBestScore(scansUsed);
-                    }
+                    updateNumOfGamesPlayed();
+
 
                     storeGameStatusToSharePreferences();
 
@@ -275,6 +275,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    private void updateNumOfGamesPlayed() {
+        DragonSeekerGame.getInstance().setNumberOfGamesPlayed
+                (DragonSeekerGame.getInstance().getNumberOfGamesPlayed()+1);
+    }
 
 
     private int scan(int col, int row) {
@@ -369,7 +373,32 @@ public class GameActivity extends AppCompatActivity {
         editor.putInt(DRAGON_COUNT, dragonCount);
         editor.putInt(SCANS_USED, scansUsed);
 
-        editor.putInt(BEST_SCORE, DragonSeekerGame.getInstance().getBestScore());
+        if ((numOfRows == 4 && numOfCol == 6) && numOfDragons == 6){
+            editor.putInt("466", bestScore);
+        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 10) {
+            editor.putInt("1610", bestScore);
+        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 15) {
+            editor.putInt("4615", bestScore);
+        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 20) {
+            editor.putInt("4620", bestScore);
+        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 6) {
+            editor.putInt("5106", bestScore);
+        }  else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 10) {
+            editor.putInt("51010", bestScore);
+        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 15) {
+            editor.putInt("51015", bestScore);
+        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 20) {
+            editor.putInt("51020", bestScore);
+        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 6) {
+            editor.putInt("6156", bestScore);
+        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 10) {
+            editor.putInt("61510", bestScore);
+        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 15) {
+            editor.putInt("61515", bestScore);
+        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 20) {
+            editor.putInt("61520", bestScore);
+        }
+
         editor.putInt(NUMBER_OF_GAMES_PLAYED, DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
 
 
@@ -391,18 +420,45 @@ public class GameActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    private static int getPreviousBestCore(Context context){
+    private static int getPreviousBestScore(Context context){
         SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
-        return preferences.getInt(BEST_SCORE,0);
+
+        if ((numOfRows == 4 && numOfCol == 6) && numOfDragons == 6){
+            return preferences.getInt("466", 0);
+        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 10) {
+            return preferences.getInt("1610", 0);
+        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 15) {
+            return preferences.getInt("4615", 0);
+        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 20) {
+            return preferences.getInt("4620", 0);
+        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 6) {
+            return preferences.getInt("5106", 0);
+        }  else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 10) {
+            return preferences.getInt("51010", 0);
+        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 15) {
+            return preferences.getInt("51015", 0);
+        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 20) {
+            return preferences.getInt("51020", 0);
+        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 6) {
+            return preferences.getInt("6156", 0);
+        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 10) {
+            return preferences.getInt("61510", 0);
+        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 15) {
+            return preferences.getInt("61515", 0);
+        } else {
+            return preferences.getInt("61520", 0);
+        }
     }
 
     // set the state for best score
-    private void setState() {
-        int previousBestScore = getPreviousBestCore(getApplicationContext());
+    private int findBestScore() {
+        int previousBestScore = getPreviousBestScore(getApplicationContext());
         if(previousBestScore == 0) {
-            DragonSeekerGame.getInstance().setBestScore(scansUsed);
-        } else if ( scansUsed < previousBestScore) {
-            DragonSeekerGame.getInstance().setBestScore(scansUsed);
+            return scansUsed;
+        } else if (scansUsed < previousBestScore) {
+            return scansUsed;
+        } else {
+            return previousBestScore;
         }
     }
 

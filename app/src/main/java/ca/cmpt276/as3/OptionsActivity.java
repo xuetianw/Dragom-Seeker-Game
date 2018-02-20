@@ -3,6 +3,7 @@ package ca.cmpt276.as3;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
 
+import static ca.cmpt276.as3.GameActivity.AppStates;
+
 /**
  * Options class is responsible for showing the board size
  * and the number of mines that user want to select from to
@@ -32,7 +35,6 @@ import ca.cmpt276.as3.model.R;
 
 public class OptionsActivity extends AppCompatActivity {
     private String TAG = "OrientationDemo";
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,23 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DragonSeekerGame.getInstance().setNumberOfGamesPlayed(0);
-                DragonSeekerGame.getInstance().setBestScore(0);
+                SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+
+
+                editor.putInt("466", 0);
+                editor.putInt("1610", 0);
+                editor.putInt("4615", 0);
+                editor.putInt("4620", 0);
+                editor.putInt("5106", 0);
+                editor.putInt("51010", 0);
+                    editor.putInt("51015", 0);
+                    editor.putInt("51020", 0);
+                    editor.putInt("6156", 0);
+                    editor.putInt("61510", 0);
+                    editor.putInt("61515", 0);
+                    editor.putInt("61520", 0);
+                    int a = preferences.getInt("466",0);
                 setupUserGameInfo();
             }
         });
@@ -62,14 +80,10 @@ public class OptionsActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
         TextView userGameInfoText = (TextView) findViewById(R.id.userGameInfoID);
-        if(DragonSeekerGame.getInstance().getBestScore() != 0){
             userGameInfoText.setText("Number of times played: "
-                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
-                    + "\nBest score: " + DragonSeekerGame.getInstance().getBestScore());
-        } else {
+                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
             userGameInfoText.setText("Number of times played: N/A"
                     + "\nBest score: N/A");
-        }
     }
 
     public static Intent makeIntent(Context context){

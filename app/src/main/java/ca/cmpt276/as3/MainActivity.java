@@ -41,14 +41,9 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
         TextView userGameInfoText = (TextView) findViewById(R.id.uesrGameInfoID);
-        if(DragonSeekerGame.getInstance().getBestScore() != 0){
+
             userGameInfoText.setText("Number of times played: "
-                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
-                    + "\nBest score: " + DragonSeekerGame.getInstance().getBestScore());
-        } else {
-            userGameInfoText.setText("Number of times played: N/A"
-                    + "\nBest score: N/A");
-        }
+                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
     }
 
     // Setting up the skip button and image animation
