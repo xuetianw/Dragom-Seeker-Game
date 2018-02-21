@@ -106,7 +106,8 @@ public class GameActivity extends AppCompatActivity {
             userGameInfoText.setTextColor(Color.BLUE);
 
         } else {
-            userGameInfoText.setText(">> Number of times played: N/A"
+            userGameInfoText.setText(">> Number of times played: "
+                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
                     + "\n>> Best score: N/A ");
             userGameInfoText.setTextColor(Color.BLUE);
         }
@@ -372,32 +373,9 @@ public class GameActivity extends AppCompatActivity {
         editor.putInt(NUM_OF_ROWS1, numOfRows);
         editor.putInt(DRAGON_COUNT, dragonCount);
         editor.putInt(SCANS_USED, scansUsed);
+        String key = String.format("%d%d%d",numOfRows, numOfCol, numOfDragons) ;
 
-        if ((numOfRows == 4 && numOfCol == 6) && numOfDragons == 6){
-            editor.putInt("466", bestScore);
-        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 10) {
-            editor.putInt("1610", bestScore);
-        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 15) {
-            editor.putInt("4615", bestScore);
-        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 20) {
-            editor.putInt("4620", bestScore);
-        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 6) {
-            editor.putInt("5106", bestScore);
-        }  else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 10) {
-            editor.putInt("51010", bestScore);
-        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 15) {
-            editor.putInt("51015", bestScore);
-        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 20) {
-            editor.putInt("51020", bestScore);
-        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 6) {
-            editor.putInt("6156", bestScore);
-        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 10) {
-            editor.putInt("61510", bestScore);
-        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 15) {
-            editor.putInt("61515", bestScore);
-        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 20) {
-            editor.putInt("61520", bestScore);
-        }
+        editor.putInt(key, bestScore);
 
         editor.putInt(NUMBER_OF_GAMES_PLAYED, DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
 
@@ -423,31 +401,8 @@ public class GameActivity extends AppCompatActivity {
     private static int getPreviousBestScore(Context context){
         SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
 
-        if ((numOfRows == 4 && numOfCol == 6) && numOfDragons == 6){
-            return preferences.getInt("466", 0);
-        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 10) {
-            return preferences.getInt("1610", 0);
-        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 15) {
-            return preferences.getInt("4615", 0);
-        } else if((numOfRows == 4 && numOfCol == 6) && numOfDragons == 20) {
-            return preferences.getInt("4620", 0);
-        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 6) {
-            return preferences.getInt("5106", 0);
-        }  else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 10) {
-            return preferences.getInt("51010", 0);
-        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 15) {
-            return preferences.getInt("51015", 0);
-        } else if((numOfRows == 5 && numOfCol == 10) && numOfDragons == 20) {
-            return preferences.getInt("51020", 0);
-        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 6) {
-            return preferences.getInt("6156", 0);
-        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 10) {
-            return preferences.getInt("61510", 0);
-        } else if((numOfRows == 6 && numOfCol == 15) && numOfDragons == 15) {
-            return preferences.getInt("61515", 0);
-        } else {
-            return preferences.getInt("61520", 0);
-        }
+        String key = String.format("%d%d%d",numOfRows, numOfCol, numOfDragons) ;
+        return preferences.getInt(key, 0);
     }
 
     // set the state for best score

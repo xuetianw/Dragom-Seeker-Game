@@ -60,18 +60,18 @@ public class OptionsActivity extends AppCompatActivity {
 
 
                 editor.putInt("466", 0);
-                editor.putInt("1610", 0);
+                editor.putInt("4610", 0);
                 editor.putInt("4615", 0);
                 editor.putInt("4620", 0);
                 editor.putInt("5106", 0);
                 editor.putInt("51010", 0);
-                    editor.putInt("51015", 0);
-                    editor.putInt("51020", 0);
-                    editor.putInt("6156", 0);
-                    editor.putInt("61510", 0);
-                    editor.putInt("61515", 0);
-                    editor.putInt("61520", 0);
-                    int a = preferences.getInt("466",0);
+                editor.putInt("51015", 0);
+                editor.putInt("51020", 0);
+                editor.putInt("6156", 0);
+                editor.putInt("61510", 0);
+                editor.putInt("61515", 0);
+                editor.putInt("61520", 0);
+                editor.commit();
                 setupUserGameInfo();
             }
         });
@@ -80,10 +80,10 @@ public class OptionsActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
         TextView userGameInfoText = (TextView) findViewById(R.id.userGameInfoID);
-            userGameInfoText.setText("Number of times played: "
-                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
-            userGameInfoText.setText("Number of times played: N/A"
-                    + "\nBest score: N/A");
+        userGameInfoText.setText("Number of times played: "
+                + DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+        userGameInfoText.setText("Number of times played: N/A"
+                + "\nBest score: N/A");
     }
 
     public static Intent makeIntent(Context context){
