@@ -98,16 +98,20 @@ public class GameActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
         TextView userGameInfoText = (TextView) findViewById(R.id.userGameInfoID);
+        String key = String.format("%d%d%d",numOfRows, numOfCol, numOfDragons) ;
+        SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
+
+
         int previous = getPreviousBestScore(getApplicationContext());
         if( previous!= 0){
             userGameInfoText.setText(">> Number of times played: "
-                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
-                    + "\n>> Best score: " + previous);
+                    + preferences.getInt(NUMBER_OF_GAMES_PLAYED,0)
+                    + "\n>> Best score: " + preferences.getInt(key, 0));
             userGameInfoText.setTextColor(Color.BLUE);
 
         } else {
             userGameInfoText.setText(">> Number of times played: "
-                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed()
+                    + preferences.getInt(NUMBER_OF_GAMES_PLAYED,0)
                     + "\n>> Best score: N/A ");
             userGameInfoText.setTextColor(Color.BLUE);
         }
