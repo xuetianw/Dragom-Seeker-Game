@@ -72,6 +72,7 @@ public class OptionsActivity extends AppCompatActivity {
                 editor.putInt("61510", 0);
                 editor.putInt("61515", 0);
                 editor.putInt("61520", 0);
+                editor.putInt("NUMBER_OF_GAMES_PLAYED", 0);
                 editor.commit();
                 setupUserGameInfo();
             }
@@ -83,12 +84,10 @@ public class OptionsActivity extends AppCompatActivity {
         TextView userGameInfoText = (TextView) findViewById(R.id.userGameInfoID);
 
         SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
-        preferences.getInt(NUMBER_OF_GAMES_PLAYED,0);
+
 
         userGameInfoText.setText("Number of times played: "
-                + DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
-        userGameInfoText.setText("Number of times played: N/A"
-                + "\nBest score: N/A");
+                + preferences.getInt(NUMBER_OF_GAMES_PLAYED,0));
     }
 
     public static Intent makeIntent(Context context){
