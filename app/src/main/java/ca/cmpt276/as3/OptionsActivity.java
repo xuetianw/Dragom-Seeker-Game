@@ -24,6 +24,7 @@ import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
 
 import static ca.cmpt276.as3.GameActivity.AppStates;
+import static ca.cmpt276.as3.GameActivity.NUMBER_OF_GAMES_PLAYED;
 
 /**
  * Options class is responsible for showing the board size
@@ -80,6 +81,10 @@ public class OptionsActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
         TextView userGameInfoText = (TextView) findViewById(R.id.userGameInfoID);
+
+        SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
+        preferences.getInt(NUMBER_OF_GAMES_PLAYED,0);
+
         userGameInfoText.setText("Number of times played: "
                 + DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
         userGameInfoText.setText("Number of times played: N/A"

@@ -48,7 +48,6 @@ public class GameActivity extends AppCompatActivity {
     public static final String SCANS_USED = "scanUsed";
     public static final String REVEALED_LIST = "reveaList";
     public static final String DRAGON_LOCATION_LIST = "dragonLionList";
-    public static final String BEST_SCORE = "best score";
     public static final String NUMBER_OF_GAMES_PLAYED = "number of games played";
     private static int numOfRows;
     private static int numOfCol;
@@ -102,11 +101,11 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
 
 
-        int previous = getPreviousBestScore(getApplicationContext());
-        if( previous!= 0){
+        int bestScore = getBestScore(getApplicationContext());
+        if( bestScore!= 0){
             userGameInfoText.setText(">> Number of times played: "
                     + preferences.getInt(NUMBER_OF_GAMES_PLAYED,0)
-                    + "\n>> Best score: " + preferences.getInt(key, 0));
+                    + "\n>> Best score: " + bestScore);
             userGameInfoText.setTextColor(Color.BLUE);
 
         } else {
@@ -402,7 +401,7 @@ public class GameActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    private static int getPreviousBestScore(Context context){
+    private static int getBestScore(Context context){
         SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
 
         String key = String.format("%d%d%d",numOfRows, numOfCol, numOfDragons) ;
@@ -411,7 +410,7 @@ public class GameActivity extends AppCompatActivity {
 
     // set the state for best score
     private int findBestScore() {
-        int previousBestScore = getPreviousBestScore(getApplicationContext());
+        int previousBestScore = getBestScore(getApplicationContext());
         if(previousBestScore == 0) {
             return scansUsed;
         } else if (scansUsed < previousBestScore) {

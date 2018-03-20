@@ -10,7 +10,7 @@ public class DragonSeekerGame {
     private int row;
     private int col;
     private int numDragons;
-    private int numberOfGamesPlayed;
+    private int numberOfGamesPlayed = 0;
     private static DragonSeekerGame instance;
 
     public DragonSeekerGame() {}
