@@ -3,6 +3,7 @@ package ca.cmpt276.as3;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 
 import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
+
+import static ca.cmpt276.as3.GameActivity.AppStates;
+import static ca.cmpt276.as3.GameActivity.NUMBER_OF_GAMES_PLAYED;
 
 /**
  * Main activity class is the welcome screen of
@@ -41,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
         TextView userGameInfoText = (TextView) findViewById(R.id.uesrGameInfoID);
-
+        SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
             userGameInfoText.setText("Number of times played: "
-                    + DragonSeekerGame.getInstance().getNumberOfGamesPlayed());
+                    + preferences.getInt(NUMBER_OF_GAMES_PLAYED,0));
     }
 
     // Setting up the skip button and image animation
