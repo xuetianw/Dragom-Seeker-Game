@@ -59,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
     private String TAG = "OrientationDemo";
 
     Button buttons[][] ;
-    ArrayList<Integer> dragonLocationList = new ArrayList();;
+    ArrayList<Integer> dragonLocationList = new ArrayList<>();
     ArrayList<Integer> revealedList = new ArrayList<>();
     TextView numberOfMineTV;
     SoundPool sounds;
