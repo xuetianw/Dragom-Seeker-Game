@@ -79,9 +79,10 @@ public class GameActivity extends AppCompatActivity {
 
         numOfRevealedDragons = 0;
         updateUI();
-        numOfRows = DragonSeekerGame.getInstance().getRow();
-        numOfCol = DragonSeekerGame.getInstance().getCol();
-        numOfDragons = DragonSeekerGame.getInstance().getNumDragons();
+        DragonSeekerGame instance = DragonSeekerGame.getInstance();
+        numOfRows = instance.getRow();
+        numOfCol = instance.getCol();
+        numOfDragons = instance.getNumDragons();
 
         setupDragons();
 
