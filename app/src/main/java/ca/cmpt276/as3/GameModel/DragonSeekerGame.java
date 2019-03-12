@@ -13,7 +13,7 @@ public class DragonSeekerGame {
     private int numberOfGamesPlayed = 0;
     private static DragonSeekerGame instance;
 
-    public DragonSeekerGame() {}
+    private DragonSeekerGame() {}
     public static DragonSeekerGame getInstance(){
         if(instance == null){
             instance = new DragonSeekerGame();
