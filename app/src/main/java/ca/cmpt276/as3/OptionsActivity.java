@@ -55,7 +55,6 @@ public class OptionsActivity extends AppCompatActivity {
         restBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DragonSeekerGame.getInstance().setNumberOfGamesPlayed(0);
                 SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
 
@@ -72,7 +71,7 @@ public class OptionsActivity extends AppCompatActivity {
                 editor.putInt("61510", 0);
                 editor.putInt("61515", 0);
                 editor.putInt("61520", 0);
-                editor.putInt("NUMBER_OF_GAMES_PLAYED", 0);
+                editor.putInt(NUMBER_OF_GAMES_PLAYED, 0);
                 editor.commit();
                 setupUserGameInfo();
             }
@@ -186,7 +185,7 @@ public class OptionsActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("SetTextI18n")
     private void setNumDragons(){
-        RadioGroup group =(RadioGroup) findViewById(R.id.radio_group_install_dragons);
+        RadioGroup group = findViewById(R.id.radio_group_install_dragons);
         int [] numDragonsArray = getResources().getIntArray(R.array.number_of_dragons);
         for(int i = 0; i < numDragonsArray.length; i++){
             final int NUM_DRAGONS = numDragonsArray[i];

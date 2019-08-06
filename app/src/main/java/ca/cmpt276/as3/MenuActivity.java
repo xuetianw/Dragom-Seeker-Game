@@ -37,7 +37,7 @@ public class MenuActivity extends AppCompatActivity {
 
     // set up the three required buttons on the screen
     public void setupAllButtons(){
-        Button gameScreenBtn = (Button) findViewById(R.id.gameScreenID);
+        Button gameScreenBtn = findViewById(R.id.gameScreenID);
         gameScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +47,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        Button optionsBtn = (Button) findViewById(R.id.optionsBtnID);
+        Button optionsBtn = findViewById(R.id.optionsBtnID);
         optionsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +56,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        Button helpBtn = (Button) findViewById(R.id.helpBtnID);
+        Button helpBtn = findViewById(R.id.helpBtnID);
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +67,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void setBackgroundImage(){
-        ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
+        ImageView myImageView = findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
 }

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     // It sets up the number of times the user has played the game, and user best score
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
-        TextView userGameInfoText = (TextView) findViewById(R.id.uesrGameInfoID);
+        TextView userGameInfoText = findViewById(R.id.uesrGameInfoID);
         SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
             userGameInfoText.setText("Number of times played: "
                     + preferences.getInt(NUMBER_OF_GAMES_PLAYED,0));
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Setting up the skip button and image animation
     private void setupSkipButton(){
-        Button skipBtn = (Button) findViewById(R.id.skipBtnID);
+        Button skipBtn = findViewById(R.id.skipBtnID);
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setBackgroundImage(){
-        ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
+        ImageView myImageView = findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
 
@@ -92,10 +92,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             },4500);
-    }
-
-    // Intent for Main activity if necessary
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, MainActivity.class);
     }
 }
