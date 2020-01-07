@@ -16,15 +16,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import ca.cmpt276.as3.GameModel.*;
 import ca.cmpt276.as3.model.R;
@@ -38,29 +38,28 @@ import ca.cmpt276.as3.model.R;
  * that the user wants to play with.
  */
 public class GameActivity extends AppCompatActivity {
-    public static final String AppStates = "Game";
-    public static final String NUM_OF_ROWS = "Rows";
-    public static final String NUM_OF_COL = "Col";
-    public static final String NUM_OF_DRAGONS = "Dragons";
-    public static final String NUM_OF_REVEALED_DRAGONS = "RevealedDragons";
-    public static final String NUM_OF_ROWS1 = "numRows";
-    public static final String DRAGON_COUNT = "dragCount";
-    public static final String SCANS_USED = "scanUsed";
-    public static final String REVEALED_LIST = "reveaList";
-    public static final String DRAGON_LOCATION_LIST = "dragonLionList";
-    public static final String NUMBER_OF_GAMES_PLAYED = "number of games played";
+    public static final String AppStates                  = "Game";
+    public static final String NUM_OF_ROWS                = "Rows";
+    public static final String NUM_OF_COL                 = "Col";
+    public static final String NUM_OF_DRAGONS             = "Dragons";
+    public static final String NUM_OF_REVEALED_DRAGONS    = "RevealedDragons";
+    public static final String NUM_OF_ROWS1               = "numRows";
+    public static final String DRAGON_COUNT               = "dragCount";
+    public static final String SCANS_USED                 = "scanUsed";
+    public static final String REVEALED_LIST              = "reveaList";
+    public static final String DRAGON_LOCATION_LIST       = "dragonLionList";
+    public static final String NUMBER_OF_GAMES_PLAYED     = "number of games played";
     private static int numOfRows;
-    private static int numOfCol;
+    private static int numOfCols;
     private static int numOfDragons;
-    private static int numOfRevealedDragons;
-    private static int dragonCount;
-    private static int scansUsed;
+    private static int numOfRevealedDragons     = 0;
+    private static int scansUsed                = 0;
     private static int bestScore;
     private String TAG = "OrientationDemo";
 
-    Button buttons[][] ;
-    ArrayList<Integer> dragonLocationList = new ArrayList<>();
-    ArrayList<Integer> revealedList = new ArrayList<>();
+    Button[][] buttons ;
+    Set<Integer> dragonLocationSet = new HashSet<>();
+    Set<Integer> revealedList = new HashSet<>();
     TextView numberOfMineTV;
     SoundPool sounds;
     int sExplosion;
@@ -72,38 +71,35 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.e(TAG, "Running onCreate()!");  // test
 
-        dragonCount = 0;
-        scansUsed = 0;
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
         sExplosion = sounds.load(getApplicationContext(), R.raw.scansound, 1);
-
         numOfRevealedDragons = 0;
+        scansUsed = 0;
+
         updateUI();
         DragonSeekerGame instance = DragonSeekerGame.getInstance();
         numOfRows = instance.getRow();
-        numOfCol = instance.getCol();
+        numOfCols = instance.getCol();
         numOfDragons = instance.getNumDragons();
+
 
         setupDragons();
 
-        buttons = new Button[numOfRows][numOfCol];
+        buttons = new Button[numOfRows][numOfCols];
         populateButtons();
         setBackgroundImage();
         setupUserGameInfo();
-
-
     }
 
     // user information regarding the number of times played and the current best score
     @SuppressLint("SetTextI18n")
     private void setupUserGameInfo() {
         TextView userGameInfoText = findViewById(R.id.userGameInfoID);
-        String key = String.format("%d%d%d",numOfRows, numOfCol, numOfDragons) ;
         SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
 
 
         int bestScore = getBestScore(getApplicationContext());
-        if( bestScore!= 0){
+        if (bestScore!= 0){
             userGameInfoText.setText(">> Number of times played: "
                     + preferences.getInt(NUMBER_OF_GAMES_PLAYED,0)
                     + "\n>> Best score: " + bestScore);
@@ -129,27 +125,16 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setupDragons() {
-        while (dragonCount != numOfDragons){
+        while (dragonLocationSet.size() != numOfDragons){
             Random rand = new Random();
-            int randomRowLocation = rand.nextInt(numOfRows);
-            int randomColLocation = rand.nextInt(numOfCol);
-            int randomLocationNum = randomRowLocation * numOfCol + randomColLocation;
+            int randomLocationNum = rand.nextInt(numOfCols * numOfRows);
 
-            boolean found = false;
-            for (int i = 0; i < dragonLocationList.size(); i++){
-                if (dragonLocationList.get(i) == randomLocationNum){
-                    found = true;
-                }
-            }
-            if (!found){
-                dragonLocationList.add(randomLocationNum);
-                dragonCount++;
-            }
+            dragonLocationSet.add(randomLocationNum);
         }
     }
 
     private void populateButtons() {
-        TableLayout table = (TableLayout) findViewById(R.id.tableForButtons);
+        TableLayout table = findViewById(R.id.tableForButtons);
 
         for (int row = 0; row < numOfRows; row++){
             TableRow tableRow = new TableRow(this);
@@ -160,7 +145,7 @@ public class GameActivity extends AppCompatActivity {
             ));
             table.addView(tableRow);
 
-            for (int col = 0; col < numOfCol; col++){
+            for (int col = 0; col < numOfCols; col++) {
                 final Button button = new Button(this);
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
@@ -173,26 +158,17 @@ public class GameActivity extends AppCompatActivity {
                 final int finalCol = col;
                 final int finalRow = row;
                 //set up the Dragon Buttons
-                if(isInDragonList(col, row)){
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            gridButtonClicked(finalCol, finalRow);
-                            updateUI();
-                        }
+                if (isInDragonList(col, row)){
+                    button.setOnClickListener(view -> {
+                        gridButtonClicked(finalCol, finalRow);
+                        updateUI();
                     });
                 } else { //set up the non-Dragon Buttons
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @SuppressLint("SetTextI18n")
-                        @Override
-                        public void onClick(View view) {
-                            if(ifHasRevealed(finalCol,finalRow)){
-
-                            } else {
-                                int numOfHiddenMines = scan(finalCol, finalRow);
-                                button.setText("" + numOfHiddenMines);
-                                updateUI();
-                            }
+                    button.setOnClickListener(view -> {
+                        if (!ifHasBeenRevealed(finalCol, finalRow)) {
+                            int numOfHiddenMines = scan(finalCol, finalRow);
+                            button.setText("" + numOfHiddenMines);
+                            updateUI();
                         }
                     });
                 }
@@ -207,17 +183,8 @@ public class GameActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void gridButtonClicked(int col, int row) {
         Button button = buttons [row][col];
-        if (isInDragonList(col, row)){
-            removeDragon(col, row);
-            updateRowAndColRevealedBut(col, row);
-        } else {
-            if(ifHasRevealed(col,row)){
-
-            }else {
-                int numOfMinesInRowAndCol = scan(col, row);
-                button.setText("" + numOfMinesInRowAndCol);
-            }
-        }
+        removeDragon(col, row);
+        updateRowAndColRevealedBut(col, row);
 
         // Lock Button Sizes: before scaling the buttons
         lockButtonSizes();
@@ -232,50 +199,65 @@ public class GameActivity extends AppCompatActivity {
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
     }
 
+    /** this function is used when the button was not revealed*/
+    private int scan(int col, int row) {
+        sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
+        scansUsed++;
+        revealedList.add(row * numOfCols + col);
+        int countOfMines = 0;
+        for (int i = 0; i < numOfCols; i++) {
+            if(isInDragonList(i, row)){
+                countOfMines++;
+            }
+        }
+        for (int i = 0; i < numOfRows; i++) {
+            if(isInDragonList(col, i)){
+                countOfMines++;
+            }
+        }
+        return countOfMines;
+    }
+
     @SuppressLint("SetTextI18n")
     private void updateRowAndColRevealedBut(int col, int row) {
         // updating game board row
-        for (int i = 0; i < numOfCol; i++){
-            if(ifHasRevealed(i, row)){
-                buttons[row][i].setText("" + scan2(i,row));
+        for (int i = 0; i < numOfCols; i++){
+            if(ifHasBeenRevealed(i, row)){
+                buttons[row][i].setText("" + scan2(i, row));
             }
         }
         // updating game board column
         for(int i = 0; i < numOfRows; i++){
-            if(ifHasRevealed(col, i)){
-                buttons[i][col].setText("" + scan2(col,i));
+            if(ifHasBeenRevealed(col, i)){
+                buttons[i][col].setText("" + scan2(col, i));
             }
         }
     }
 
     private void removeDragon(int col, int row) {
-        int location = row*numOfCol + col;
+        int location = row* numOfCols + col;
         sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
-        for(int i = 0; i < dragonLocationList.size(); i++) {
-            if (dragonLocationList.get(i) == location){
-                dragonLocationList.remove(i);
-                dragonCount--;
-                numOfRevealedDragons++;
-                if (numOfRevealedDragons == numOfDragons){
-                    // redraw the table
-                    for (int rowIndex = 0; rowIndex < numOfRows; rowIndex++) {
-                        for (int colIndex = 0; colIndex < numOfCol; colIndex++) {
-                            buttons[rowIndex][colIndex].setText("0");
-                        }
+        if (dragonLocationSet.contains(location)) {
+            dragonLocationSet.remove(location);
+            numOfRevealedDragons++;
+            if (numOfRevealedDragons == numOfDragons){
+                // redraw the table
+                for (int rowIndex = 0; rowIndex < numOfRows; rowIndex++) {
+                    for (int colIndex = 0; colIndex < numOfCols; colIndex++) {
+                        buttons[rowIndex][colIndex].setText("0");
                     }
-
-                    bestScore = findBestScore();
-
-                    updateNumOfGamesPlayed();
-
-
-                    storeGameStatusToSharePreferences();
-
-                    FragmentManager manager = getSupportFragmentManager();
-                    MessageFragment dialog = new MessageFragment();
-                    dialog.show(manager, "MessageDialog");
-                    Log.i("TAG", "Just showed the dialog");
                 }
+
+                bestScore = findBestScore();
+
+                updateNumOfGamesPlayed();
+
+                storeGameStatusToSharePreferences();
+
+                FragmentManager manager = getSupportFragmentManager();
+                MessageFragment dialog = new MessageFragment();
+                dialog.show(manager, "MessageDialog");
+                Log.i("TAG", "Just showed the dialog");
             }
         }
     }
@@ -289,27 +271,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    private int scan(int col, int row) {
-        sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
-        scansUsed++;
-        revealedList.add(row*numOfCol + col);
-        int countOfMines = 0;
-        for (int i = 0; i < numOfCol; i++) {
-            if(isInDragonList(i, row)){
-                countOfMines++;
-            }
-        }
-        for (int i = 0; i < numOfRows; i++) {
-            if(isInDragonList(col, i)){
-                countOfMines++;
-            }
-        }
-        return countOfMines;
-    }
 
     private int scan2(int col, int row) {
         int countOfMines = 0;
-        for (int i = 0; i < numOfCol; i++) {
+        for (int i = 0; i < numOfCols; i++) {
             if(isInDragonList(i, row)){
                 countOfMines++;
             }
@@ -322,29 +287,17 @@ public class GameActivity extends AppCompatActivity {
         return countOfMines;
     }
 
-    private boolean ifHasRevealed(int col, int row) {
-        int location = row*numOfCol + col;
-        for (int i = 0; i < revealedList.size(); i++ ){
-            if (revealedList.get(i) == location){
-                return true;
-            }
-        }
-        return false;
+    private boolean ifHasBeenRevealed(int col, int row) {
+        return revealedList.contains(row* numOfCols + col);
     }
 
     private boolean isInDragonList(int col, int row) {
-        int location = row * numOfCol + col;
-        for(int i = 0; i < dragonLocationList.size(); i++) {
-            if (dragonLocationList.get(i) == location){
-                return true;
-            }
-        }
-        return false;
+        return dragonLocationSet.contains(row * numOfCols + col);
     }
 
     private void lockButtonSizes() {
         for (int row = 0; row < numOfRows; row++){
-            for (int col = 0; col < numOfCol; col++){
+            for (int col = 0; col < numOfCols; col++){
                 Button button = buttons[row][col];
 
                 int width = button.getWidth();
@@ -363,7 +316,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setBackgroundImage(){
-        ImageView myImageView = (ImageView) findViewById(R.id.backgroundImageID);
+        ImageView myImageView = findViewById(R.id.backgroundImageID);
         myImageView.setImageResource(R.drawable.chinese_new_year1);
     }
 
@@ -374,30 +327,30 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putInt(NUM_OF_ROWS, numOfRows);
-        editor.putInt(NUM_OF_COL, numOfCol);
+        editor.putInt(NUM_OF_COL, numOfCols);
         editor.putInt(NUM_OF_DRAGONS, numOfDragons);
         editor.putInt(NUM_OF_REVEALED_DRAGONS, numOfRevealedDragons);
         editor.putInt(NUM_OF_ROWS1, numOfRows);
-        editor.putInt(DRAGON_COUNT, dragonCount);
+//        editor.putInt(DRAGON_COUNT, dragonCount);
         editor.putInt(SCANS_USED, scansUsed);
-        String key = String.format("%d%d%d",numOfRows, numOfCol, numOfDragons) ;
+        String key = String.format("%d%d%d",numOfRows, numOfCols, numOfDragons) ;
 
         editor.putInt(key, bestScore);
 
-        StringBuilder dragonLocationStr = new StringBuilder();
-        for(int i = 0; i < dragonLocationList.size(); i++) {
-            dragonLocationStr.append(dragonLocationList.get(i)).append(",");
-        }
+//        StringBuilder dragonLocationStr = new StringBuilder();
+//        for(int i = 0; i < dragonLocationSet.size(); i++) {
+//            dragonLocationStr.append(dragonLocationSet.get(i)).append(",");
+//        }
+//
+//        editor.putString(DRAGON_LOCATION_LIST, dragonLocationStr.toString());
 
-        editor.putString(DRAGON_LOCATION_LIST, dragonLocationStr.toString());
 
-
-        StringBuilder revealedListStr = new StringBuilder();
-        for(int i = 0; i< revealedList.size(); i++) {
-            revealedListStr.append(revealedList.get(i)).append(",");
-        }
-
-        editor.putString(REVEALED_LIST, revealedListStr.toString());
+//        StringBuilder revealedListStr = new StringBuilder();
+//        for(int i = 0; i< revealedList.size(); i++) {
+//            revealedListStr.append(revealedList.get(i)).append(",");
+//        }
+//
+//        editor.putString(REVEALED_LIST, revealedListStr.toString());
 
         editor.commit();
     }
@@ -405,20 +358,13 @@ public class GameActivity extends AppCompatActivity {
     private static int getBestScore(Context context){
         SharedPreferences preferences = context.getSharedPreferences(AppStates, MODE_PRIVATE);
 
-        String key = String.format("%d%d%d",numOfRows, numOfCol, numOfDragons) ;
+        String key = String.format("%d%d%d",numOfRows, numOfCols, numOfDragons) ;
         return preferences.getInt(key, 0);
     }
 
     // set the state for best score
     private int findBestScore() {
-        int previousBestScore = getBestScore(getApplicationContext());
-        if(previousBestScore == 0) {
-            return scansUsed;
-        } else if (scansUsed < previousBestScore) {
-            return scansUsed;
-        } else {
-            return previousBestScore;
-        }
+        return Math.min(scansUsed, getBestScore(this));
     }
 
 }

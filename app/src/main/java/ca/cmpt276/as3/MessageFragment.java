@@ -25,13 +25,10 @@ public class MessageFragment extends AppCompatDialogFragment {
                 .inflate(R.layout.message_layout, null);
 
         // Create a button Listener
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = MenuActivity.makeIntent(getActivity());
-                getActivity().finish();
-                startActivity(intent);
-            }
+        DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
+            Intent intent = MenuActivity.makeIntent(getActivity());
+            getActivity().finish();
+            startActivity(intent);
         };
 
         // Build the alert dialog

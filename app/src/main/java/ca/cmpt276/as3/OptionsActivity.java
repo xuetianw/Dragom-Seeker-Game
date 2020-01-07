@@ -186,7 +186,7 @@ public class OptionsActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void setNumDragons(){
         RadioGroup group = findViewById(R.id.radio_group_install_dragons);
-        int [] numDragonsArray = getResources().getIntArray(R.array.number_of_dragons);
+        int[] numDragonsArray = getResources().getIntArray(R.array.number_of_dragons);
         for(int i = 0; i < numDragonsArray.length; i++){
             final int NUM_DRAGONS = numDragonsArray[i];
             RadioButton button = new RadioButton(this);
@@ -210,12 +210,11 @@ public class OptionsActivity extends AppCompatActivity {
 
     // change the color of the selected radio buttons and circle
     private ColorStateList getColorSateList(){
-        ColorStateList colorStateList = new ColorStateList(
+        return new ColorStateList(
                 new int[][]{new int[]{-android.R.attr.state_checked},
                             new int[]{android.R.attr.state_checked}
                             },
                 new int[]{Color.WHITE, Color.rgb (0,0,255),}
         );
-        return colorStateList;
     }
 }
