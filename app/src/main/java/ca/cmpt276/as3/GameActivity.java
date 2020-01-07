@@ -59,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
 
     Button[][] buttons ;
     Set<Integer> dragonLocationSet = new HashSet<>();
-    Set<Integer> revealedList = new HashSet<>();
+    Set<Integer> revealedSet = new HashSet<>();
     TextView numberOfMineTV;
     SoundPool sounds;
     int sExplosion;
@@ -203,7 +203,7 @@ public class GameActivity extends AppCompatActivity {
     private int scan(int col, int row) {
         sounds.play(sExplosion, 1.0f, 1.0f, 0, 0, 1.5f);
         scansUsed++;
-        revealedList.add(row * numOfCols + col);
+        revealedSet.add(row * numOfCols + col);
         int countOfMines = 0;
         for (int i = 0; i < numOfCols; i++) {
             if(isInDragonList(i, row)){
@@ -288,7 +288,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private boolean ifHasBeenRevealed(int col, int row) {
-        return revealedList.contains(row* numOfCols + col);
+        return revealedSet.contains(row* numOfCols + col);
     }
 
     private boolean isInDragonList(int col, int row) {
@@ -331,26 +331,28 @@ public class GameActivity extends AppCompatActivity {
         editor.putInt(NUM_OF_DRAGONS, numOfDragons);
         editor.putInt(NUM_OF_REVEALED_DRAGONS, numOfRevealedDragons);
         editor.putInt(NUM_OF_ROWS1, numOfRows);
-//        editor.putInt(DRAGON_COUNT, dragonCount);
         editor.putInt(SCANS_USED, scansUsed);
         String key = String.format("%d%d%d",numOfRows, numOfCols, numOfDragons) ;
 
         editor.putInt(key, bestScore);
 
-//        StringBuilder dragonLocationStr = new StringBuilder();
-//        for(int i = 0; i < dragonLocationSet.size(); i++) {
-//            dragonLocationStr.append(dragonLocationSet.get(i)).append(",");
-//        }
-//
-//        editor.putString(DRAGON_LOCATION_LIST, dragonLocationStr.toString());
+        StringBuilder dragonLocationStr = new StringBuilder();
+        Integer[] dragonLocationArr = dragonLocationSet.toArray(new Integer[0]);
+        for(int i = 0; i < dragonLocationSet.size(); i++) {
+            dragonLocationStr.append(dragonLocationArr[i]).append(",");
+        }
+
+        editor.putString(DRAGON_LOCATION_LIST, dragonLocationStr.toString());
 
 
-//        StringBuilder revealedListStr = new StringBuilder();
-//        for(int i = 0; i< revealedList.size(); i++) {
-//            revealedListStr.append(revealedList.get(i)).append(",");
-//        }
-//
-//        editor.putString(REVEALED_LIST, revealedListStr.toString());
+        StringBuilder revealedListStr = new StringBuilder();
+        Integer[] revealedsetArr = revealedSet.toArray(new Integer[0]);
+        for (Integer integer : revealedsetArr) {
+            revealedListStr.append(integer).append(",");
+        }
+
+
+        editor.putString(REVEALED_LIST, revealedListStr.toString());
 
         editor.commit();
     }
