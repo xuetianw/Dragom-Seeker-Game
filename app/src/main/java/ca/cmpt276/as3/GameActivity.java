@@ -43,7 +43,6 @@ public class GameActivity extends AppCompatActivity {
     public static final String NUM_OF_COL                 = "Col";
     public static final String NUM_OF_DRAGONS             = "Dragons";
     public static final String NUM_OF_REVEALED_DRAGONS    = "RevealedDragons";
-    public static final String NUM_OF_ROWS1               = "numRows";
     public static final String DRAGON_COUNT               = "dragCount";
     public static final String SCANS_USED                 = "scanUsed";
     public static final String REVEALED_LIST              = "reveaList";
@@ -248,8 +247,6 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
 
-                bestScore = findBestScore();
-
                 updateNumOfGamesPlayed();
 
                 storeGameStatusToSharePreferences();
@@ -330,11 +327,14 @@ public class GameActivity extends AppCompatActivity {
         editor.putInt(NUM_OF_COL, numOfCols);
         editor.putInt(NUM_OF_DRAGONS, numOfDragons);
         editor.putInt(NUM_OF_REVEALED_DRAGONS, numOfRevealedDragons);
-        editor.putInt(NUM_OF_ROWS1, numOfRows);
         editor.putInt(SCANS_USED, scansUsed);
         String key = String.format("%d%d%d",numOfRows, numOfCols, numOfDragons) ;
 
-        editor.putInt(key, bestScore);
+        int prevBestScore = getBestScore(this);
+        int newBestScore = prevBestScore == 0 ? scansUsed : Math.min(scansUsed, prevBestScore);
+
+        editor.putInt(key, newBestScore);
+        editor.apply();
 
         StringBuilder dragonLocationStr = new StringBuilder();
         Integer[] dragonLocationArr = dragonLocationSet.toArray(new Integer[0]);
@@ -344,7 +344,6 @@ public class GameActivity extends AppCompatActivity {
 
         editor.putString(DRAGON_LOCATION_LIST, dragonLocationStr.toString());
 
-
         StringBuilder revealedListStr = new StringBuilder();
         Integer[] revealedsetArr = revealedSet.toArray(new Integer[0]);
         for (Integer integer : revealedsetArr) {
@@ -353,8 +352,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         editor.putString(REVEALED_LIST, revealedListStr.toString());
-
-        editor.commit();
+        editor.apply();
     }
 
     private static int getBestScore(Context context){
@@ -362,14 +360,6 @@ public class GameActivity extends AppCompatActivity {
 
         String key = String.format("%d%d%d",numOfRows, numOfCols, numOfDragons) ;
         return preferences.getInt(key, 0);
-    }
-
-    // set the state for best score
-    private int findBestScore() {
-        if (getBestScore(this) == 0) {
-            return scansUsed;
-        }
-        return Math.min(scansUsed, getBestScore(this));
     }
 
 }
