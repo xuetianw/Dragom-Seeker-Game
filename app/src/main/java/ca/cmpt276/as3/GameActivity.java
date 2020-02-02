@@ -366,6 +366,9 @@ public class GameActivity extends AppCompatActivity {
 
     // set the state for best score
     private int findBestScore() {
+        if (getBestScore(this) == 0) {
+            return scansUsed;
+        }
         return Math.min(scansUsed, getBestScore(this));
     }
 
