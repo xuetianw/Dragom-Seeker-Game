@@ -20,11 +20,22 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 import ca.cmpt276.as3.GameModel.DragonSeekerGame;
 import ca.cmpt276.as3.model.R;
 
 import static ca.cmpt276.as3.GameActivity.AppStates;
+import static ca.cmpt276.as3.GameActivity.DRAGON_LOCATIONS_LIST;
 import static ca.cmpt276.as3.GameActivity.NUMBER_OF_GAMES_PLAYED;
+import static ca.cmpt276.as3.GameActivity.NUM_OF_COLS;
+import static ca.cmpt276.as3.GameActivity.NUM_OF_DRAGONS;
+import static ca.cmpt276.as3.GameActivity.NUM_OF_REVEALED_DRAGONS;
+import static ca.cmpt276.as3.GameActivity.NUM_OF_ROWS;
+import static ca.cmpt276.as3.GameActivity.REVEALED_LIST;
+import static ca.cmpt276.as3.GameActivity.SCANS_USED;
 
 /**
  * Options class is responsible for showing the board size
@@ -126,33 +137,62 @@ public class OptionsActivity extends AppCompatActivity {
                 if(messageDragon != null && messageBoard != null){
                     switch (messageDragon){
                         case "6 dragons":
-                            DragonSeekerGame.getInstance().setNumDragons(6);
+                            DragonSeekerGame.getInstance().setTargetNumOfDragons(6);
                             break;
                         case "10 dragons":
-                            DragonSeekerGame.getInstance().setNumDragons(10);
+                            DragonSeekerGame.getInstance().setTargetNumOfDragons(10);
                             break;
                         case "15 dragons":
-                            DragonSeekerGame.getInstance().setNumDragons(15);
+                            DragonSeekerGame.getInstance().setTargetNumOfDragons(15);
                             break;
                         case "20 dragons":
-                            DragonSeekerGame.getInstance().setNumDragons(20);
+                            DragonSeekerGame.getInstance().setTargetNumOfDragons(20);
                         default:
                     }
                     switch (messageBoard) {
                         case "4 rows by 6 columns":
-                            DragonSeekerGame.getInstance().setRow(4);
-                            DragonSeekerGame.getInstance().setCol(6);
+                            DragonSeekerGame.getInstance().setNumOfRows(4);
+                            DragonSeekerGame.getInstance().setNumOfColumns(6);
                             break;
                         case "5 rows by 10 columns":
-                            DragonSeekerGame.getInstance().setRow(5);
-                            DragonSeekerGame.getInstance().setCol(10);
+                            DragonSeekerGame.getInstance().setNumOfRows(5);
+                            DragonSeekerGame.getInstance().setNumOfColumns(10);
                             break;
                         case "6 rows by 15 columns":
-                            DragonSeekerGame.getInstance().setRow(6);
-                            DragonSeekerGame.getInstance().setCol(15);
+                            DragonSeekerGame.getInstance().setNumOfRows(6);
+                            DragonSeekerGame.getInstance().setNumOfColumns(15);
                             break;
                     }
+                    saveSettings();
                 }
+            }
+
+            private void saveSettings() {
+                SharedPreferences preferences = getSharedPreferences(AppStates, MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                DragonSeekerGame game = DragonSeekerGame.getInstance();
+                editor.putInt(NUM_OF_ROWS, game.getNumOfRows());
+                editor.putInt(NUM_OF_COLS, game.getNumOfColumns());
+                editor.putInt(NUM_OF_DRAGONS, game.getTargetNumOfDragons());
+                editor.putInt(SCANS_USED, 0);
+                editor.putInt(NUM_OF_REVEALED_DRAGONS, 0);
+                Set<Integer> dragonLocationSet = new HashSet<>();
+                while (dragonLocationSet.size() != game.getTargetNumOfDragons()){
+                    Random rand = new Random();
+                    int randomLocationNum = rand.nextInt(game.getNumOfColumns() * game.getNumOfRows());
+
+                    dragonLocationSet.add(randomLocationNum);
+                }
+
+                StringBuilder dragonLocationStr = new StringBuilder();
+                Integer[] dragonLocationArr = dragonLocationSet.toArray(new Integer[0]);
+                for(int i = 0; i < dragonLocationSet.size(); i++) {
+                    dragonLocationStr.append(dragonLocationArr[i]).append(",");
+                }
+
+                editor.putString(DRAGON_LOCATIONS_LIST, dragonLocationStr.toString());
+                editor.putString(REVEALED_LIST, "");
+                editor.apply();
             }
         });
     }

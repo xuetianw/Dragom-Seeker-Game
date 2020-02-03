@@ -7,9 +7,9 @@ package ca.cmpt276.as3.GameModel;
  * able to receive information later from this class.
  */
 public class DragonSeekerGame {
-    private int row;
-    private int col;
-    private int numDragons;
+    private int numOfRows;
+    private int numOfColumns;
+    private int targetNumOfDragons;
     private static DragonSeekerGame instance;
 
     private DragonSeekerGame() {
@@ -22,27 +22,27 @@ public class DragonSeekerGame {
         return instance;
     }
 
-    public int getRow() {
-        return row;
+    public int getNumOfRows() {
+        return numOfRows;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public void setNumOfRows(int numOfRows) {
+        this.numOfRows = numOfRows;
     }
 
-    public int getCol() {
-        return col;
+    public int getNumOfColumns() {
+        return numOfColumns;
     }
 
-    public void setCol(int col) {
-        this.col = col;
+    public void setNumOfColumns(int numOfColumns) {
+        this.numOfColumns = numOfColumns;
     }
 
-    public int getNumDragons() {
-        return numDragons;
+    public int getTargetNumOfDragons() {
+        return targetNumOfDragons;
     }
 
-    public void setNumDragons(int numDragons) {
-        this.numDragons = numDragons;
+    public void setTargetNumOfDragons(int targetNumOfDragons) {
+        this.targetNumOfDragons = targetNumOfDragons;
     }
 }
